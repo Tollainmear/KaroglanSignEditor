@@ -1,6 +1,7 @@
 # KaroglanSignEditor
 
 permissions:
+
 /kse set         :karoglansigneditor.set
 
 /kse clear       :karoglansigneditor.clear
