@@ -1,0 +1,11 @@
+plugins{
+    id 'org.spongepowered.plugin' version '0.8.1'
+}
+
+group 'Tollainmear'
+version '2.0'
+description = 'A plugin to edit the sign'
+
+dependencies {
+    compile 'org.spongepowered:spongeapi:5.1.0'
+}
