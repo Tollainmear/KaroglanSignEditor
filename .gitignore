@@ -1,8 +1,4 @@
-build/
 .git/
-.idea/
-.gradle/
-
 # Git Files
 !.gitignore
 
@@ -17,3 +13,6 @@ build/
 !build.gradle
 !gradlew
 !gradlew.bat
+.idea/workspace.xml
+.idea/workspace.xml
+.idea/workspace.xml
