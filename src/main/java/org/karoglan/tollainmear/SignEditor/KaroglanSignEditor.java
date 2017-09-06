@@ -12,11 +12,11 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Plugin(id = "karoglansigneditor",name = "KaroglanSignEditor",authors = "Tollainmear",version = "2.0",description = "Make sign edition esaier!")
+@Plugin(id = "karoglansigneditor",name = "KaroglanSignEditor",authors = "Tollainmear",version = "2.1",description = "Make sign edition esaier!")
 public class KaroglanSignEditor {
 
     private static String pluginName = "KaroglanSignEditor";
-    private static String version = "2.0";
+    private static String version = "2.1";
 
     private static KaroglanSignEditor instance;
     private KSECommandManager kseCmdManager;

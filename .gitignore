@@ -1,1 +1,19 @@
-build
+build/
+.git/
+.idea/
+.gradle/
+
+# Git Files
+!.gitignore
+
+# GitHub Files
+!README.md
+!LICENSE
+
+# Java Files
+!src/
+
+# Gradle Files
+!build.gradle
+!gradlew
+!gradlew.bat
