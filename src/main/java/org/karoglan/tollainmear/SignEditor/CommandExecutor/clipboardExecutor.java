@@ -9,6 +9,8 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColors;
+import org.spongepowered.api.text.format.TextStyles;
 import org.spongepowered.api.text.serializer.TextSerializer;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
@@ -28,10 +30,16 @@ public class clipboardExecutor implements CommandExecutor {
             return CommandResult.success();
         }
         Player player = playerOpt.get();
-        Text[] textArry = KaroglanSignEditor.copylist.get(player.getName());
+        Text[] textArray = KaroglanSignEditor.copylist.get(player.getName());
 
         for (int i = 0;i<4;i++){
-            player.sendMessage(textArry[i]);
+            player.sendMessage(
+                    TextSerializers.FORMATTING_CODE
+                            .deserialize("&6[&e&l" + KaroglanSignEditor.getPluginName() + "&r&6]")
+                            .concat(Text.of(TextStyles.RESET, TextColors.GREEN
+                                    ,"|[Line] : ",TextStyles.BOLD,TextColors.DARK_GREEN, i+1
+                                    ,TextStyles.RESET,TextColors.GREEN," | "))
+                            .concat(textArray[i]));
         }
 
         return CommandResult.success();

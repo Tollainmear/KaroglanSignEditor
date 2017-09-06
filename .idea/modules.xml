@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/KaroglanSignEditor.iml" filepath="$PROJECT_DIR$/.idea/modules/KaroglanSignEditor.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/KaroglanSignEditor_main.iml" filepath="$PROJECT_DIR$/.idea/modules/KaroglanSignEditor_main.iml" group="KaroglandSignEditor" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/KaroglanSignEditor_main.iml" filepath="$PROJECT_DIR$/.idea/modules/KaroglanSignEditor_main.iml" group="KaroglanSignEditor" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/KaroglanSignEditor_test.iml" filepath="$PROJECT_DIR$/.idea/modules/KaroglanSignEditor_test.iml" group="KaroglanSignEditor" />
     </modules>
   </component>
 </project>

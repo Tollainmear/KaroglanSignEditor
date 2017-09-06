@@ -110,9 +110,9 @@ public class KSECommandManager {
     public void init(KaroglanSignEditor plugin){
         CommandManager cmdManager = Sponge.getCommandManager();
         cmdManager.register(plugin,this.get(),"KaroglanSignEditor","KSE","Sign","SignEditor","Se");
-//        KaroglanSignEditor.getLogger().info("KaroglanSignEditor is ready for work.");
-//        KaroglanSignEditor.getLogger().info("Thanks for using KSE,submit issues at:");
-//        KaroglanSignEditor.getLogger().info("http://www.mcbbs.net/thread-726021-1-1.html");
+        plugin.getLogger().info("\033[36mKaroglanSignEditor is ready for work.");
+        plugin.getLogger().info("\033[36mThanks for using KSE,submit issues at:");
+        plugin.getLogger().info("\033[36mhttps://github.com/Tollainmear/KaroglanSignEditor");
     }
 
     public CommandCallable get() {

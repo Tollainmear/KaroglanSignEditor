@@ -39,24 +39,18 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="KaroglandSignEditor" type="f1a62948:ProjectNode" />
+                <item name="KaroglanSignEditor" type="f1a62948:ProjectNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="KaroglandSignEditor" type="f1a62948:ProjectNode" />
+                <item name="KaroglanSignEditor" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="KaroglandSignEditor" type="f1a62948:ProjectNode" />
+                <item name="KaroglanSignEditor" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="KaroglandSignEditor" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="other" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -70,18 +64,18 @@
       <file leaf-file-name="clearExecutor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/clearExecutor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-385">
-              <caret line="15" column="44" lean-forward="true" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="44" />
+            <state relative-caret-position="90">
+              <caret line="15" column="44" lean-forward="false" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainExecutor.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainExecutor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/MainExecutor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="28" column="90" lean-forward="false" selection-start-line="28" selection-start-column="90" selection-end-line="28" selection-end-column="90" />
+            <state relative-caret-position="324">
+              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -90,8 +84,8 @@
       <file leaf-file-name="KSECommandManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/KSECommandManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="70" column="46" lean-forward="true" selection-start-line="70" selection-start-column="46" selection-end-line="70" selection-end-column="46" />
+            <state relative-caret-position="322">
+              <caret line="114" column="90" lean-forward="false" selection-start-line="114" selection-start-column="90" selection-end-line="114" selection-end-column="90" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -102,12 +96,10 @@
       <file leaf-file-name="swapExecutor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/swapExecutor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-30">
+            <state relative-caret-position="90">
               <caret line="17" column="32" lean-forward="false" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1239#1248#0" expanded="true" />
-                <element signature="e#1300#1309#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -116,8 +108,8 @@
       <file leaf-file-name="clipboardExecutor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/clipboardExecutor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="30" column="52" lean-forward="false" selection-start-line="30" selection-start-column="52" selection-end-line="30" selection-end-column="52" />
+            <state relative-caret-position="442">
+              <caret line="39" column="92" lean-forward="false" selection-start-line="39" selection-start-column="92" selection-end-line="39" selection-end-column="92" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -128,15 +120,13 @@
       <file leaf-file-name="mainController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/utils/mainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="86" column="5" lean-forward="true" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
+            <state relative-caret-position="468">
+              <caret line="90" column="84" lean-forward="false" selection-start-line="90" selection-start-column="29" selection-end-line="90" selection-end-column="84" />
               <folding>
                 <element signature="method#isPlayer#0;class#mainController#0" expanded="false" />
                 <element signature="method#getSign#0;class#mainController#0" expanded="false" />
                 <element signature="method#setText#0;class#mainController#0" expanded="false" />
                 <element signature="method#getTargetText#0;class#mainController#0" expanded="false" />
-                <element signature="e#3114#3115#0" expanded="true" />
-                <element signature="e#3153#3154#0" expanded="true" />
                 <element signature="method#signNotFound#0;class#mainController#0" expanded="false" />
                 <element signature="method#playerNotFound#0;class#mainController#0" expanded="false" />
                 <element signature="method#linesWrong#0;class#mainController#0" expanded="false" />
@@ -149,21 +139,20 @@
       <file leaf-file-name="copyExecutor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/copyExecutor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="45" column="16" lean-forward="false" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
+            <state relative-caret-position="240">
+              <caret line="47" column="12" lean-forward="false" selection-start-line="47" selection-start-column="12" selection-end-line="53" selection-end-column="43" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pasteExecutor.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="pasteExecutor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/pasteExecutor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="55" column="21" lean-forward="false" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
+            <state relative-caret-position="189">
+              <caret line="30" column="75" lean-forward="true" selection-start-line="30" selection-start-column="75" selection-end-line="30" selection-end-column="75" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1699#1708#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -172,12 +161,10 @@
       <file leaf-file-name="setExecutor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/setExecutor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
+            <state relative-caret-position="306">
               <caret line="31" column="17" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1232#1241#0" expanded="true" />
-                <element signature="e#1299#1307#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -186,18 +173,10 @@
       <file leaf-file-name="KaroglanSignEditor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/KaroglanSignEditor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+            <state relative-caret-position="371">
+              <caret line="25" column="15" lean-forward="false" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1372#1373#0" expanded="true" />
-                <element signature="e#1403#1404#0" expanded="true" />
-                <element signature="e#1446#1447#0" expanded="true" />
-                <element signature="e#1479#1480#0" expanded="true" />
-                <element signature="e#1518#1519#0" expanded="true" />
-                <element signature="e#1547#1548#0" expanded="true" />
-                <element signature="e#1588#1589#0" expanded="true" />
-                <element signature="e#1618#1619#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -225,6 +204,9 @@
       <find>lines</find>
       <find>switch</find>
     </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
     <option name="myGradleHomes">
@@ -668,23 +650,23 @@
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/clipboardExecutor.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/utils/SignOperation.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/clipboardExecutor.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/setExecutor.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/setExecutor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/pasteExecutor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/copyExecutor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/copyExecutor.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/clearExecutor.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/clearExecutor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/KaroglanSignEditor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/KaroglanSignEditor.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/switchExecutor.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/utils/mainController.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/switchExecutor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/KSECommandManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/KSECommandManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/swapExecutor.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/MainExecutor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/KaroglanSignEditor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/KaroglanSignEditor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/KSECommandManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/KSECommandManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/copyExecutor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/copyExecutor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/clipboardExecutor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/pasteExecutor.java" />
       </list>
     </option>
   </component>
@@ -700,7 +682,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-9" />
     <option name="y" value="-9" />
     <option name="width" value="1938" />
@@ -721,35 +703,48 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="KaroglandSignEditor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KaroglanSignEditor" type="b2602c69:ProjectViewProjectNode" />
               <item name="KaroglanSignEditor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
-              <item name="KaroglandSignEditor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KaroglanSignEditor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KaroglanSignEditor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="KaroglanSignEditor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KaroglanSignEditor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="libs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="KaroglanSignEditor" type="b2602c69:ProjectViewProjectNode" />
               <item name="KaroglanSignEditor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="KaroglandSignEditor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KaroglanSignEditor" type="b2602c69:ProjectViewProjectNode" />
               <item name="KaroglanSignEditor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
-              <item name="KaroglandSignEditor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KaroglanSignEditor" type="b2602c69:ProjectViewProjectNode" />
               <item name="KaroglanSignEditor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="KaroglandSignEditor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KaroglanSignEditor" type="b2602c69:ProjectViewProjectNode" />
               <item name="KaroglanSignEditor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
@@ -757,7 +752,7 @@
               <item name="SignEditor" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="KaroglandSignEditor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KaroglanSignEditor" type="b2602c69:ProjectViewProjectNode" />
               <item name="KaroglanSignEditor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
@@ -766,7 +761,7 @@
               <item name="CommandExecutor" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="KaroglandSignEditor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KaroglanSignEditor" type="b2602c69:ProjectViewProjectNode" />
               <item name="KaroglanSignEditor" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
@@ -778,8 +773,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -790,7 +783,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/GitHubDesktop/GitHubDesktop.exe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/build.gradle" />
     <property name="extract.method.default.visibility" value="private" />
   </component>
   <component name="RecentsManager">
@@ -814,7 +807,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.KaroglanSignEditor [clean]">
+  <component name="RunManager" selected="Gradle.KaroglanSignEditor [build]">
     <configuration name="KaroglanSignEditor [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -969,11 +962,12 @@
       <workItem from="1504532589916" duration="13099000" />
       <workItem from="1504586271115" duration="10102000" />
       <workItem from="1504597109853" duration="21434000" />
+      <workItem from="1504676997973" duration="2492000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="112973000" />
+    <option name="totallyTimeSpent" value="115465000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -985,24 +979,22 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="true" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25496688" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22050716" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2196468" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296582" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26066098" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26332623" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21108742" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1016,6 +1008,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22822492" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1047,10 +1040,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="48" column="16" lean-forward="false" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="22" />
-          <folding>
-            <element signature="e#2104#2105#0" expanded="false" />
-            <element signature="e#2144#2145#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1273,9 +1262,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="22" column="175" lean-forward="false" selection-start-line="22" selection-start-column="175" selection-end-line="22" selection-end-column="175" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1292,14 +1279,6 @@
           <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1372#1373#0" expanded="true" />
-            <element signature="e#1403#1404#0" expanded="true" />
-            <element signature="e#1446#1447#0" expanded="true" />
-            <element signature="e#1479#1480#0" expanded="true" />
-            <element signature="e#1518#1519#0" expanded="true" />
-            <element signature="e#1547#1548#0" expanded="true" />
-            <element signature="e#1588#1589#0" expanded="true" />
-            <element signature="e#1618#1619#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1317,7 +1296,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-31">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1547,10 +1525,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="48" column="16" lean-forward="false" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="22" />
-          <folding>
-            <element signature="e#2104#2105#0" expanded="false" />
-            <element signature="e#2144#2145#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1588,7 +1562,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="1" column="44" lean-forward="false" selection-start-line="1" selection-start-column="44" selection-end-line="1" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1596,7 +1569,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="1" column="44" lean-forward="false" selection-start-line="1" selection-start-column="44" selection-end-line="1" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1625,7 +1597,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="28" lean-forward="false" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1633,66 +1604,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
           <caret line="1940" column="38" lean-forward="false" selection-start-line="1940" selection-start-column="38" selection-end-line="1940" selection-end-column="38" />
-          <folding>
-            <marker date="1504672905699" expanded="true" signature="141102:141119" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141102:141137" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141102:141150" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141102:141165" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141211:141250" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141285:143884" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141298:143869" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141352:141647" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141371:141632" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141434:141612" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141474:141578" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141495:141556" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141697:142024" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141716:142009" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141811:141989" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141851:141955" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="141872:141933" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="142075:142340" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="142094:142325" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="142127:142305" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="142167:142271" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="142188:142249" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="142383:142689" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="142402:142674" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="142476:142654" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="142516:142620" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="142537:142598" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="142740:143124" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="142759:143109" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="142872:143089" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="142912:143055" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="142933:143033" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="143159:143465" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="143178:143450" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="143252:143430" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="143292:143396" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="143313:143374" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="143517:143855" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="143536:143840" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="143642:143820" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="143682:143786" ph="..." />
-            <marker date="1504672905699" expanded="true" signature="143703:143764" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/tmp/generateMetadata/mcmod.info">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/build/tmp/generateMetadata/mcmod.info" />
     <entry file="file://$PROJECT_DIR$/.idea/encodings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1700,7 +1619,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1708,7 +1626,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1716,7 +1633,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1724,7 +1640,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-31">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1742,81 +1657,59 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/clearExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-385">
-          <caret line="15" column="44" lean-forward="true" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="44" />
+        <state relative-caret-position="90">
+          <caret line="15" column="44" lean-forward="false" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/setExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
+        <state relative-caret-position="306">
           <caret line="31" column="17" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1232#1241#0" expanded="true" />
-            <element signature="e#1299#1307#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/clipboardExecutor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/swapExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="30" column="52" lean-forward="false" selection-start-line="30" selection-start-column="52" selection-end-line="30" selection-end-column="52" />
+        <state relative-caret-position="90">
+          <caret line="17" column="32" lean-forward="false" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/copyExecutor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/MainExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="45" column="16" lean-forward="false" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
+        <state relative-caret-position="324">
+          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/pasteExecutor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="55" column="21" lean-forward="false" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1699#1708#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/KaroglanSignEditor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        <state relative-caret-position="371">
+          <caret line="25" column="15" lean-forward="false" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="15" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1372#1373#0" expanded="true" />
-            <element signature="e#1403#1404#0" expanded="true" />
-            <element signature="e#1446#1447#0" expanded="true" />
-            <element signature="e#1479#1480#0" expanded="true" />
-            <element signature="e#1518#1519#0" expanded="true" />
-            <element signature="e#1547#1548#0" expanded="true" />
-            <element signature="e#1588#1589#0" expanded="true" />
-            <element signature="e#1618#1619#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/KSECommandManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="70" column="46" lean-forward="true" selection-start-line="70" selection-start-column="46" selection-end-line="70" selection-end-column="46" />
+        <state relative-caret-position="322">
+          <caret line="114" column="90" lean-forward="false" selection-start-line="114" selection-start-column="90" selection-end-line="114" selection-end-column="90" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1825,15 +1718,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/utils/mainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="86" column="5" lean-forward="true" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
+        <state relative-caret-position="468">
+          <caret line="90" column="84" lean-forward="false" selection-start-line="90" selection-start-column="29" selection-end-line="90" selection-end-column="84" />
           <folding>
             <element signature="method#isPlayer#0;class#mainController#0" expanded="false" />
             <element signature="method#getSign#0;class#mainController#0" expanded="false" />
             <element signature="method#setText#0;class#mainController#0" expanded="false" />
             <element signature="method#getTargetText#0;class#mainController#0" expanded="false" />
-            <element signature="e#3114#3115#0" expanded="true" />
-            <element signature="e#3153#3154#0" expanded="true" />
             <element signature="method#signNotFound#0;class#mainController#0" expanded="false" />
             <element signature="method#playerNotFound#0;class#mainController#0" expanded="false" />
             <element signature="method#linesWrong#0;class#mainController#0" expanded="false" />
@@ -1842,23 +1733,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/swapExecutor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/copyExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-30">
-          <caret line="17" column="32" lean-forward="false" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+        <state relative-caret-position="240">
+          <caret line="47" column="12" lean-forward="false" selection-start-line="47" selection-start-column="12" selection-end-line="53" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/clipboardExecutor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="39" column="92" lean-forward="false" selection-start-line="39" selection-start-column="92" selection-end-line="39" selection-end-column="92" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1239#1248#0" expanded="true" />
-            <element signature="e#1300#1309#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/MainExecutor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/karoglan/tollainmear/SignEditor/CommandExecutor/pasteExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="28" column="90" lean-forward="false" selection-start-line="28" selection-start-column="90" selection-end-line="28" selection-end-column="90" />
-          <folding />
+        <state relative-caret-position="189">
+          <caret line="30" column="75" lean-forward="true" selection-start-line="30" selection-start-column="75" selection-end-line="30" selection-end-column="75" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

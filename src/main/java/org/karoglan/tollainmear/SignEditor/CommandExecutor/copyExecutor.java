@@ -11,6 +11,7 @@ import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
+import org.spongepowered.api.text.format.TextStyles;
 import org.spongepowered.api.text.serializer.TextSerializer;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
@@ -22,9 +23,6 @@ public class copyExecutor implements CommandExecutor {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        if (KaroglanSignEditor.copylist.isEmpty()){
-            src.sendMessage(Text.of("Map is empty~"));
-        }
         plugin = KaroglanSignEditor.getInstance();
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
@@ -47,7 +45,12 @@ public class copyExecutor implements CommandExecutor {
         Text[] textArray = new Text[4];
         for (int i = 0;i<4;i++) {
             textArray[i] = mc.getTargetText(sign, line);
-            player.sendMessage(Text.of("|[Line] : " + line + " | ")
+            player.sendMessage(
+                    TextSerializers.FORMATTING_CODE
+                            .deserialize("&6[&e&l" + KaroglanSignEditor.getPluginName() + "&r&6]")
+                            .concat(Text.of(TextStyles.RESET,TextColors.GREEN
+                                    ,"|[Line] : ",TextStyles.BOLD,TextColors.DARK_GREEN, line
+                                    ,TextStyles.RESET,TextColors.GREEN," | "))
                     .concat(textArray[i]));
             line++;
         }

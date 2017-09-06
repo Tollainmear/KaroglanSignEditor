@@ -28,7 +28,7 @@ public class pasteExecutor implements CommandExecutor {
             mc.playerNotFound(src);
         }
         Player player = ((Player) src).getPlayer().get();
-        if (!(KaroglanSignEditor.copylist.containsKey(player.getUniqueId()))) {
+        if (!(KaroglanSignEditor.copylist.containsKey(player.getName()))) {
             mc.nothingToPaste(player);
         }
         Optional<TileEntity> signopt = mc.getSign(player);
