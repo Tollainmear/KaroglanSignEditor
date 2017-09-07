@@ -19,26 +19,27 @@ import java.util.Optional;
 public class clipboardExecutor implements CommandExecutor {
     private mainController mc = new mainController();
     private KaroglanSignEditor plugin = new KaroglanSignEditor();
+
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        if (!(src instanceof Player)){
+        if (!(src instanceof Player)) {
             mc.playerNotFound(src);
         }
-        Optional<Player> playerOpt = ((Player)src).getPlayer();
-        if (!(playerOpt.isPresent())){
+        Optional<Player> playerOpt = ((Player) src).getPlayer();
+        if (!(playerOpt.isPresent())) {
             mc.playerNotFound(src);
             return CommandResult.success();
         }
         Player player = playerOpt.get();
         Text[] textArray = KaroglanSignEditor.copylist.get(player.getName());
 
-        for (int i = 0;i<4;i++){
+        for (int i = 0; i < 4; i++) {
             player.sendMessage(
                     TextSerializers.FORMATTING_CODE
                             .deserialize("&6[&e&l" + KaroglanSignEditor.getPluginName() + "&r&6]")
                             .concat(Text.of(TextStyles.RESET, TextColors.GREEN
-                                    ,"|[Line] : ",TextStyles.BOLD,TextColors.DARK_GREEN, i+1
-                                    ,TextStyles.RESET,TextColors.GREEN," | "))
+                                    , "|[Line] : ", TextStyles.BOLD, TextColors.DARK_GREEN, i + 1
+                                    , TextStyles.RESET, TextColors.GREEN, " | "))
                             .concat(textArray[i]));
         }
 

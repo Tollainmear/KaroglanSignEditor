@@ -1,4 +1,7 @@
 .git/
+.idea/
+build/
+.gradle/
 # Git Files
 !.gitignore
 

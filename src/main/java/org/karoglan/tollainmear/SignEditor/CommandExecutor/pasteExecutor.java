@@ -43,8 +43,8 @@ public class pasteExecutor implements CommandExecutor {
             Integer line = lineOpt.get();
             if (mc.isLinesValid(line)) {
                 Text[] textArray = KaroglanSignEditor.copylist.get(player.getName());
-                for (int i =0;i<4;i++) {
-                    if (line == i+1) {
+                for (int i = 0; i < 4; i++) {
+                    if (line == i + 1) {
                         oldText = mc.getTargetText(sign, line);
                         mc.setText(sign, line, TextSerializers.FORMATTING_CODE.serialize(textArray[i]));
                         mc.notice(player, line, mode, oldText, mc.getTargetText(sign, line));
@@ -58,10 +58,10 @@ public class pasteExecutor implements CommandExecutor {
         }
 
         Text[] textArray = KaroglanSignEditor.copylist.get(player.getName());
-        for (int i = 0;i<4;i++) {
-            oldText = mc.getTargetText(sign, i+1);
-            mc.setText(sign, i+1, TextSerializers.FORMATTING_CODE.serialize(textArray[i]));
-            mc.notice(player, i+1, mode, oldText, mc.getTargetText(sign, i+1));
+        for (int i = 0; i < 4; i++) {
+            oldText = mc.getTargetText(sign, i + 1);
+            mc.setText(sign, i + 1, TextSerializers.FORMATTING_CODE.serialize(textArray[i]));
+            mc.notice(player, i + 1, mode, oldText, mc.getTargetText(sign, i + 1));
         }
         return CommandResult.success();
     }

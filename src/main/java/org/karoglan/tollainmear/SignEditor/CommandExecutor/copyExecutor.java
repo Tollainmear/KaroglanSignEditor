@@ -43,20 +43,20 @@ public class copyExecutor implements CommandExecutor {
 
         Integer line = 1;
         Text[] textArray = new Text[4];
-        for (int i = 0;i<4;i++) {
+        for (int i = 0; i < 4; i++) {
             textArray[i] = mc.getTargetText(sign, line);
             player.sendMessage(
                     TextSerializers.FORMATTING_CODE
                             .deserialize("&6[&e&l" + KaroglanSignEditor.getPluginName() + "&r&6]")
-                            .concat(Text.of(TextStyles.RESET,TextColors.GREEN
-                                    ,"|[Line] : ",TextStyles.BOLD,TextColors.DARK_GREEN, line
-                                    ,TextStyles.RESET,TextColors.GREEN," | "))
-                    .concat(textArray[i]));
+                            .concat(Text.of(TextStyles.RESET, TextColors.GREEN
+                                    , "|[Line] : ", TextStyles.BOLD, TextColors.DARK_GREEN, line
+                                    , TextStyles.RESET, TextColors.GREEN, " | "))
+                            .concat(textArray[i]));
             line++;
         }
 
-        KaroglanSignEditor.copylist.put(player.getName(),textArray);
-        if (KaroglanSignEditor.copylist.containsKey(player.getName())){
+        KaroglanSignEditor.copylist.put(player.getName(), textArray);
+        if (KaroglanSignEditor.copylist.containsKey(player.getName())) {
         }
 
         return CommandResult.success();

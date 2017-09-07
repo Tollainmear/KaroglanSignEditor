@@ -9,3 +9,9 @@ description = 'A plugin to edit the sign'
 dependencies {
     compile 'org.spongepowered:spongeapi:5.1.0'
 }
+
+sourceSets{
+    main{
+        resources.srcDir 'resources/'
+    }
+}
