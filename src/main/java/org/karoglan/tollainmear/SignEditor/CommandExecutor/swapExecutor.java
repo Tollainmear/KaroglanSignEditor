@@ -1,5 +1,9 @@
 package org.karoglan.tollainmear.SignEditor.CommandExecutor;
 
+import ninja.leaping.configurate.objectmapping.ObjectMappingException;
+import org.karoglan.tollainmear.SignEditor.KSERecordsManager;
+import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
+import org.karoglan.tollainmear.SignEditor.utils.KSEStack;
 import org.karoglan.tollainmear.SignEditor.utils.mainController;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
@@ -12,10 +16,11 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.serializer.TextSerializer;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public class swapExecutor implements CommandExecutor {
-    private String mode = "Swapped";
+    private KSEStack kseStack;
     private mainController mc = new mainController();
 
     @Override
@@ -40,11 +45,25 @@ public class swapExecutor implements CommandExecutor {
             return CommandResult.empty();
         }
         TileEntity sign = signOpt.get();
+
+        kseStack = mc.getKseStack(sign);
+
+        try {
+            kseStack.update(mc.getTextArray(sign), sign.getLocation());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         textLine1 = mc.getTargetText(sign, line2);
         textLine2 = mc.getTargetText(sign, line1);
         mc.setText(sign, line1, TextSerializers.FORMATTING_CODE.serialize(textLine1));
         mc.setText(sign, line2, TextSerializers.FORMATTING_CODE.serialize(textLine2));
-        mc.notice(player, line1, line2, mode, textLine2, textLine1);
+        mc.notice(player, line1, line2, textLine2, textLine1);
+        try {
+            kseStack.add(mc.getTextArray(sign), sign.getLocation());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return CommandResult.success();
     }
 }

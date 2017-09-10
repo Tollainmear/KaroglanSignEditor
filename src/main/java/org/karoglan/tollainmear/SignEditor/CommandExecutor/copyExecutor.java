@@ -1,6 +1,9 @@
 package org.karoglan.tollainmear.SignEditor.CommandExecutor;
 
+import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
+import org.karoglan.tollainmear.SignEditor.utils.ClipBoardContents;
+import org.karoglan.tollainmear.SignEditor.utils.Translator;
 import org.karoglan.tollainmear.SignEditor.utils.mainController;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
@@ -9,20 +12,26 @@ import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.text.format.TextStyles;
 import org.spongepowered.api.text.serializer.TextSerializer;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public class copyExecutor implements CommandExecutor {
     mainController mc = new mainController();
     private KaroglanSignEditor plugin;
+    private ClipBoardContents cbc;
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+
+        cbc = KaroglanSignEditor.getClipBoardContents();
+
         plugin = KaroglanSignEditor.getInstance();
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
@@ -41,22 +50,27 @@ public class copyExecutor implements CommandExecutor {
         }
         TileEntity sign = signOpt.get();
 
+        mc.notice(player, Translator.getText("message.onCopyText"));
         Integer line = 1;
         Text[] textArray = new Text[4];
         for (int i = 0; i < 4; i++) {
             textArray[i] = mc.getTargetText(sign, line);
-            player.sendMessage(
-                    TextSerializers.FORMATTING_CODE
-                            .deserialize("&6[&e&l" + KaroglanSignEditor.getPluginName() + "&r&6]")
-                            .concat(Text.of(TextStyles.RESET, TextColors.GREEN
-                                    , "|[Line] : ", TextStyles.BOLD, TextColors.DARK_GREEN, line
-                                    , TextStyles.RESET, TextColors.GREEN, " | "))
-                            .concat(textArray[i]));
+            mc.notice(player, i + 1, textArray[i]);
             line++;
         }
 
-        KaroglanSignEditor.copylist.put(player.getName(), textArray);
-        if (KaroglanSignEditor.copylist.containsKey(player.getName())) {
+        try {
+            if (player.equals(null)) {
+                KaroglanSignEditor.getInstance().getLogger().warn("Player is null");
+                return CommandResult.empty();
+            }
+            if (textArray.equals(null)) {
+                KaroglanSignEditor.getInstance().getLogger().warn("text is null");
+                return CommandResult.empty();
+            }
+            cbc.put(player, textArray);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return CommandResult.success();

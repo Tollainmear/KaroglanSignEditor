@@ -1,6 +1,7 @@
 package org.karoglan.tollainmear.SignEditor.CommandExecutor;
 
-import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
+import org.karoglan.tollainmear.SignEditor.KSERecordsManager;
+import org.karoglan.tollainmear.SignEditor.utils.KSEStack;
 import org.karoglan.tollainmear.SignEditor.utils.mainController;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
@@ -10,15 +11,13 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.text.format.TextStyles;
-import org.spongepowered.api.text.serializer.TextSerializers;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public class setExecutor implements CommandExecutor {
     private mainController mc = new mainController();
-    private String mode = "changed";
+    private KSEStack kseStack;
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
@@ -33,20 +32,39 @@ public class setExecutor implements CommandExecutor {
             mc.linesWrong(src);
             return CommandResult.empty();
         }
-        if (mc.isPlayer(src).isPresent()) {
-            Player player = ((Player) src).getPlayer().get();
-            Optional<TileEntity> signOpt = mc.getSign(player);
-            if (signOpt != null && signOpt.isPresent()) {
-                TileEntity sign = signOpt.get();
-                Text signText = mc.getTargetText(sign, line);
-                mc.setText(sign, line, text);
-                mc.notice(player, line, mode, signText, mc.getTargetText(sign, line));
-                return CommandResult.success();
-            }
+        if (!mc.getPlayerOpt(src).isPresent()) {
+            mc.playerNotFound(src);
+            return CommandResult.empty();
+        }
+
+        Player player = ((Player) src).getPlayer().get();
+        Optional<TileEntity> signOpt = mc.getSign(player);
+
+        if (signOpt == null || !signOpt.isPresent()) {
             mc.signNotFound(player);
             return CommandResult.empty();
         }
-        mc.playerNotFound(src);
-        return CommandResult.empty();
+
+        TileEntity sign = signOpt.get();
+
+        kseStack = mc.getKseStack(sign);
+
+        try {
+            kseStack.update(mc.getTextArray(sign), sign.getLocation());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Text signText = mc.getTargetText(sign, line);
+        mc.setText(sign, line, text);
+        mc.notice(player, line, signText, mc.getTargetText(sign, line));
+
+        try {
+            kseStack.add(mc.getTextArray(sign), sign.getLocation());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return CommandResult.success();
     }
 }

@@ -1,6 +1,8 @@
 package org.karoglan.tollainmear.SignEditor.CommandExecutor;
 
+import org.karoglan.tollainmear.SignEditor.KSERecordsManager;
 import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
+import org.karoglan.tollainmear.SignEditor.utils.Translator;
 import org.karoglan.tollainmear.SignEditor.utils.mainController;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -14,6 +16,7 @@ import org.spongepowered.api.text.format.TextStyles;
 import org.spongepowered.api.text.serializer.TextSerializer;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
+import java.util.List;
 import java.util.Optional;
 
 public class clipboardExecutor implements CommandExecutor {
@@ -31,16 +34,15 @@ public class clipboardExecutor implements CommandExecutor {
             return CommandResult.success();
         }
         Player player = playerOpt.get();
-        Text[] textArray = KaroglanSignEditor.copylist.get(player.getName());
+        if (!KSERecordsManager.getCopylist().containsKey(player.getName())) {
+            mc.nothingToPaste(src);
+            return CommandResult.success();
+        }
+        Text[] textArray = KSERecordsManager.getCopylist().get(player.getName()).get();
 
+        mc.notice(player, Translator.getText("message.onCopyText"));
         for (int i = 0; i < 4; i++) {
-            player.sendMessage(
-                    TextSerializers.FORMATTING_CODE
-                            .deserialize("&6[&e&l" + KaroglanSignEditor.getPluginName() + "&r&6]")
-                            .concat(Text.of(TextStyles.RESET, TextColors.GREEN
-                                    , "|[Line] : ", TextStyles.BOLD, TextColors.DARK_GREEN, i + 1
-                                    , TextStyles.RESET, TextColors.GREEN, " | "))
-                            .concat(textArray[i]));
+            mc.notice(player, i + 1, textArray[i]);
         }
 
         return CommandResult.success();

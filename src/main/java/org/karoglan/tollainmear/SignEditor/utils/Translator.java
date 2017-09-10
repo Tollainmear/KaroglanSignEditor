@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.MessageFormat;
+import java.util.MissingResourceException;
 import java.util.Optional;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
@@ -39,7 +41,9 @@ public class Translator {
         }
         if (!(langFile = new File(langPath + lang + ".properties")).exists()) {
             if (!assetOpt.isPresent()) {
-                plugin.getLogger().warn("Could not found the Language file\"" + lang + "\",KSE will using the \"en_US\" by default");
+                logger.warn("Could not found the Language file\"" + lang + "\",KSE will using the \"en_US\" by default");
+                logger.info("You could also upload your Language resource library at here :");
+                logger.info("https://github.com/Tollainmear/KaroglanSignEditor/tree/master/resources/assets/karoglansigneditor/lang");
                 assetOpt = assetManager.getAsset(plugin, "lang/en_US.properties");
                 if (!assetOpt.isPresent()) {
                     logger.warn("Ops....Could not load en_US else,please submit issues at:");
@@ -61,12 +65,16 @@ public class Translator {
     }
 
     public void checkUpdate() throws IOException {
+        File newFile;
         String verNow = getstring("version");
         if (verNow.equals(null)) verNow = "1.0";
         String verInPackage = new PropertyResourceBundle(new InputStreamReader(asset.getUrl().openStream(), Charsets.UTF_8))
                 .getString("version");
         if (verInPackage.compareTo(verNow) > 0) {
-            new File(langFile.toString()).renameTo(new File(langPath + lang + "_old.properties"));
+            if ((newFile = new File(langPath + lang + "_old.properties")).exists()) {
+                newFile.delete();
+            }
+            new File(langFile.toString()).renameTo(newFile);
             asset.copyToDirectory(Paths.get(langPath));
             resourceBundle = new PropertyResourceBundle(new InputStreamReader(langFile.toURI().toURL().openStream(), Charsets.UTF_8));
             logInfo("Language.Updated");
@@ -79,10 +87,20 @@ public class Translator {
         if (key == null) {
             return "Language resource Not Found";
         }
-        return resourceBundle.getString(key);
+        if (resourceBundle.getString(key).equals(null)) {
+            return "&c[Language not found]";
+        }
+        try {
+
+            return resourceBundle.getString(key);
+        }
+        catch (MissingResourceException e)
+        {
+            return "&c[MissingLanguage]";
+        }
     }
 
-    public Text getText(String key) {
+    public static Text getText(String key) {
         if (key == null) {
             return TextSerializers.FORMATTING_CODE.deserialize("Language Not Found");
         }
