@@ -42,15 +42,15 @@ public class redoExecutor implements CommandExecutor {
         TileEntity sign = mc.getSign(player).get();
 
         if (mc.hasKseStack(sign)) {
-            kseStack = KSERecordsManager.getOperationStack().get(sign.getLocation());
+            kseStack = KSERecordsManager.getOperationStack().get(sign.getLocation().toString());
         } else {
             mc.notice(player, Translator.getText("message.stackRedoEmpty"));
-            CommandResult.empty();
+            return CommandResult.empty();
         }
 
         if (kseStack.getNow() == kseStack.getTail()) {
             mc.notice(player, Translator.getText("message.stackRedoEmpty"));
-            CommandResult.empty();
+            return CommandResult.empty();
         } else {
             kseStack.setNow(kseStack.getNow() + 1 > 9 ? 0 : kseStack.getNow() + 1);
             Text[] textArray = kseStack.getTextStack(kseStack.getNow());
@@ -58,7 +58,7 @@ public class redoExecutor implements CommandExecutor {
                 mc.setText(sign, i + 1, TextSerializers.FORMATTING_CODE.serialize(textArray[i] == null ? Text.of("") : textArray[i]));
             }
             mc.notice(player, Translator.getText("message.redoDone"));
-            KSERecordsManager.getOperationStack().put(sign.getLocation(), kseStack);
+            KSERecordsManager.getOperationStack().put(sign.getLocation().toString(), kseStack);
             try {
                 kseStack.save();
             } catch (IOException e) {

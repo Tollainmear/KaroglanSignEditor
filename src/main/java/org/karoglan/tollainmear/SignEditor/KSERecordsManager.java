@@ -1,5 +1,6 @@
 package org.karoglan.tollainmear.SignEditor;
 
+import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
@@ -15,7 +16,10 @@ import org.spongepowered.api.world.World;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class KSERecordsManager {
     private String operationLog = "Operation_Log";
@@ -32,7 +36,7 @@ public class KSERecordsManager {
     private CommentedConfigurationNode clipBoardNode;
     private ConfigurationLoader<CommentedConfigurationNode> recordLoader;
 
-    private static Map<Location<World>, KSEStack> operationStack = new LinkedHashMap<>();
+    private static Map<String, KSEStack> operationStack = new LinkedHashMap<>();
     private static Map<String, ClipBoardContents> copylist = new LinkedHashMap<>();
 
     KSERecordsManager(KaroglanSignEditor plugin) throws IOException {
@@ -40,14 +44,17 @@ public class KSERecordsManager {
         instance = this;
         recorderFile = new File(plugin.getConfigPath().toString() + "/records.yml");
         recordLoader = HoconConfigurationLoader.builder().setFile(recorderFile).build();
-        rootNode = recordLoader.load();
         pluginName = KaroglanSignEditor.getPluginName();
         translator = KaroglanSignEditor.getTranslator();
-        operationLogNode = rootNode.getNode(pluginName).getNode("Operation_Log");
-        clipBoardNode = rootNode.getNode(pluginName).getNode("Clipboard");
     }
 
-    void init() throws IOException {
+    public void init() throws IOException {
+        operationStack.clear();
+        copylist.clear();
+
+        rootNode = recordLoader.load();
+        operationLogNode = rootNode.getNode(pluginName).getNode("Operation_Log");
+        clipBoardNode = rootNode.getNode(pluginName).getNode("Clipboard");
 
         if (!recorderFile.exists()) {
             if (!recorderFile.createNewFile()) {
@@ -64,27 +71,14 @@ public class KSERecordsManager {
             operationLogNode.setComment(Translator.getstring("rec.OperationLog"));
         }
         recordLoader.save(rootNode);
-
-        if (operationLogNode.hasMapChildren()) {
-//TODO-Complete while have the save test.
-//            for (Object obj: operationLogNode.getChildrenMap().keySet()){
-//                Integer now = operationLogNode.getNode(obj)
-//
-//                KSEStack kseStack = new KSEStack()
-//                operationStack.put((Location<World>) obj, (KSEStack) operationLogNode.getChildrenMap().get(obj));
-//            }
-//        }
-//        if (kse.getConfigNode().getNode(pluginName).getNode("ClipBoardCache").getBoolean()){
-//            if (clipBoardNode.hasMapChildren()){
-//                for (Object obj:clipBoardNode.getChildrenMap().keySet()){
-//                    copylist.put((String) obj, (ClipBoardContents) clipBoardNode.getChildrenMap().get(obj));
-//                }
-//            }
-        }
+        loadOperationHistory();
+        loadCopyList();
+        save();
     }
 
+
     public void save() throws IOException {
-        for (Location<World> locNode : operationStack.keySet()) {
+        for (String locNode : operationStack.keySet()) {
             kseStack = operationStack.get(locNode);
             Text[][] stackArray = kseStack.getTextStack();
             operationLogNode.getNode(locNode).getNode("now").setValue(kseStack.getNow());
@@ -123,7 +117,53 @@ public class KSERecordsManager {
         return copylist;
     }
 
-    public static Map<Location<World>, KSEStack> getOperationStack() {
+    private void loadOperationHistory() {
+        if (operationLogNode.hasMapChildren()) {
+            Set<Object> opSet = operationLogNode.getChildrenMap().keySet();
+            for (Object loc : opSet) {
+                KSEStack kseStack = new KSEStack();
+                Text[][] textStack = new Text[10][4];
+                kseStack.setNow(operationLogNode.getNode(loc.toString()).getNode("now").getInt());
+                kseStack.setTail(operationLogNode.getNode(loc.toString()).getNode("tail").getInt());
+                kseStack.setHead(operationLogNode.getNode(loc.toString()).getNode("head").getInt());
+                for (int i = 0; i < 10; i++) {
+                    for (int j = 0; j < 4; j++) {
+                        textStack[i][j] = TextSerializers.FORMATTING_CODE.deserialize(
+                                operationLogNode
+                                        .getNode(loc)
+                                        .getNode("Stack[" + i + "]")
+                                        .getNode("Line[" + j + "]")
+                                        .getString());
+                    }
+                }
+                kseStack.set(textStack);
+                operationStack.put(loc.toString(), kseStack);
+            }
+        }
+    }
+
+    private void loadCopyList() {
+        if (kse.getConfigNode().getNode(pluginName).getNode("ClipBoardCache").getBoolean()) {
+            if (clipBoardNode.hasMapChildren()) {
+                ClipBoardContents cbc = new ClipBoardContents();
+                Text[] textArray = new Text[4];
+                Set cbSet = clipBoardNode.getChildrenMap().keySet();
+                for (Object name : cbSet) {
+                    for (int i = 0; i < 4; i++) {
+                        textArray[i] = TextSerializers.FORMATTING_CODE.deserialize(
+                                clipBoardNode.
+                                        getNode(name.toString())
+                                        .getNode("Line[" + i + "]")
+                                        .getString());
+                    }
+                    cbc.setTextArray(textArray);
+                    copylist.put(name.toString(), cbc);
+                }
+            }
+        }
+    }
+
+    public static Map<String, KSEStack> getOperationStack() {
         return operationStack;
     }
 }

@@ -10,12 +10,12 @@ import java.io.IOException;
 
 public class ClipBoardContents {
     private KSERecordsManager recordsManager;
-    private Text[] textArray = new Text[4];
-    private static ClipBoardContents instance;
 
-    public static ClipBoardContents getInstance() {
-        return instance;
+    public void setTextArray(Text[] textArray) {
+        this.textArray = textArray;
     }
+
+    private Text[] textArray = new Text[4];
 
     public void put(Player player, Text[] rawArray) throws IOException {
         recordsManager = KaroglanSignEditor.getKseRecordsManager();

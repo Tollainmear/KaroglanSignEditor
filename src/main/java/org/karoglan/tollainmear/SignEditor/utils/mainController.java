@@ -156,15 +156,15 @@ public class mainController {
     }
 
     public KSEStack getKseStack(TileEntity sign) {
-        if (KSERecordsManager.getOperationStack().containsKey(sign.getLocation())) {
-            return KSERecordsManager.getOperationStack().get(sign.getLocation());
+        if (KSERecordsManager.getOperationStack().containsKey(sign.getLocation().toString())) {
+            return KSERecordsManager.getOperationStack().get(sign.getLocation().toString());
         } else {
             return new KSEStack();
         }
     }
 
     public Boolean hasKseStack(TileEntity sign){
-        if (KSERecordsManager.getOperationStack().containsKey(sign.getLocation())) {
+        if (KSERecordsManager.getOperationStack().containsKey(sign.getLocation().toString())) {
             return true;
         } else {
             return false;

@@ -24,10 +24,8 @@ public class KSEStack {
         textStack = new Text[10][4];
     }
 
-    public KSEStack set(Text[][] textStack, Integer now) {
+    public void set(Text[][] textStack) {
         this.textStack = textStack;
-        this.now = now;
-        return this;
     }
 
     public void setNow(Integer now) {
@@ -54,7 +52,7 @@ public class KSEStack {
             }
         }
         update(textArray, loc);
-        KSERecordsManager.getOperationStack().put(loc, this);
+        KSERecordsManager.getOperationStack().put(loc.toString(), this);
         save();
     }
 
@@ -75,12 +73,10 @@ public class KSEStack {
     }
 
     public void update(Text[] textArray, Location<World> loc) throws IOException {
-        recordsManager = KSERecordsManager.getInstance();
-
         for (int i = 0; i < 4; i++) {
             textStack[now][i] = textArray[i];
         }
-        KSERecordsManager.getOperationStack().put(loc, this);
+        KSERecordsManager.getOperationStack().put(loc.toString(), this);
         save();
     }
 
@@ -93,6 +89,14 @@ public class KSEStack {
     }
 
     public void save() throws IOException {
-        recordsManager.save();
+        KSERecordsManager.getInstance().save();
+    }
+
+    public void setTail(int tail) {
+        this.tail = tail;
+    }
+
+    public void setHead(int head) {
+        this.head = head;
     }
 }

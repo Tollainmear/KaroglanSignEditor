@@ -1,7 +1,6 @@
 package org.karoglan.tollainmear.SignEditor;
 
 import org.karoglan.tollainmear.SignEditor.CommandExecutor.*;
-import org.karoglan.tollainmear.SignEditor.CommandExecutor.needToDo.*;
 import org.karoglan.tollainmear.SignEditor.utils.Translator;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandCallable;

@@ -26,11 +26,11 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
-@Plugin(id = "karoglansigneditor", name = "KaroglanSignEditor", authors = "Tollainmear", version = "2.1", description = "Make sign edition esaier!")
+@Plugin(id = "karoglansigneditor", name = "KaroglanSignEditor", authors = "Tollainmear", version = "2.2", description = "Make sign edition esaier!")
 public class KaroglanSignEditor {
 
     private static String pluginName = "KaroglanSignEditor";
-    private static String version = "2.1";
+    private static String version = "2.2";
 
     private static KaroglanSignEditor instance;
     private static KSERecordsManager kseRecordsManager;
@@ -40,7 +40,6 @@ public class KaroglanSignEditor {
     private static ClipBoardContents clipBoardContents;
 
     private CommentedConfigurationNode configNode;
-
 
     @Inject
     @DefaultConfig(sharedRoot = false)
@@ -56,10 +55,7 @@ public class KaroglanSignEditor {
     @Listener
     public void onPreInit(GamePostInitializationEvent event) throws IOException {
         instance = this;
-        configNode = configLoader.load();
-        if (configNode.getNode(pluginName).getNode("Language").isVirtual()) {
-            configNode.getNode(pluginName).getNode("Language").setValue(Locale.getDefault().toString());
-        }
+        cfgInit();
         translator = new Translator().init(this);
         kseRecordsManager = new KSERecordsManager(this);
         kseCmdManager = new KSECommandManager(this);
@@ -70,24 +66,27 @@ public class KaroglanSignEditor {
 
     @Listener
     public void onStart(GameStartingServerEvent event) throws IOException {
-        if (configNode.getNode(pluginName).getNode("Author").isVirtual() || !configNode.getNode(pluginName).getNode("Author").getString().equals("Tollainmear")) {
-            cfgInit();
-        }
-        configLoader.save(configNode);
         kseRecordsManager.init();
         translator.checkUpdate();
     }
 
-    private void cfgInit() {
-        Translator.logInfo("cfg.notFound");
-        configNode.getNode(pluginName).getNode("Author").setValue("Tollainmear");
-        configNode.getNode(pluginName).setComment(translator.getstring("cfg.auther"));
-        configNode.getNode(pluginName).getNode("Language").setValue(Locale.getDefault().toString())
-                .setComment(translator.getstring("cfg.comment.Language"));
-        configNode.getNode(pluginName).getNode("TraceRange").setValue("10")
-                .setComment(translator.getstring("cfg.comment.traceRange"));
-        configNode.getNode(pluginName).getNode("ClipBoardCache").setValue(true)
-                .setComment(translator.getstring("cfg.comment.clipboard"));
+    public void cfgInit() throws IOException {
+        configNode = configLoader.load();
+        if (configNode.getNode(pluginName).getNode("Author").isVirtual() || !configNode.getNode(pluginName).getNode("Author").getString().equals("Tollainmear")) {
+            if (configNode.getNode(pluginName).getNode("Language").isVirtual()) {
+                configNode.getNode(pluginName).getNode("Language").setValue(Locale.getDefault().toString());
+            }
+            Translator.logInfo("cfg.notFound");
+            configNode.getNode(pluginName).getNode("Author").setValue("Tollainmear");
+            configNode.getNode(pluginName).setComment(translator.getstring("cfg.auther"));
+            configNode.getNode(pluginName).getNode("Language").setValue(Locale.getDefault().toString())
+                    .setComment(translator.getstring("cfg.comment.Language"));
+            configNode.getNode(pluginName).getNode("TraceRange").setValue("10")
+                    .setComment(translator.getstring("cfg.comment.traceRange"));
+            configNode.getNode(pluginName).getNode("ClipBoardCache").setValue(true)
+                    .setComment(translator.getstring("cfg.comment.clipboard"));
+            configLoader.save(configNode);
+        }
     }
 
     public static KaroglanSignEditor getInstance() {
@@ -129,7 +128,12 @@ public class KaroglanSignEditor {
     public static KSERecordsManager getKseRecordsManager() {
         return kseRecordsManager;
     }
-    public void log(String str){
-        logger.info("\033[36m" +str);
+
+    public void log(String str) {
+        logger.info("\033[36m" + str);
+    }
+
+    public ConfigurationLoader<CommentedConfigurationNode> getConfigLoader() {
+        return configLoader;
     }
 }
