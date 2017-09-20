@@ -14,23 +14,16 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.plugin.PluginContainer;
-import org.spongepowered.api.text.Text;
-import org.spongepowered.api.world.Location;
-import org.spongepowered.api.world.World;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.LinkedHashMap;
 import java.util.Locale;
-import java.util.Map;
 
-@Plugin(id = "karoglansigneditor", name = "KaroglanSignEditor", authors = "Tollainmear", version = "2.2", description = "Make sign edition esaier!")
+@Plugin(id = "karoglansigneditor", name = "KaroglanSignEditor", authors = "Tollainmear", version = "2.3", description = "Make sign edition esaier!")
 public class KaroglanSignEditor {
 
     private static String pluginName = "KaroglanSignEditor";
-    private static String version = "2.2";
+    private static String version = "2.3";
 
     private static KaroglanSignEditor instance;
     private static KSERecordsManager kseRecordsManager;

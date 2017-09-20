@@ -44,6 +44,8 @@ public class Translator {
                 logger.warn("Could not found the Language file\"" + lang + "\",KSE will using the \"en_US\" by default");
                 logger.info("You could also upload your Language resource library at here :");
                 logger.info("https://github.com/Tollainmear/KaroglanSignEditor/tree/master/resources/assets/karoglansigneditor/lang");
+                plugin.getConfigNode().getNode("KaroglanSignEditor").getNode("Language").setValue("en_US");
+                plugin.getConfigLoader().save(plugin.getConfigNode());
                 assetOpt = assetManager.getAsset(plugin, "lang/en_US.properties");
                 if (!assetOpt.isPresent()) {
                     logger.warn("Ops....Could not load en_US else,please submit issues at:");
@@ -51,11 +53,15 @@ public class Translator {
                     return this;
                 }
                 langFile = new File(langPath + "en_US.properties");
-                assetOpt.get().copyToFile(langFile.toPath());
-                logger.info("Release Language file successfully.");
+                if (!(Files.exists(Paths.get(langPath + "en_US.properties")))){
+                    assetOpt.get().copyToFile(langFile.toPath());
+                    logger.info("Release Language file successfully.");
+                }
             } else {
-                assetOpt.get().copyToFile(langFile.toPath());
-                logger.info("Release Language file successfully.");
+                if (!(Files.exists(langFile.toPath()))){
+                    assetOpt.get().copyToFile(langFile.toPath());
+                    logger.info("Release Language file successfully.");
+                }
             }
         }
         resourceBundle = new PropertyResourceBundle(new InputStreamReader(langFile.toURI().toURL().openStream(), Charsets.UTF_8));
