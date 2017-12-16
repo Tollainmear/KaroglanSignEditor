@@ -21,14 +21,11 @@ import java.util.Optional;
 
 public class clipboardExecutor implements CommandExecutor {
     private mainController mc = new mainController();
-    private KaroglanSignEditor plugin;
-
-    public clipboardExecutor(KaroglanSignEditor plugin){
-        this.plugin = plugin;
-    }
+    private KaroglanSignEditor kse;
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+        kse = KaroglanSignEditor.getInstance();
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
         }
@@ -39,16 +36,16 @@ public class clipboardExecutor implements CommandExecutor {
         }
         Player player = playerOpt.get();
         if (!KSERecordsManager.getCopylist().containsKey(player.getName())) {
-            KaroglanSignEditor.getInstance().getLogger().info(player.getName()+" 38");
+            kse.getLogger().info(player.getName()+" 38");
             for (String str :KSERecordsManager.getCopylist().keySet()){
-                KaroglanSignEditor.getInstance().getLogger().info(str+"40");
+                kse.getLogger().info(str+"40");
             }
             mc.nothingToPaste(src);
             return CommandResult.success();
         }
         Text[] textArray = KSERecordsManager.getCopylist().get(player.getName()).get();
 
-        mc.notice(player, Translator.getText("message.onCopyText"));
+        mc.notice(player, kse.getTranslator().getText("message.onCopyText"));
         for (int i = 0; i < 4; i++) {
             mc.notice(player, i + 1, textArray[i]);
         }

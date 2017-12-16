@@ -1,8 +1,8 @@
 package org.karoglan.tollainmear.SignEditor.CommandExecutor;
 
 import org.karoglan.tollainmear.SignEditor.KSERecordsManager;
+import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
 import org.karoglan.tollainmear.SignEditor.utils.KSEStack;
-import org.karoglan.tollainmear.SignEditor.utils.Translator;
 import org.karoglan.tollainmear.SignEditor.utils.mainController;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
@@ -19,10 +19,12 @@ import java.util.Optional;
 
 public class redoExecutor implements CommandExecutor {
     private mainController mc = new mainController();
+    private KaroglanSignEditor kse;
     private KSEStack kseStack;
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+        kse = KaroglanSignEditor.getInstance();
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
             return CommandResult.empty();
@@ -44,12 +46,12 @@ public class redoExecutor implements CommandExecutor {
         if (mc.hasKseStack(sign)) {
             kseStack = KSERecordsManager.getOperationStack().get(sign.getLocation().toString());
         } else {
-            mc.notice(player, Translator.getText("message.stackRedoEmpty"));
+            mc.notice(player, kse.getTranslator().getText("message.stackRedoEmpty"));
             return CommandResult.empty();
         }
 
         if (kseStack.getNow() == kseStack.getTail()) {
-            mc.notice(player, Translator.getText("message.stackRedoEmpty"));
+            mc.notice(player, kse.getTranslator().getText("message.stackRedoEmpty"));
             return CommandResult.empty();
         } else {
             kseStack.setNow(kseStack.getNow() + 1 > 9 ? 0 : kseStack.getNow() + 1);
@@ -57,7 +59,7 @@ public class redoExecutor implements CommandExecutor {
             for (int i = 0; i < 4; i++) {
                 mc.setText(sign, i + 1, TextSerializers.FORMATTING_CODE.serialize(textArray[i] == null ? Text.of("") : textArray[i]));
             }
-            mc.notice(player, Translator.getText("message.redoDone"));
+            mc.notice(player, kse.getTranslator().getText("message.redoDone"));
             KSERecordsManager.getOperationStack().put(sign.getLocation().toString(), kseStack);
             try {
                 kseStack.save();

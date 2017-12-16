@@ -27,7 +27,6 @@ public class clearExecutor implements CommandExecutor {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
             return CommandResult.success();

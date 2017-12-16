@@ -22,7 +22,7 @@ import org.spongepowered.api.world.World;
 import java.util.Optional;
 
 public class mainController {
-    private Translator translator = KaroglanSignEditor.getTranslator();
+    private Translator translator = KaroglanSignEditor.getInstance().getTranslator();
     Text[] textArray = new Text[4];
 
     public Text[] getTextArray(TileEntity sign) {

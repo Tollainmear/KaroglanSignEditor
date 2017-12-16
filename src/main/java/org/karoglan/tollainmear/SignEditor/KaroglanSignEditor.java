@@ -28,7 +28,7 @@ public class KaroglanSignEditor {
     private static KaroglanSignEditor instance;
     private static KSERecordsManager kseRecordsManager;
     private KSECommandManager kseCmdManager;
-    private static Translator translator;
+    private Translator translator;
     private static KSEStack kseStack;
     private static ClipBoardContents clipBoardContents;
 
@@ -49,7 +49,7 @@ public class KaroglanSignEditor {
     public void onPreInit(GamePostInitializationEvent event) throws IOException {
         instance = this;
         cfgInit();
-        translator = new Translator().init(this);
+        translator = new Translator(this);
         kseRecordsManager = new KSERecordsManager(this);
         kseCmdManager = new KSECommandManager(this);
         kseCmdManager.init(this);
@@ -106,7 +106,7 @@ public class KaroglanSignEditor {
         return configNode;
     }
 
-    public static Translator getTranslator() {
+    public Translator getTranslator() {
         return translator;
     }
 
@@ -128,5 +128,9 @@ public class KaroglanSignEditor {
 
     public ConfigurationLoader<CommentedConfigurationNode> getConfigLoader() {
         return configLoader;
+    }
+
+    public void setTranslator(Translator translator) {
+        this.translator = translator;
     }
 }

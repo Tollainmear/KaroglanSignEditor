@@ -45,7 +45,7 @@ public class KSERecordsManager {
         recorderFile = new File(plugin.getConfigPath().toString() + "/records.yml");
         recordLoader = HoconConfigurationLoader.builder().setFile(recorderFile).build();
         pluginName = KaroglanSignEditor.getPluginName();
-        translator = KaroglanSignEditor.getTranslator();
+        translator = kse.getTranslator();
     }
 
     public void init(KaroglanSignEditor kse) throws IOException {

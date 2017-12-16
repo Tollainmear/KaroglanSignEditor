@@ -59,7 +59,7 @@ public class pasteExecutor implements CommandExecutor {
             Integer line = lineOpt.get();
             if (mc.isLinesValid(line)) {
                 Text[] textArray = KSERecordsManager.getCopylist().get(player.getName()).get();
-                mc.notice(player, Translator.getText("message.onChangeText"));
+                mc.notice(player, plugin.getTranslator().getText("message.onChangeText"));
                 for (int i = 0; i < 4; i++) {
                     if (line == i + 1) {
                         oldText = mc.getTargetText(sign, line);
@@ -79,7 +79,7 @@ public class pasteExecutor implements CommandExecutor {
             return CommandResult.empty();
         }
 
-        mc.notice(player, Translator.getText("message.onChangeText"));
+        mc.notice(player, plugin.getTranslator().getText("message.onChangeText"));
         Text[] textArray = KSERecordsManager.getCopylist().get(player.getName()).get();
         for (int i = 0; i < 4; i++) {
             oldText = mc.getTargetText(sign, i + 1);

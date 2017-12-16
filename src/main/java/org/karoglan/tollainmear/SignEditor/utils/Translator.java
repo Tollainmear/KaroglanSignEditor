@@ -30,7 +30,7 @@ public class Translator {
     private Optional<Asset> assetOpt;
     private Asset asset;
 
-    public Translator init(KaroglanSignEditor plugin) throws IOException {
+    public Translator(KaroglanSignEditor plugin) throws IOException {
         logger = plugin.getLogger();
         assetManager = Sponge.getAssetManager();
         lang = plugin.getConfigNode().getNode("KaroglanSignEditor").getNode("Language").getString();
@@ -50,7 +50,7 @@ public class Translator {
                 if (!assetOpt.isPresent()) {
                     logger.warn("Ops....Could not load en_US else,please submit issues at:");
                     logger.warn("https://github.com/Tollainmear/KaroglanSignEditor/issues");
-                    return this;
+                    return;
                 }
                 langFile = new File(langPath + "en_US.properties");
                 if (!(Files.exists(Paths.get(langPath + "en_US.properties")))){
@@ -67,7 +67,7 @@ public class Translator {
         resourceBundle = new PropertyResourceBundle(new InputStreamReader(langFile.toURI().toURL().openStream(), Charsets.UTF_8));
         logInfo("LanguageLoaded");
         asset = assetOpt.get();
-        return this;
+        return;
     }
 
     public void checkUpdate() throws IOException {

@@ -1,9 +1,7 @@
 package org.karoglan.tollainmear.SignEditor.CommandExecutor;
 
-import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
 import org.karoglan.tollainmear.SignEditor.utils.ClipBoardContents;
-import org.karoglan.tollainmear.SignEditor.utils.Translator;
 import org.karoglan.tollainmear.SignEditor.utils.mainController;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
@@ -12,27 +10,22 @@ import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.text.format.TextStyles;
-import org.spongepowered.api.text.serializer.TextSerializer;
-import org.spongepowered.api.text.serializer.TextSerializers;
 
 import java.io.IOException;
 import java.util.Optional;
 
 public class copyExecutor implements CommandExecutor {
     mainController mc = new mainController();
-    private KaroglanSignEditor plugin;
+    private KaroglanSignEditor kse;
     private ClipBoardContents cbc;
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
 
         cbc = KaroglanSignEditor.getClipBoardContents();
+        kse = KaroglanSignEditor.getInstance();
 
-        plugin = KaroglanSignEditor.getInstance();
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
             return CommandResult.empty();
@@ -50,7 +43,7 @@ public class copyExecutor implements CommandExecutor {
         }
         TileEntity sign = signOpt.get();
 
-        mc.notice(player, Translator.getText("message.onCopyText"));
+        mc.notice(player, kse.getTranslator().getText("message.onCopyText"));
         Integer line = 1;
         Text[] textArray = new Text[4];
         for (int i = 0; i < 4; i++) {

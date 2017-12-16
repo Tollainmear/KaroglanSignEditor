@@ -17,22 +17,20 @@ import java.io.IOException;
 
 public class reloadExecutor implements CommandExecutor {
     private KSERecordsManager rm;
-    private Translator translator;
     private KaroglanSignEditor kse;
     private CommentedConfigurationNode newNode;
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         kse = KaroglanSignEditor.getInstance();
         rm = KSERecordsManager.getInstance();
-        translator = kse.getTranslator();
         try {
             kse.cfgInit();
-            rm.init();
-            translator.init(KaroglanSignEditor.getInstance());
+            rm.init(kse);
+            kse.setTranslator(new Translator(kse));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(translator.getstring("message.KSEprefix")+translator.getstring("message.reload")));
+        src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(kse.getTranslator().getstring("message.KSEprefix")+kse.getTranslator().getstring("message.reload")));
         return CommandResult.success();
     }
 }

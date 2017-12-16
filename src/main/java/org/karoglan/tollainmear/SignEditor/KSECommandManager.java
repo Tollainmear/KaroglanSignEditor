@@ -10,8 +10,8 @@ import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.text.Text;
 
 public class KSECommandManager {
-    private final KaroglanSignEditor plugin;
-    private final Translator translator = new Translator();
+    private final KaroglanSignEditor kse;
+    private Translator translator;
 
     private CommandSpec set;
     private CommandSpec clear;
@@ -25,7 +25,8 @@ public class KSECommandManager {
     private CommandSpec version;
 
     public KSECommandManager(KaroglanSignEditor plugin) {
-        this.plugin = plugin;
+        this.kse = plugin;
+        translator = kse.getTranslator();
 
         set = CommandSpec.builder()
                 .permission(plugin.getPluginName() + ".edit")

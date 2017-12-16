@@ -22,9 +22,11 @@ import java.util.Optional;
 public class undoExecutor implements CommandExecutor {
     private mainController mc = new mainController();
     private KSEStack kseStack;
+    private Translator translator;
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+        translator = KaroglanSignEditor.getInstance().getTranslator();
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
             return CommandResult.empty();
@@ -46,12 +48,12 @@ public class undoExecutor implements CommandExecutor {
         if (mc.hasKseStack(sign)) {
             kseStack = KSERecordsManager.getOperationStack().get(sign.getLocation().toString());
         } else {
-            mc.notice(player, Translator.getText("message.stackUndoEmpty"));
+            mc.notice(player, translator.getText("message.stackUndoEmpty"));
             return CommandResult.empty();
         }
 
         if (kseStack.getNow() == kseStack.getHead()) {
-            mc.notice(player, Translator.getText("message.stackUndoEmpty"));
+            mc.notice(player, translator.getText("message.stackUndoEmpty"));
             CommandResult.empty();
         } else {
             kseStack.setNow(kseStack.getNow() - 1 < 0 ? 9 : kseStack.getNow() - 1);
@@ -59,7 +61,7 @@ public class undoExecutor implements CommandExecutor {
             for (int i = 0; i < 4; i++) {
                 mc.setText(sign, i + 1, TextSerializers.FORMATTING_CODE.serialize(textArray[i] == null ? Text.of("") : textArray[i]));
             }
-            mc.notice(player, Translator.getText("message.undoDone"));
+            mc.notice(player, translator.getText("message.undoDone"));
             KSERecordsManager.getOperationStack().put(sign.getLocation().toString(), kseStack);
             try {
                 kseStack.save();
