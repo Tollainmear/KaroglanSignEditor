@@ -21,8 +21,8 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 public class Translator {
-    private static Logger logger;
-    private static ResourceBundle resourceBundle;
+    private Logger logger;
+    private ResourceBundle resourceBundle;
     private AssetManager assetManager;
     private String langPath;
     private File langFile;
@@ -89,7 +89,7 @@ public class Translator {
         logInfo("Language.NeedNotUpdate");
     }
 
-    public static String getstring(String key) {
+    public String getstring(String key) {
         if (key == null) {
             return "Language resource Not Found";
         }
@@ -106,18 +106,18 @@ public class Translator {
         }
     }
 
-    public static Text getText(String key) {
+    public Text getText(String key) {
         if (key == null) {
             return TextSerializers.FORMATTING_CODE.deserialize("Language Not Found");
         }
         return TextSerializers.FORMATTING_CODE.deserialize(getstring(key));
     }
 
-    public static void logInfo(String key) {
+    public void logInfo(String key) {
         logger.info("\033[36m" + getstring(key));
     }
 
-    public static void logWarn(String key) {
+    public void logWarn(String key) {
         logger.info("\031[36m" + getstring(key));
     }
 

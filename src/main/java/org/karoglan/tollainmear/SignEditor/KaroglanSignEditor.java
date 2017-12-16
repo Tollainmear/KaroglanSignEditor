@@ -59,7 +59,7 @@ public class KaroglanSignEditor {
 
     @Listener
     public void onStart(GameStartingServerEvent event) throws IOException {
-        kseRecordsManager.init();
+        kseRecordsManager.init(this);
         translator.checkUpdate();
     }
 
@@ -69,7 +69,7 @@ public class KaroglanSignEditor {
             if (configNode.getNode(pluginName).getNode("Language").isVirtual()) {
                 configNode.getNode(pluginName).getNode("Language").setValue(Locale.getDefault().toString());
             }
-            Translator.logInfo("cfg.notFound");
+            translator.logInfo("cfg.notFound");
             configNode.getNode(pluginName).getNode("Author").setValue("Tollainmear");
             configNode.getNode(pluginName).setComment(translator.getstring("cfg.auther"));
             configNode.getNode(pluginName).getNode("Language").setValue(Locale.getDefault().toString())

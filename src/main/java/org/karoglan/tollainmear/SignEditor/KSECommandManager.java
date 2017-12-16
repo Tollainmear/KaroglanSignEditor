@@ -111,9 +111,9 @@ public class KSECommandManager {
     public void init(KaroglanSignEditor plugin) {
         CommandManager cmdManager = Sponge.getCommandManager();
         cmdManager.register(plugin, this.get(), "KaroglanSignEditor", "KSE", "Sign", "SignEditor", "Se");
-        Translator.logInfo("ready");
-        Translator.logInfo("reportBug");
-        Translator.logInfo("github");
+        translator.logInfo("ready");
+        translator.logInfo("reportBug");
+        translator.logInfo("github");
     }
 
     public CommandCallable get() {

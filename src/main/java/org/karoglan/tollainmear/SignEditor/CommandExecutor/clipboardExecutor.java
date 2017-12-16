@@ -21,7 +21,11 @@ import java.util.Optional;
 
 public class clipboardExecutor implements CommandExecutor {
     private mainController mc = new mainController();
-    private KaroglanSignEditor plugin = new KaroglanSignEditor();
+    private KaroglanSignEditor plugin;
+
+    public clipboardExecutor(KaroglanSignEditor plugin){
+        this.plugin = plugin;
+    }
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {

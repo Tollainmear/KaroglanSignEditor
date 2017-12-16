@@ -48,7 +48,7 @@ public class KSERecordsManager {
         translator = KaroglanSignEditor.getTranslator();
     }
 
-    public void init() throws IOException {
+    public void init(KaroglanSignEditor kse) throws IOException {
         operationStack.clear();
         copylist.clear();
 
@@ -58,17 +58,17 @@ public class KSERecordsManager {
 
         if (!recorderFile.exists()) {
             if (!recorderFile.createNewFile()) {
-                Translator.logWarn("CouldNotCreate");
+                translator.logWarn("CouldNotCreate");
             }
         }
         if (rootNode.getNode(pluginName).isVirtual()) {
             rootNode.getNode(pluginName).setComment(translator.getstring("rec.main"));
         }
         if (clipBoardNode.isVirtual()) {
-            clipBoardNode.setComment(Translator.getstring("rec.Clipboard"));
+            clipBoardNode.setComment(translator.getstring("rec.Clipboard"));
         }
         if (operationLogNode.isVirtual()) {
-            operationLogNode.setComment(Translator.getstring("rec.OperationLog"));
+            operationLogNode.setComment(translator.getstring("rec.OperationLog"));
         }
         recordLoader.save(rootNode);
         loadOperationHistory();
