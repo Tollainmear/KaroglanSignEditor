@@ -18,7 +18,6 @@ import java.io.IOException;
 public class reloadExecutor implements CommandExecutor {
     private KSERecordsManager rm;
     private KaroglanSignEditor kse;
-    private CommentedConfigurationNode newNode;
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         kse = KaroglanSignEditor.getInstance();

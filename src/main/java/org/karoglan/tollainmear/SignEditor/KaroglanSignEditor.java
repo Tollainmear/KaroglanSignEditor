@@ -8,12 +8,17 @@ import org.karoglan.tollainmear.SignEditor.utils.ClipBoardContents;
 import org.karoglan.tollainmear.SignEditor.utils.KSEStack;
 import org.karoglan.tollainmear.SignEditor.utils.Translator;
 import org.slf4j.Logger;
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.text.channel.MessageReceiver;
+import org.spongepowered.api.text.serializer.TextSerializers;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -62,25 +67,49 @@ public class KaroglanSignEditor {
         translator.checkUpdate();
     }
 
+    @Listener
+    public void onReload(GameReloadEvent event){
+        MessageReceiver src =event.getCause().first(CommandSource.class).orElse(Sponge.getServer().getConsole());
+        try {
+            cfgInit();
+            kseRecordsManager.init(this);
+            translator =new Translator(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(translator.getstring("message.KSEprefix")+translator.getstring("message.reload")));
+    }
+
     public void cfgInit() throws IOException {
         configNode = configLoader.load();
-        if (configNode.getNode(pluginName).getNode("Author").isVirtual() || !configNode.getNode(pluginName).getNode("Author").getString().equals("Tollainmear")) {
-            if (configNode.getNode(pluginName).getNode("Language").isVirtual()) {
-                configNode.getNode(pluginName).getNode("Language").setValue(Locale.getDefault().toString());
-            }
-
+        if (configNode.getNode(pluginName).getNode("Language").isVirtual()) {
+            configNode.getNode(pluginName).getNode("Language").setValue(Locale.getDefault().toString());
             translator = new Translator(this);
-            translator.logInfo("cfg.notFound");
-            configNode.getNode(pluginName).getNode("Author").setValue("Tollainmear");
-            configNode.getNode(pluginName).setComment(translator.getstring("cfg.auther"));
             configNode.getNode(pluginName).getNode("Language").setValue(Locale.getDefault().toString())
                     .setComment(translator.getstring("cfg.comment.Language"));
+            translator.logInfo("cfg.notFound");
+        } else translator = new Translator(this);
+
+
+        if (configNode.getNode(pluginName).getNode("Author").isVirtual()) {
+            configNode.getNode(pluginName).getNode("Author").setValue("Tollainmear");
+            configNode.getNode(pluginName).setComment(translator.getstring("cfg.auther"));
+        }
+
+        if (configNode.getNode(pluginName).getNode("TraceRange").isVirtual()) {
             configNode.getNode(pluginName).getNode("TraceRange").setValue("10")
                     .setComment(translator.getstring("cfg.comment.traceRange"));
+        }
+
+        if (configNode.getNode(pluginName).getNode("ClipBoardCache").isVirtual()) {
             configNode.getNode(pluginName).getNode("ClipBoardCache").setValue(true)
                     .setComment(translator.getstring("cfg.comment.clipboard"));
             configLoader.save(configNode);
         }
+    }
+
+    private boolean isCopyright() {
+        return configNode.getNode(pluginName).getNode("Author").isVirtual() || !configNode.getNode(pluginName).getNode("Author").getString().equals("Tollainmear");
     }
 
     public static KaroglanSignEditor getInstance() {
