@@ -3,7 +3,7 @@ plugins{
 }
 
 group 'Tollainmear'
-version '2.3'
+version '2.4'
 description = 'A plugin to edit the sign'
 
 dependencies {

@@ -49,7 +49,6 @@ public class KaroglanSignEditor {
     public void onPreInit(GamePostInitializationEvent event) throws IOException {
         instance = this;
         cfgInit();
-        translator = new Translator(this);
         kseRecordsManager = new KSERecordsManager(this);
         kseCmdManager = new KSECommandManager(this);
         kseCmdManager.init(this);
@@ -69,6 +68,8 @@ public class KaroglanSignEditor {
             if (configNode.getNode(pluginName).getNode("Language").isVirtual()) {
                 configNode.getNode(pluginName).getNode("Language").setValue(Locale.getDefault().toString());
             }
+
+            translator = new Translator(this);
             translator.logInfo("cfg.notFound");
             configNode.getNode(pluginName).getNode("Author").setValue("Tollainmear");
             configNode.getNode(pluginName).setComment(translator.getstring("cfg.auther"));
