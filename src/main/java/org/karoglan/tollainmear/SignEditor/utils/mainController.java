@@ -22,7 +22,7 @@ import org.spongepowered.api.world.World;
 import java.util.Optional;
 
 public class mainController {
-    private Translator translator = KaroglanSignEditor.getInstance().getTranslator();
+    private KaroglanSignEditor kse = KaroglanSignEditor.getInstance();
     Text[] textArray = new Text[4];
 
     public Text[] getTextArray(TileEntity sign) {
@@ -89,69 +89,69 @@ public class mainController {
     }
 
     public void notice(Player player, Integer line, Text oldText, Text newText) {
-        player.sendMessage(translator.getText("message.KSEprefix")
-                .concat(translator.getText("message.onChangeText"))
+        player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
+                .concat(kse.getTranslator().getText("message.onChangeText"))
                 .concat(Text.of("\n"))
-                .concat(translator.getText("message.changeLine.front"))
+                .concat(kse.getTranslator().getText("message.changeLine.front"))
                 .concat(Text.of(" "))
                 .concat(Text.of(line))
                 .concat(Text.of(" "))
-                .concat(translator.getText("message.changeLine.back"))
+                .concat(kse.getTranslator().getText("message.changeLine.back"))
                 .concat(oldText)
-                .concat(translator.getText("message.symbolTo"))
+                .concat(kse.getTranslator().getText("message.symbolTo"))
                 .concat(newText));
     }
 
     public void notice(Player player, Integer line1, Integer line2, Text oldText, Text newText) {
-        player.sendMessage(translator.getText("message.KSEprefix")
-                .concat(translator.getText("message.onChangeText"))
+        player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
+                .concat(kse.getTranslator().getText("message.onChangeText"))
                 .concat(Text.of("\n"))
-                .concat(translator.getText("message.changeLine.front"))
+                .concat(kse.getTranslator().getText("message.changeLine.front"))
                 .concat(Text.of(line1))
-                .concat(translator.getText("message.symbolSwap"))
+                .concat(kse.getTranslator().getText("message.symbolSwap"))
                 .concat(Text.of(line2))
-                .concat(translator.getText("message.changeLine.back"))
+                .concat(kse.getTranslator().getText("message.changeLine.back"))
                 .concat(oldText)
-                .concat(translator.getText("message.symbolSwap"))
+                .concat(kse.getTranslator().getText("message.symbolSwap"))
                 .concat(newText));
     }
 
     public void notice(Player player, Text text) {
-        player.sendMessage(translator.getText("message.KSEprefix")
+        player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
                 .concat(text));
 
     }
 
     public void notice(Player player, Integer line, Text text) {
-        player.sendMessage(translator.getText("message.changeLine.front")
+        player.sendMessage(kse.getTranslator().getText("message.changeLine.front")
                 .concat(text.of(line))
-                .concat(translator.getText("message.changeLine.back"))
+                .concat(kse.getTranslator().getText("message.changeLine.back"))
                 .concat(text));
     }
 
     public void signNotFound(Player player) {
-        player.sendMessage(translator.getText("message.KSEprefix")
-                .concat(translator.getText("message.signNotFound")));
+        player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
+                .concat(kse.getTranslator().getText("message.signNotFound")));
     }
 
     public void playerNotFound(CommandSource src) {
-        src.sendMessage(translator.getText("message.KSEprefix")
-                .concat(translator.getText("message.playerNotFound")));
+        src.sendMessage(kse.getTranslator().getText("message.KSEprefix")
+                .concat(kse.getTranslator().getText("message.playerNotFound")));
     }
 
     public void linesWrong(CommandSource src) {
-        src.sendMessage(translator.getText("message.KSEprefix")
-                .concat(translator.getText("message.linesWrong")));
+        src.sendMessage(kse.getTranslator().getText("message.KSEprefix")
+                .concat(kse.getTranslator().getText("message.linesWrong")));
     }
 
     public void nothingToPaste(CommandSource src) {
-        src.sendMessage(translator.getText("message.KSEprefix")
-                .concat(translator.getText("message.nothingToPaste")));
+        src.sendMessage(kse.getTranslator().getText("message.KSEprefix")
+                .concat(kse.getTranslator().getText("message.nothingToPaste")));
     }
 
     public void noticeVersion(CommandSource src) {
-        src.sendMessage(translator.getText("message.KSEprefix")
-                .concat(translator.getText("message.version"))
+        src.sendMessage(kse.getTranslator().getText("message.KSEprefix")
+                .concat(kse.getTranslator().getText("message.version"))
                 .concat(Text.of(KaroglanSignEditor.getVersion())));
     }
 

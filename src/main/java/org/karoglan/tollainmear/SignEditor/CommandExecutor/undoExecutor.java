@@ -39,11 +39,12 @@ public class undoExecutor implements CommandExecutor {
         }
         Player player = playerOpt.get();
 
-        if (!mc.getSign(player).isPresent()) {
-
-            return CommandResult.empty();
+        Optional<TileEntity> signopt = mc.getSign(player);
+        if (signopt == null || !signopt.isPresent()) {
+            mc.signNotFound(player);
+            return CommandResult.success();
         }
-        TileEntity sign = mc.getSign(player).get();
+        TileEntity sign = signopt.get();
 
         if (mc.hasKseStack(sign)) {
             kseStack = KSERecordsManager.getOperationStack().get(sign.getLocation().toString());

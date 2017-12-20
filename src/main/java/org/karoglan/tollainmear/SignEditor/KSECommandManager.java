@@ -112,7 +112,6 @@ public class KSECommandManager {
         CommandManager cmdManager = Sponge.getCommandManager();
         cmdManager.register(plugin, this.get(), "KaroglanSignEditor", "KSE", "Sign", "SignEditor", "Se");
         translator = kse.getTranslator();
-        translator.logInfo("cfg.notFound");
         translator.logInfo("reportBug");
         translator.logInfo("github");
     }

@@ -1,6 +1,7 @@
 package org.karoglan.tollainmear.SignEditor.CommandExecutor;
 
 import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
+import org.karoglan.tollainmear.SignEditor.utils.Translator;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -14,19 +15,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainExecutor implements CommandExecutor {
+    Translator translator;
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         List<Text> contents = new ArrayList<>();
+        translator = KaroglanSignEditor.getInstance().getTranslator();
 
-        contents.add(Text.of(TextColors.GOLD, "/kse set [Lines] [Text]", TextColors.GRAY, " - ", TextColors.YELLOW, "Edit the target sign with [Text] at [Line]"));
-        contents.add(Text.of(TextColors.GOLD, "/kse clear <Line>", TextColors.GRAY, " - ", TextColors.YELLOW, "Clear the Lines.The sign will be cleared if Lines was't define."));
-        contents.add(Text.of(TextColors.GOLD, "/kse copy", TextColors.GRAY, " - ", TextColors.YELLOW, "Copy the text from the sign which you looking at."));
-        contents.add(Text.of(TextColors.GOLD, "/kse paste <Line>", TextColors.GRAY, " - ", TextColors.YELLOW, "Paste the text (from your clipboard) for the sign which you looking at."));
-        contents.add(Text.of(TextColors.GOLD, "/kse clipboard", TextColors.GRAY, " - ", TextColors.YELLOW, "Check your clipboard."));
-        contents.add(Text.of(TextColors.GOLD, "/kse version", TextColors.GRAY, " - ", TextColors.YELLOW, "Show the KSE's version."));
-        contents.add(Text.of(TextColors.GOLD, "/kse copy", TextColors.GRAY, " - ", TextColors.YELLOW, "Copy the text from the sign which you looking at."));
-        contents.add(Text.of("Submit issues at http://www.mcbbs.net/thread-726021-1-1.html"));
+        contents.add(Text.of(TextColors.GOLD, "/kse set [Lines] [Text]", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.edit")));
+        contents.add(Text.of(TextColors.GOLD, "/kse clear <Line>", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.clear")));
+        contents.add(Text.of(TextColors.GOLD, "/kse copy", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.copy")));
+        contents.add(Text.of(TextColors.GOLD, "/kse paste <Line>", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.paste")));
+        contents.add(Text.of(TextColors.GOLD, "/kse clipboard", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.clipboard")));
+        contents.add(Text.of(TextColors.GOLD, "/kse undo", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.undo")));
+        contents.add(Text.of(TextColors.GOLD, "/kse redo", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.redo")));
+        contents.add(Text.of(TextColors.GOLD, "/kse version", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.version")));
+        contents.add(Text.of(TextColors.GOLD, "/kse reload", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.reload")));
+        contents.add(Text.of(translator.getstring("github")));
 
         PaginationList.builder()
                 .title(Text.of(KaroglanSignEditor.getPluginName()))

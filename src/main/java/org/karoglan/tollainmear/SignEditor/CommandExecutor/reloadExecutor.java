@@ -2,6 +2,7 @@ package org.karoglan.tollainmear.SignEditor.CommandExecutor;
 
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.commented.SimpleCommentedConfigurationNode;
+import org.karoglan.tollainmear.SignEditor.KSECommandManager;
 import org.karoglan.tollainmear.SignEditor.KSERecordsManager;
 import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
 import org.karoglan.tollainmear.SignEditor.utils.Translator;
@@ -26,6 +27,8 @@ public class reloadExecutor implements CommandExecutor {
             kse.cfgInit();
             rm.init(kse);
             kse.setTranslator(new Translator(kse));
+            kse.getTranslator().checkUpdate();
+            kse.setKseCmdManager(new KSECommandManager(kse));
         } catch (IOException e) {
             e.printStackTrace();
         }

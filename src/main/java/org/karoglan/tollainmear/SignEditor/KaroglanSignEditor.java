@@ -28,7 +28,7 @@ import java.util.Locale;
 public class KaroglanSignEditor {
 
     private static String pluginName = "KaroglanSignEditor";
-    private static String version = "2.3";
+    private static String version = "2.6";
 
     private static KaroglanSignEditor instance;
     private static KSERecordsManager kseRecordsManager;
@@ -49,6 +49,10 @@ public class KaroglanSignEditor {
 
     @Inject
     private Logger logger;
+
+    public void setKseCmdManager(KSECommandManager kseCmdManager) {
+        this.kseCmdManager = kseCmdManager;
+    }
 
     @Listener
     public void onPreInit(GamePostInitializationEvent event) throws IOException {

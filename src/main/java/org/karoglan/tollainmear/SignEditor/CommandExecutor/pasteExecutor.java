@@ -32,6 +32,7 @@ public class pasteExecutor implements CommandExecutor {
         plugin = KaroglanSignEditor.getInstance();
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
+            return CommandResult.success();
         }
         Player player = ((Player) src).getPlayer().get();
         if (!(KSERecordsManager.getCopylist().containsKey(player.getName()))) {
@@ -41,6 +42,7 @@ public class pasteExecutor implements CommandExecutor {
         Optional<TileEntity> signopt = mc.getSign(player);
         if (signopt == null || !signopt.isPresent()) {
             mc.signNotFound(player);
+            return CommandResult.success();
         }
         TileEntity sign = signopt.get();
 
