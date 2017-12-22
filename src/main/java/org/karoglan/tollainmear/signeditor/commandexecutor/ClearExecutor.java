@@ -1,8 +1,7 @@
-package org.karoglan.tollainmear.SignEditor.CommandExecutor;
+package org.karoglan.tollainmear.signeditor.commandexecutor;
 
-import org.karoglan.tollainmear.SignEditor.KSERecordsManager;
-import org.karoglan.tollainmear.SignEditor.utils.KSEStack;
-import org.karoglan.tollainmear.SignEditor.utils.mainController;
+import org.karoglan.tollainmear.signeditor.utils.KSEStack;
+import org.karoglan.tollainmear.signeditor.utils.MainController;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -15,9 +14,9 @@ import org.spongepowered.api.text.Text;
 import java.io.IOException;
 import java.util.Optional;
 
-public class clearExecutor implements CommandExecutor {
+public class ClearExecutor implements CommandExecutor {
     private KSEStack kseStack;
-    private mainController mc = new mainController();
+    private MainController mc = new MainController();
     private Integer line;
     private Text signText;
     private Optional<Player> playerOpt;

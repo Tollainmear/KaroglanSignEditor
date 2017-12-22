@@ -1,9 +1,8 @@
-package org.karoglan.tollainmear.SignEditor.CommandExecutor;
+package org.karoglan.tollainmear.signeditor.commandexecutor;
 
-import org.karoglan.tollainmear.SignEditor.KSERecordsManager;
-import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
-import org.karoglan.tollainmear.SignEditor.utils.Translator;
-import org.karoglan.tollainmear.SignEditor.utils.mainController;
+import org.karoglan.tollainmear.signeditor.KSERecordsManager;
+import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
+import org.karoglan.tollainmear.signeditor.utils.MainController;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -11,16 +10,11 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.text.format.TextStyles;
-import org.spongepowered.api.text.serializer.TextSerializer;
-import org.spongepowered.api.text.serializer.TextSerializers;
 
-import java.util.List;
 import java.util.Optional;
 
-public class clipboardExecutor implements CommandExecutor {
-    private mainController mc = new mainController();
+public class ClipboardExecutor implements CommandExecutor {
+    private MainController mc = new MainController();
     private KaroglanSignEditor kse;
 
     @Override

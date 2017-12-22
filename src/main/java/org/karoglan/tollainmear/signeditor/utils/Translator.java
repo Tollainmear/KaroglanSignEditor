@@ -1,7 +1,7 @@
-package org.karoglan.tollainmear.SignEditor.utils;
+package org.karoglan.tollainmear.signeditor.utils;
 
 import com.google.common.base.Charsets;
-import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
+import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.asset.Asset;
@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.Optional;
 import java.util.PropertyResourceBundle;
@@ -73,7 +72,7 @@ public class Translator {
     public void checkUpdate() throws IOException {
         File newFile;
         String verNow = getstring("version");
-        if (verNow.equals(null)) verNow = "1.0";
+        if (verNow == null) verNow = "1.0";
         String verInPackage = new PropertyResourceBundle(new InputStreamReader(asset.getUrl().openStream(), Charsets.UTF_8))
                 .getString("version");
         if (verInPackage.compareTo(verNow) > 0) {
@@ -93,7 +92,7 @@ public class Translator {
         if (key == null) {
             return "Language resource Not Found";
         }
-        if (resourceBundle.getString(key).equals(null)) {
+        if (resourceBundle.getString(key) == null) {
             return "&c[Language not found]";
         }
         try {

@@ -1,22 +1,19 @@
-package org.karoglan.tollainmear.SignEditor.CommandExecutor;
+package org.karoglan.tollainmear.signeditor.commandexecutor;
 
-import ninja.leaping.configurate.commented.CommentedConfigurationNode;
-import ninja.leaping.configurate.commented.SimpleCommentedConfigurationNode;
-import org.karoglan.tollainmear.SignEditor.KSECommandManager;
-import org.karoglan.tollainmear.SignEditor.KSERecordsManager;
-import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
-import org.karoglan.tollainmear.SignEditor.utils.Translator;
+import org.karoglan.tollainmear.signeditor.KSECommandManager;
+import org.karoglan.tollainmear.signeditor.KSERecordsManager;
+import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
+import org.karoglan.tollainmear.signeditor.utils.Translator;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
-import org.spongepowered.api.text.serializer.TextSerializer;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
 import java.io.IOException;
 
-public class reloadExecutor implements CommandExecutor {
+public class ReloadExecutor implements CommandExecutor {
     private KSERecordsManager rm;
     private KaroglanSignEditor kse;
     @Override

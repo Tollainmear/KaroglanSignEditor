@@ -1,8 +1,7 @@
-package org.karoglan.tollainmear.SignEditor.utils;
+package org.karoglan.tollainmear.signeditor.utils;
 
-import ninja.leaping.configurate.objectmapping.ObjectMappingException;
-import org.karoglan.tollainmear.SignEditor.KSERecordsManager;
-import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
+import org.karoglan.tollainmear.signeditor.KSERecordsManager;
+import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 

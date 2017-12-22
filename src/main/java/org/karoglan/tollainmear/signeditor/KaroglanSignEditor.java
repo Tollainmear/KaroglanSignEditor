@@ -1,12 +1,11 @@
-package org.karoglan.tollainmear.SignEditor;
+package org.karoglan.tollainmear.signeditor;
 
 import com.google.inject.Inject;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
-import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
-import org.karoglan.tollainmear.SignEditor.utils.ClipBoardContents;
-import org.karoglan.tollainmear.SignEditor.utils.KSEStack;
-import org.karoglan.tollainmear.SignEditor.utils.Translator;
+import org.karoglan.tollainmear.signeditor.utils.ClipBoardContents;
+import org.karoglan.tollainmear.signeditor.utils.KSEStack;
+import org.karoglan.tollainmear.signeditor.utils.Translator;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandSource;

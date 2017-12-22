@@ -1,8 +1,8 @@
-package org.karoglan.tollainmear.SignEditor.CommandExecutor;
+package org.karoglan.tollainmear.signeditor.commandexecutor;
 
-import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
-import org.karoglan.tollainmear.SignEditor.utils.ClipBoardContents;
-import org.karoglan.tollainmear.SignEditor.utils.mainController;
+import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
+import org.karoglan.tollainmear.signeditor.utils.ClipBoardContents;
+import org.karoglan.tollainmear.signeditor.utils.MainController;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -15,8 +15,8 @@ import org.spongepowered.api.text.Text;
 import java.io.IOException;
 import java.util.Optional;
 
-public class copyExecutor implements CommandExecutor {
-    mainController mc = new mainController();
+public class CopyExecutor implements CommandExecutor {
+    MainController mc = new MainController();
     private KaroglanSignEditor kse;
     private ClipBoardContents cbc;
 
@@ -53,11 +53,11 @@ public class copyExecutor implements CommandExecutor {
         }
 
         try {
-            if (player.equals(null)) {
+            if (player == null) {
                 KaroglanSignEditor.getInstance().getLogger().warn("Player is null");
                 return CommandResult.empty();
             }
-            if (textArray.equals(null)) {
+            if (textArray == null) {
                 KaroglanSignEditor.getInstance().getLogger().warn("text is null");
                 return CommandResult.empty();
             }

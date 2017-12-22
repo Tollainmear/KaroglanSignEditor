@@ -1,11 +1,9 @@
-package org.karoglan.tollainmear.SignEditor.CommandExecutor;
+package org.karoglan.tollainmear.signeditor.commandexecutor;
 
-import ninja.leaping.configurate.objectmapping.ObjectMappingException;
-import org.karoglan.tollainmear.SignEditor.KSERecordsManager;
-import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
-import org.karoglan.tollainmear.SignEditor.utils.KSEStack;
-import org.karoglan.tollainmear.SignEditor.utils.Translator;
-import org.karoglan.tollainmear.SignEditor.utils.mainController;
+import org.karoglan.tollainmear.signeditor.KSERecordsManager;
+import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
+import org.karoglan.tollainmear.signeditor.utils.KSEStack;
+import org.karoglan.tollainmear.signeditor.utils.MainController;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -14,16 +12,14 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.serializer.TextSerializer;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
-import java.awt.image.TileObserver;
 import java.io.IOException;
 import java.util.Optional;
 
-public class pasteExecutor implements CommandExecutor {
+public class PasteExecutor implements CommandExecutor {
     private KSEStack kseStack;
-    private mainController mc = new mainController();
+    private MainController mc = new MainController();
     private KaroglanSignEditor plugin;
 
     @Override

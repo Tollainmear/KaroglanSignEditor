@@ -1,10 +1,7 @@
-package org.karoglan.tollainmear.SignEditor.CommandExecutor;
+package org.karoglan.tollainmear.signeditor.commandexecutor;
 
-import ninja.leaping.configurate.objectmapping.ObjectMappingException;
-import org.karoglan.tollainmear.SignEditor.KSERecordsManager;
-import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
-import org.karoglan.tollainmear.SignEditor.utils.KSEStack;
-import org.karoglan.tollainmear.SignEditor.utils.mainController;
+import org.karoglan.tollainmear.signeditor.utils.KSEStack;
+import org.karoglan.tollainmear.signeditor.utils.MainController;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -13,37 +10,40 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.serializer.TextSerializer;
-import org.spongepowered.api.text.serializer.TextSerializers;
 
 import java.io.IOException;
 import java.util.Optional;
 
-public class swapExecutor implements CommandExecutor {
+public class SetExecutor implements CommandExecutor {
+    private MainController mc = new MainController();
     private KSEStack kseStack;
-    private mainController mc = new mainController();
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
-            return CommandResult.empty();
+            return CommandResult.success();
         }
-        Player player = ((Player) src).getPlayer().get();
-        Text textLine1, textLine2;
-        Integer line1, line2;
+        int line = args.<Integer>getOne(Text.of("line")).get();
+        String text = args.<String>getOne(Text.of("Text")).get();
 
-        line1 = args.<Integer>getOne(Text.of("line")).get();
-        line2 = args.<Integer>getOne(Text.of("another line")).get();
-        if (!mc.isLinesValid(line1) || !mc.isLinesValid(line2)) {
-            mc.linesWrong(player);
+        if (!mc.isLinesValid(line)) {
+            mc.linesWrong(src);
             return CommandResult.empty();
         }
+        if (!mc.getPlayerOpt(src).isPresent()) {
+            mc.playerNotFound(src);
+            return CommandResult.empty();
+        }
+
+        Player player = ((Player) src).getPlayer().get();
         Optional<TileEntity> signOpt = mc.getSign(player);
+
         if (signOpt == null || !signOpt.isPresent()) {
             mc.signNotFound(player);
             return CommandResult.empty();
         }
+
         TileEntity sign = signOpt.get();
 
         kseStack = mc.getKseStack(sign);
@@ -54,16 +54,16 @@ public class swapExecutor implements CommandExecutor {
             e.printStackTrace();
         }
 
-        textLine1 = mc.getTargetText(sign, line2);
-        textLine2 = mc.getTargetText(sign, line1);
-        mc.setText(sign, line1, TextSerializers.FORMATTING_CODE.serialize(textLine1));
-        mc.setText(sign, line2, TextSerializers.FORMATTING_CODE.serialize(textLine2));
-        mc.notice(player, line1, line2, textLine2, textLine1);
+        Text signText = mc.getTargetText(sign, line);
+        mc.setText(sign, line, text);
+        mc.notice(player, line, signText, mc.getTargetText(sign, line));
+
         try {
             kseStack.add(mc.getTextArray(sign), sign.getLocation());
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return CommandResult.success();
     }
 }

@@ -1,25 +1,19 @@
-package org.karoglan.tollainmear.SignEditor;
+package org.karoglan.tollainmear.signeditor;
 
-import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
-import org.karoglan.tollainmear.SignEditor.utils.ClipBoardContents;
-import org.karoglan.tollainmear.SignEditor.utils.KSEStack;
-import org.karoglan.tollainmear.SignEditor.utils.Translator;
+import org.karoglan.tollainmear.signeditor.utils.ClipBoardContents;
+import org.karoglan.tollainmear.signeditor.utils.KSEStack;
+import org.karoglan.tollainmear.signeditor.utils.Translator;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.serializer.TextSerializer;
 import org.spongepowered.api.text.serializer.TextSerializers;
-import org.spongepowered.api.world.Location;
-import org.spongepowered.api.world.World;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class KSERecordsManager {
     private String operationLog = "Operation_Log";

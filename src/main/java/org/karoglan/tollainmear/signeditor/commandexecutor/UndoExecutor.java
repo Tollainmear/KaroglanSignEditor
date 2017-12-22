@@ -1,9 +1,10 @@
-package org.karoglan.tollainmear.SignEditor.CommandExecutor;
+package org.karoglan.tollainmear.signeditor.commandexecutor;
 
-import org.karoglan.tollainmear.SignEditor.KSERecordsManager;
-import org.karoglan.tollainmear.SignEditor.KaroglanSignEditor;
-import org.karoglan.tollainmear.SignEditor.utils.KSEStack;
-import org.karoglan.tollainmear.SignEditor.utils.mainController;
+import org.karoglan.tollainmear.signeditor.KSERecordsManager;
+import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
+import org.karoglan.tollainmear.signeditor.utils.KSEStack;
+import org.karoglan.tollainmear.signeditor.utils.Translator;
+import org.karoglan.tollainmear.signeditor.utils.MainController;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -17,25 +18,26 @@ import org.spongepowered.api.text.serializer.TextSerializers;
 import java.io.IOException;
 import java.util.Optional;
 
-public class redoExecutor implements CommandExecutor {
-    private mainController mc = new mainController();
-    private KaroglanSignEditor kse;
+public class UndoExecutor implements CommandExecutor {
+    private MainController mc = new MainController();
     private KSEStack kseStack;
+    private Translator translator;
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        kse = KaroglanSignEditor.getInstance();
+        translator = KaroglanSignEditor.getInstance().getTranslator();
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
             return CommandResult.empty();
         }
 
         Optional<Player> playerOpt;
-        if (!(playerOpt = mc.getPlayerOpt(src)).isPresent() || playerOpt.equals(null)) {
+        if (!(playerOpt = mc.getPlayerOpt(src)).isPresent() || playerOpt == null) {
             mc.playerNotFound(src);
             return CommandResult.empty();
         }
         Player player = playerOpt.get();
+
         Optional<TileEntity> signopt = mc.getSign(player);
         if (signopt == null || !signopt.isPresent()) {
             mc.signNotFound(player);
@@ -46,20 +48,20 @@ public class redoExecutor implements CommandExecutor {
         if (mc.hasKseStack(sign)) {
             kseStack = KSERecordsManager.getOperationStack().get(sign.getLocation().toString());
         } else {
-            mc.notice(player, kse.getTranslator().getText("message.stackRedoEmpty"));
+            mc.notice(player, translator.getText("message.stackUndoEmpty"));
             return CommandResult.empty();
         }
 
-        if (kseStack.getNow() == kseStack.getTail()) {
-            mc.notice(player, kse.getTranslator().getText("message.stackRedoEmpty"));
-            return CommandResult.empty();
+        if (kseStack.getNow() == kseStack.getHead()) {
+            mc.notice(player, translator.getText("message.stackUndoEmpty"));
+            CommandResult.empty();
         } else {
-            kseStack.setNow(kseStack.getNow() + 1 > 9 ? 0 : kseStack.getNow() + 1);
+            kseStack.setNow(kseStack.getNow() - 1 < 0 ? 9 : kseStack.getNow() - 1);
             Text[] textArray = kseStack.getTextStack(kseStack.getNow());
             for (int i = 0; i < 4; i++) {
                 mc.setText(sign, i + 1, TextSerializers.FORMATTING_CODE.serialize(textArray[i] == null ? Text.of("") : textArray[i]));
             }
-            mc.notice(player, kse.getTranslator().getText("message.redoDone"));
+            mc.notice(player, translator.getText("message.undoDone"));
             KSERecordsManager.getOperationStack().put(sign.getLocation().toString(), kseStack);
             try {
                 kseStack.save();
@@ -67,7 +69,6 @@ public class redoExecutor implements CommandExecutor {
                 e.printStackTrace();
             }
         }
-
         return CommandResult.success();
     }
 }

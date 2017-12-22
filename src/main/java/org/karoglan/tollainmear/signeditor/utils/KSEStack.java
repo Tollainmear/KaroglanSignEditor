@@ -1,12 +1,11 @@
-package org.karoglan.tollainmear.SignEditor.utils;
+package org.karoglan.tollainmear.signeditor.utils;
 
-import org.karoglan.tollainmear.SignEditor.KSERecordsManager;
+import org.karoglan.tollainmear.signeditor.KSERecordsManager;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import java.io.IOException;
-import java.util.Objects;
 
 
 public class KSEStack {
