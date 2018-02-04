@@ -3,11 +3,11 @@ plugins{
 }
 
 group 'Tollainmear'
-version '2.6'
+version '3.0'
 description = 'A plugin to edit the sign'
 
 dependencies {
-    compile 'org.spongepowered:spongeapi:5.1.0'
+    compile 'org.spongepowered:spongeapi:7.+'
 }
 
 sourceSets{

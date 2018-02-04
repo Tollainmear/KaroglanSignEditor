@@ -15,11 +15,18 @@ import org.spongepowered.api.util.blockray.BlockRayHit;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
+import java.util.Map;
 import java.util.Optional;
 
 public class MainController {
-    private KaroglanSignEditor kse = KaroglanSignEditor.getInstance();
+    private KaroglanSignEditor kse;
+    private Map<String, KSEStack> oprationStack;
+    private KSEStack kseStack;
     Text[] textArray = new Text[4];
+    public MainController(){
+        kse = KaroglanSignEditor.getInstance();
+        oprationStack = KaroglanSignEditor.getKseRecordsManager().getOperationStack();
+    }
 
     public Text[] getTextArray(TileEntity sign) {
         for (int i = 0; i < 4; i++) {
@@ -159,12 +166,21 @@ public class MainController {
         }
     }
 
-    public Boolean hasKseStack(TileEntity sign){
+    public boolean hasKseStack(TileEntity sign){
         if (KSERecordsManager.getOperationStack().containsKey(sign.getLocation().toString())) {
             return true;
         } else {
             return false;
         }
+    }
+
+    public boolean isOwner(TileEntity sign,Player player){
+        //todo-
+        KSEStack kseStack = oprationStack.get(sign.getLocation().toString());
+        return kseStack.isOwner(player)||kseStack.getWhiteList().contains(player);
+    }
+    public boolean isPLayer(CommandSource src){
+        return (src instanceof Player);
     }
 }
 

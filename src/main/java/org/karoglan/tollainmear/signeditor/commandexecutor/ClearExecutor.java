@@ -26,11 +26,13 @@ public class ClearExecutor implements CommandExecutor {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+        //todo-是玩家吗？有牌子吗？是所有者吗？在白名单里吗？
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
-            return CommandResult.success();
+            return CommandResult.empty();
         }
         Optional<Integer> lineOpt = args.<Integer>getOne(Text.of("line"));
+
         if (!(playerOpt = mc.getPlayerOpt(src)).isPresent() || playerOpt == null) {
             mc.playerNotFound(src);
             return CommandResult.empty();

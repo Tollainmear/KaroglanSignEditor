@@ -74,10 +74,14 @@ public class KSERecordsManager {
     public void save() throws IOException {
         for (String locNode : operationStack.keySet()) {
             kseStack = operationStack.get(locNode);
+            String tempWhitelist;
             Text[][] stackArray = kseStack.getTextStack();
             operationLogNode.getNode(locNode).getNode("now").setValue(kseStack.getNow());
             operationLogNode.getNode(locNode).getNode("tail").setValue(kseStack.getTail());
             operationLogNode.getNode(locNode).getNode("head").setValue(kseStack.getHead());
+            operationLogNode.getNode(locNode).getNode("owner").setValue(kseStack.getOwner());
+            tempWhitelist = String.join(",",kseStack.getWhiteList());
+            operationLogNode.getNode(locNode).getNode("whitelist").setValue(tempWhitelist);
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 4; j++) {
                     operationLogNode
@@ -119,7 +123,10 @@ public class KSERecordsManager {
                 Text[][] textStack = new Text[10][4];
                 kseStack.setNow(operationLogNode.getNode(loc.toString()).getNode("now").getInt());
                 kseStack.setTail(operationLogNode.getNode(loc.toString()).getNode("tail").getInt());
-                kseStack.setHead(operationLogNode.getNode(loc.toString()).getNode("head").getInt());
+                kseStack.setHead(operationLogNode.getNode(loc.toString()).getNode("head").getInt());;
+                //todo-
+                kseStack.setWhiteList(operationLogNode.getNode(loc.toString()).getNode("whiteList").getString());;
+                kseStack.setOwner(operationLogNode.getNode(loc.toString()).getNode("owner").getString());
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 4; j++) {
                         textStack[i][j] = TextSerializers.FORMATTING_CODE.deserialize(

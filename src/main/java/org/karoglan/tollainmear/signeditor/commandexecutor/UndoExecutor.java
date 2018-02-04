@@ -26,6 +26,7 @@ public class UndoExecutor implements CommandExecutor {
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         translator = KaroglanSignEditor.getInstance().getTranslator();
+        //todo-是玩家吗？有牌子吗？有历史记录吗？历史记录推到底了吗？
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
             return CommandResult.empty();

@@ -15,6 +15,7 @@ public class KSECommandManager {
 
     private CommandSpec set;
     private CommandSpec clear;
+    private CommandSpec trust;
     private CommandSpec copy;
     private CommandSpec clipboard;
     private CommandSpec paste;
@@ -44,6 +45,13 @@ public class KSECommandManager {
                 .description(Text.of("clear the text from the target sign"))
                 .arguments(GenericArguments.optional(GenericArguments.integer(Text.of("line"))))
                 .executor(new ClearExecutor())
+                .build();
+
+        trust = CommandSpec.builder()
+                .permission(plugin.getPluginName() + ".trust")
+                .description(Text.of("trust a play to edit target sign you own"))
+                .arguments(GenericArguments.optional(GenericArguments.player(Text.of("player"))))
+                .executor(new TrustExecutor())
                 .build();
 
         copy = CommandSpec.builder()

@@ -111,10 +111,6 @@ public class KaroglanSignEditor {
         }
     }
 
-    private boolean isCopyright() {
-        return configNode.getNode(pluginName).getNode("Author").isVirtual() || !configNode.getNode(pluginName).getNode("Author").getString().equals("Tollainmear");
-    }
-
     public static KaroglanSignEditor getInstance() {
         return instance;
     }

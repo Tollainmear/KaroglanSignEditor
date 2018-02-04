@@ -1,11 +1,14 @@
 package org.karoglan.tollainmear.signeditor.utils;
 
 import org.karoglan.tollainmear.signeditor.KSERecordsManager;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import java.io.IOException;
+import java.security.acl.Owner;
+import java.util.List;
 
 
 public class KSEStack {
@@ -15,6 +18,8 @@ public class KSEStack {
     private Integer now;
     private Integer tail;
     private Integer head;
+    private String owner;
+    private List<String> whiteList;
 
     public KSEStack() {
         now = 0;
@@ -25,10 +30,6 @@ public class KSEStack {
 
     public void set(Text[][] textStack) {
         this.textStack = textStack;
-    }
-
-    public void setNow(Integer now) {
-        this.now = now;
     }
 
     public void add(Text[] textArray, Location<World> loc) throws IOException {
@@ -71,20 +72,20 @@ public class KSEStack {
         return now;
     }
 
-    public void update(Text[] textArray, Location<World> loc) throws IOException {
-        for (int i = 0; i < 4; i++) {
-            textStack[now][i] = textArray[i];
-        }
-        KSERecordsManager.getOperationStack().put(loc.toString(), this);
-        save();
-    }
-
     public Integer getTail() {
         return tail;
     }
 
     public Integer getHead() {
         return head;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public List getWhiteList() {
+        return whiteList;
     }
 
     public void save() throws IOException {
@@ -97,5 +98,31 @@ public class KSEStack {
 
     public void setHead(int head) {
         this.head = head;
+    }
+
+    public void setNow(Integer now) {
+        this.now = now;
+    }
+
+    public void setWhiteList(String whiteList){
+        for(Object playername : whiteList.split(",")){
+            this.whiteList.add((String)playername);
+        };
+    }
+
+    public void setOwner(String owner){
+        owner = this.owner;
+    }
+
+    public void update(Text[] textArray, Location<World> loc) throws IOException {
+        for (int i = 0; i < 4; i++) {
+            textStack[now][i] = textArray[i];
+        }
+        KSERecordsManager.getOperationStack().put(loc.toString(), this);
+        save();
+    }
+
+    public boolean isOwner(Player player) {
+        return player.getName() == owner||whiteList.contains(player.getName());
     }
 }
