@@ -80,8 +80,8 @@ public class KSERecordsManager {
             operationLogNode.getNode(locNode).getNode("tail").setValue(kseStack.getTail());
             operationLogNode.getNode(locNode).getNode("head").setValue(kseStack.getHead());
             operationLogNode.getNode(locNode).getNode("owner").setValue(kseStack.getOwner());
-            tempWhitelist = String.join(",",kseStack.getWhiteList());
-            operationLogNode.getNode(locNode).getNode("whitelist").setValue(tempWhitelist);
+//            tempWhitelist = String.join(",",kseStack.getWhiteList());
+//            operationLogNode.getNode(locNode).getNode("whitelist").setValue(tempWhitelist);
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 4; j++) {
                     operationLogNode
