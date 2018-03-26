@@ -23,11 +23,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Locale;
 
-@Plugin(id = "karoglansigneditor", name = "KaroglanSignEditor", authors = "Tollainmear", version = "3.1", description = "Make sign edition esaier!")
+@Plugin(id = "karoglansigneditor", name = "KaroglanSignEditor", authors = "Tollainmear", version = "3.2", description = "Make sign edition esaier!")
 public class KaroglanSignEditor {
 
     private static String pluginName = "KaroglanSignEditor";
-    private static String version = "3.1";
+    private static String version = "3.2";
 
     private static KaroglanSignEditor instance;
     private static KSERecordsManager kseRecordsManager;

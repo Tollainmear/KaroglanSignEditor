@@ -104,11 +104,11 @@ public class KSEStack {
         this.now = now;
     }
 
-    public void setWhiteList(String whiteList){
-        for(Object playername : whiteList.split(",")){
-            this.whiteList.add((String)playername);
-        };
-    }
+//    public void setWhiteList(String whiteList){
+//        for(Object playername : whiteList.split(",")){
+//            this.whiteList.add((String)playername);
+//        };
+//    }
 
     public void setOwner(String owner){
         owner = this.owner;
