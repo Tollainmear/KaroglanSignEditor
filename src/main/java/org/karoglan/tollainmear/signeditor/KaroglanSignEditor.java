@@ -1,33 +1,50 @@
 package org.karoglan.tollainmear.signeditor;
 
+import com.google.common.base.Charsets;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.inject.Inject;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.karoglan.tollainmear.signeditor.utils.ClipBoardContents;
 import org.karoglan.tollainmear.signeditor.utils.KSEStack;
+import org.karoglan.tollainmear.signeditor.utils.Metrics;
 import org.karoglan.tollainmear.signeditor.utils.Translator;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.config.DefaultConfig;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.filter.cause.First;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
+import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.action.ClickAction;
+import org.spongepowered.api.text.action.TextAction;
+import org.spongepowered.api.text.action.TextActions;
 import org.spongepowered.api.text.channel.MessageReceiver;
+import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.text.serializer.TextSerializers;
+import org.spongepowered.plugin.meta.version.ComparableVersion;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.util.Locale;
 
-@Plugin(id = "karoglansigneditor", name = "KaroglanSignEditor", authors = "Tollainmear", version = "3.2", description = "Make sign edition esaier!")
+@Plugin(id = "karoglansigneditor", name = "KaroglanSignEditor", authors = "Tollainmear", version = "3.3", description = "Make sign edition esaier!")
 public class KaroglanSignEditor {
 
     private static String pluginName = "KaroglanSignEditor";
-    private static String version = "3.2";
+    private static final String version = "3.3";
 
     private static KaroglanSignEditor instance;
     private static KSERecordsManager kseRecordsManager;
@@ -35,6 +52,12 @@ public class KaroglanSignEditor {
     private Translator translator;
     private static KSEStack kseStack;
     private static ClipBoardContents clipBoardContents;
+    private boolean hasNewVersion = false;
+    private static String newVersion = version;
+    private static String releasePage = "https://github.com/Tollainmear/KaroglanSignEditor/releases";
+
+    public static final String API_URL = "https://api.github.com/repos/tollainmear/karoglansigneditor/releases";
+    public static final String GIT_URL = "https://github.com/Tollainmear/KaroglanSignEditor";
 
     private CommentedConfigurationNode configNode;
 
@@ -48,6 +71,9 @@ public class KaroglanSignEditor {
 
     @Inject
     private Logger logger;
+
+    @Inject
+    private Metrics metrics;
 
     public void setKseCmdManager(KSECommandManager kseCmdManager) {
         this.kseCmdManager = kseCmdManager;
@@ -68,6 +94,7 @@ public class KaroglanSignEditor {
     public void onStart(GameStartingServerEvent event) throws IOException {
         kseRecordsManager.init(this);
         translator.checkUpdate();
+        new Thread(this::checkUpdate).start();
     }
 
     @Listener
@@ -81,6 +108,18 @@ public class KaroglanSignEditor {
             e.printStackTrace();
         }
         src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(translator.getstring("message.KSEprefix")+translator.getstring("message.reload")));
+    }
+
+    @Listener
+    public void onPlayerjoin(ClientConnectionEvent.Join event,@First Player player) throws MalformedURLException {
+        //if (hasNewVersion){
+            if(player.hasPermission("kse.admin")){
+                player.sendMessage(translator.getText("message.KSEprefix").concat(translator.getText("update.hasNew").concat(Text.of(newVersion))));
+                player.sendMessage(translator.getText("message.KSEprefix").concat(translator.getText("update.clickMSG").toBuilder().onClick(TextActions.openUrl(new URL(releasePage))).build()));
+//                player.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(translator.getstring("update.hasNew") + newVersion));
+            }
+        //}
+        logger.warn(player.getName());
     }
 
     public void cfgInit() throws IOException {
@@ -161,5 +200,42 @@ public class KaroglanSignEditor {
 
     public void setTranslator(Translator translator) {
         this.translator = translator;
+    }
+
+    private void checkUpdate()
+    {
+        try
+        {
+            URL url = new URL(API_URL);
+            HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.getResponseCode();
+            InputStreamReader reader = new InputStreamReader(connection.getInputStream(), Charsets.UTF_8);
+            JsonObject jsonObject = new JsonParser().parse(reader).getAsJsonArray().get(0).getAsJsonObject();
+            String newVersion = jsonObject.get("tag_name").getAsString();
+            //if (newVersion.startsWith("v"))
+            //{
+            //    newVersion = newVersion.substring(1);
+                String releaseName = jsonObject.get("name").getAsString();
+                String releaseUrl = jsonObject.get("html_url").getAsString();
+                if (new ComparableVersion(newVersion).compareTo(new ComparableVersion(version)) > 0)
+                {
+                    hasNewVersion = true;
+                    this.newVersion = releaseName;
+                    this.releasePage = releaseUrl;
+                    logger.info("\033[31m" + translator.getstring("update.hasNew") + releaseName);
+                    logger.warn("\033[31m" + translator.getstring("update.downloadFrom") + releaseUrl);
+//                    this.logger.warn("================================================================");
+//                    this.logger.warn("An update was found: " + releaseName);
+//                    this.logger.warn("You can get the latest version at: " + releaseUrl);
+//                    this.logger.info("================================================================");
+                }
+           // }
+        }
+        catch (Exception e)
+        {
+            // <strike>do not bother offline users</strike> maybe bothering them is a better choice
+            translator.logWarn("update.failure");
+        }
     }
 }

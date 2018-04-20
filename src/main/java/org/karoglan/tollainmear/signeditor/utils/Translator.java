@@ -117,7 +117,7 @@ public class Translator {
     }
 
     public void logWarn(String key) {
-        logger.info("\031[36m" + getstring(key));
+        logger.info("\033[31m" + getstring(key));
     }
 
 }
