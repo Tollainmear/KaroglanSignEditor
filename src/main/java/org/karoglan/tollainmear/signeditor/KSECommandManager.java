@@ -29,7 +29,7 @@ public class KSECommandManager {
         this.kse = plugin;
 
         set = CommandSpec.builder()
-                .permission(plugin.getPluginName() + ".edit")
+                .permission("kse.edit")
                 .description(Text.of("Set the text for the target sign"))
                 .arguments(
                         GenericArguments.seq(
@@ -41,42 +41,42 @@ public class KSECommandManager {
                 .build();
 
         clear = CommandSpec.builder()
-                .permission(plugin.getPluginName() + ".clear")
+                .permission("kse.clear")
                 .description(Text.of("clear the text from the target sign"))
                 .arguments(GenericArguments.optional(GenericArguments.integer(Text.of("line"))))
                 .executor(new ClearExecutor())
                 .build();
 
 //        trust = CommandSpec.builder()
-//                .permission(plugin.getPluginName() + ".trust")
+//                .permission("kse.trust")
 //                .description(Text.of("trust a play to edit target sign you own"))
 //                .arguments(GenericArguments.optional(GenericArguments.player(Text.of("player"))))
 //                .executor(new TrustExecutor())
 //                .build();
 
         copy = CommandSpec.builder()
-                .permission(plugin.getPluginName() + ".copy")
+                .permission("kse.copy")
                 .description(Text.of("copy the text from the target sign"))
                 .arguments(GenericArguments.none())
                 .executor(new CopyExecutor())
                 .build();
 
         clipboard = CommandSpec.builder()
-                .permission(plugin.getPluginName() + ".clipboard")
+                .permission("kse.clipboard")
                 .description(Text.of("check the text "))
                 .arguments(GenericArguments.none())
                 .executor(new ClipboardExecutor())
                 .build();
 
         paste = CommandSpec.builder()
-                .permission(plugin.getPluginName() + ".paste")
+                .permission("kse.paste")
                 .description(Text.of("paste the text for the target sign"))
                 .arguments(GenericArguments.optional(GenericArguments.integer(Text.of("line"))))
                 .executor(new PasteExecutor())
                 .build();
 
         swap = CommandSpec.builder()
-                .permission(plugin.getPluginName() + ".swap")
+                .permission("kse.swap")
                 .description(Text.of("Specifying two lines and swap their position"))
                 .arguments(GenericArguments.seq(
                         GenericArguments.integer(Text.of("line")),
@@ -86,28 +86,28 @@ public class KSECommandManager {
                 .build();
 
         undo = CommandSpec.builder()
-                .permission(plugin.getPluginName() + ".undo")
+                .permission("kse.undo")
                 .description(Text.of("Undo the latest operation"))
                 .arguments(GenericArguments.none())
                 .executor(new UndoExecutor())
                 .build();
 
         redo = CommandSpec.builder()
-                .permission(plugin.getPluginName() + ".redo")
+                .permission("kse.redo")
                 .description(Text.of("Redo the latest operation"))
                 .arguments(GenericArguments.none())
                 .executor(new RedoExecutor())
                 .build();
 
         reload = CommandSpec.builder()
-                .permission(plugin.getPluginName() + ".reload")
+                .permission("kse.reload")
                 .description(Text.of("relaod the KSE."))
                 .arguments(GenericArguments.none())
                 .executor(new ReloadExecutor())
                 .build();
 
         version = CommandSpec.builder()
-                .permission(plugin.getPluginName() + ".version")
+                .permission("kse.version")
                 .description(Text.of("Show the version of KSE"))
                 .arguments(GenericArguments.none())
                 .executor(new VersionExecutor())
