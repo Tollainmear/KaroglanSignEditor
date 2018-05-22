@@ -47,12 +47,12 @@ public class KSECommandManager {
                 .executor(new ClearExecutor())
                 .build();
 
-//        trust = CommandSpec.builder()
-//                .permission("kse.trust")
-//                .description(Text.of("trust a play to edit target sign you own"))
-//                .arguments(GenericArguments.optional(GenericArguments.player(Text.of("player"))))
-//                .executor(new TrustExecutor())
-//                .build();
+        trust = CommandSpec.builder()
+                .permission("kse.trust")
+                .description(Text.of("trust a play to edit target sign you own"))
+                .arguments(GenericArguments.player(Text.of("player")))
+                .executor(new TrustExecutor())
+                .build();
 
         copy = CommandSpec.builder()
                 .permission("kse.copy")

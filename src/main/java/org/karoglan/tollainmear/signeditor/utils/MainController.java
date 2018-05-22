@@ -23,7 +23,8 @@ public class MainController {
     private Map<String, KSEStack> oprationStack;
     private KSEStack kseStack;
     Text[] textArray = new Text[4];
-    public MainController(){
+
+    public MainController() {
         kse = KaroglanSignEditor.getInstance();
         oprationStack = KaroglanSignEditor.getKseRecordsManager().getOperationStack();
     }
@@ -166,7 +167,7 @@ public class MainController {
         }
     }
 
-    public boolean hasKseStack(TileEntity sign){
+    public boolean hasKseStack(TileEntity sign) {
         if (KSERecordsManager.getOperationStack().containsKey(sign.getLocation().toString())) {
             return true;
         } else {
@@ -174,13 +175,29 @@ public class MainController {
         }
     }
 
-    public boolean isOwner(TileEntity sign,Player player){
+    public boolean isOwner(TileEntity sign, Player player) {
         //todo-
         KSEStack kseStack = oprationStack.get(sign.getLocation().toString());
-        return kseStack.isOwner(player)||kseStack.getWhiteList().contains(player);
+        return kseStack.isOwner(player) || kseStack.getWhiteList().contains(player);
     }
-    public boolean isPLayer(CommandSource src){
+
+    public boolean isPLayer(CommandSource src) {
         return (src instanceof Player);
+    }
+
+    public void notOwner(Player player) {
+        player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
+                .concat(kse.getTranslator().getText("message.notOwner")));
+    }
+
+    public void alreadyTrusted(Player player) {
+        player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
+                .concat(kse.getTranslator().getText("message.alreadyTrusted")));
+    }
+
+    public void cantTrustSelf(Player player) {
+        player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
+                .concat(kse.getTranslator().getText("message.cantTrustSelf")));
     }
 }
 

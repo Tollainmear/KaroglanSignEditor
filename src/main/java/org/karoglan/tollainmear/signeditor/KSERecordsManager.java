@@ -11,9 +11,14 @@ import org.spongepowered.api.text.serializer.TextSerializers;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.acl.Owner;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 public class KSERecordsManager {
     private String operationLog = "Operation_Log";
@@ -28,10 +33,12 @@ public class KSERecordsManager {
     private CommentedConfigurationNode rootNode;
     private CommentedConfigurationNode operationLogNode;
     private CommentedConfigurationNode clipBoardNode;
+    private CommentedConfigurationNode whiteListNode;
     private ConfigurationLoader<CommentedConfigurationNode> recordLoader;
 
     private static Map<String, KSEStack> operationStack = new LinkedHashMap<>();
     private static Map<String, ClipBoardContents> copylist = new LinkedHashMap<>();
+    private static Map<String, Set<String>> whiteList = new LinkedHashMap<>();
 
     KSERecordsManager(KaroglanSignEditor plugin) throws IOException {
         kse = plugin;
@@ -45,10 +52,12 @@ public class KSERecordsManager {
     public void init(KaroglanSignEditor kse) throws IOException {
         operationStack.clear();
         copylist.clear();
+        whiteList.clear();
 
         rootNode = recordLoader.load();
         operationLogNode = rootNode.getNode(pluginName).getNode("Operation_Log");
         clipBoardNode = rootNode.getNode(pluginName).getNode("Clipboard");
+        whiteListNode = rootNode.getNode(pluginName).getNode("WhiteList");
 
         if (!recorderFile.exists()) {
             if (!recorderFile.createNewFile()) {
@@ -64,9 +73,13 @@ public class KSERecordsManager {
         if (operationLogNode.isVirtual()) {
             operationLogNode.setComment(translator.getstring("rec.OperationLog"));
         }
+        if (whiteListNode.isVirtual()) {
+            operationLogNode.setComment(translator.getstring("rec.WhiteList"));
+        }
         recordLoader.save(rootNode);
         loadOperationHistory();
         loadCopyList();
+        loadWhiteList();
         save();
     }
 
@@ -125,8 +138,8 @@ public class KSERecordsManager {
                 kseStack.setTail(operationLogNode.getNode(loc.toString()).getNode("tail").getInt());
                 kseStack.setHead(operationLogNode.getNode(loc.toString()).getNode("head").getInt());;
                 //todo-
-//                kseStack.setWhiteList(operationLogNode.getNode(loc.toString()).getNode("whiteList").getString());;
-//                kseStack.setOwner(operationLogNode.getNode(loc.toString()).getNode("owner").getString());
+                kseStack.setWhiteList(operationLogNode.getNode(loc.toString()).getNode("whiteList").getString());;
+                kseStack.setOwner(operationLogNode.getNode(loc.toString()).getNode("owner").getString());
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 4; j++) {
                         textStack[i][j] = TextSerializers.FORMATTING_CODE.deserialize(
@@ -139,6 +152,14 @@ public class KSERecordsManager {
                 }
                 kseStack.set(textStack);
                 operationStack.put(loc.toString(), kseStack);
+            }
+        }
+    }
+    private void loadWhiteList(){
+        if (whiteListNode.hasListChildren()){
+            Set<Object> OwnerSet = whiteListNode.getChildrenMap().keySet();
+            for (Object owner : OwnerSet){
+                whiteList.put(owner.toString(),whiteListNode.getNode(owner).getChildrenList().stream().map(player -> (player.toString())).collect(toSet()));
             }
         }
     }
@@ -166,5 +187,9 @@ public class KSERecordsManager {
 
     public static Map<String, KSEStack> getOperationStack() {
         return operationStack;
+    }
+
+    public static Map<String, Set<String>> getWhiteList() {
+        return whiteList;
     }
 }
