@@ -5,6 +5,7 @@ import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
 import org.karoglan.tollainmear.signeditor.utils.KSEStack;
 import org.karoglan.tollainmear.signeditor.utils.Translator;
 import org.karoglan.tollainmear.signeditor.utils.MainController;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -26,23 +27,24 @@ public class UndoExecutor implements CommandExecutor {
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         translator = KaroglanSignEditor.getInstance().getTranslator();
+        Sponge.getScheduler().createTaskBuilder().execute(() -> {
         //todo-是玩家吗？有牌子吗？有历史记录吗？历史记录推到底了吗？
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
-            return CommandResult.empty();
+            return;
         }
 
         Optional<Player> playerOpt;
         if (!(playerOpt = mc.getPlayerOpt(src)).isPresent() || playerOpt == null) {
             mc.playerNotFound(src);
-            return CommandResult.empty();
+            return;
         }
         Player player = playerOpt.get();
 
         Optional<TileEntity> signopt = mc.getSign(player);
         if (signopt == null || !signopt.isPresent()) {
             mc.signNotFound(player);
-            return CommandResult.success();
+            return;
         }
         TileEntity sign = signopt.get();
 
@@ -50,7 +52,7 @@ public class UndoExecutor implements CommandExecutor {
             kseStack = KSERecordsManager.getOperationStack().get(sign.getLocation().toString());
         } else {
             mc.notice(player, translator.getText("message.stackUndoEmpty"));
-            return CommandResult.empty();
+            return;
         }
 
         if (kseStack.getNow() == kseStack.getHead()) {
@@ -69,7 +71,7 @@ public class UndoExecutor implements CommandExecutor {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        }}).submit(KaroglanSignEditor.getInstance());
         return CommandResult.success();
     }
 }

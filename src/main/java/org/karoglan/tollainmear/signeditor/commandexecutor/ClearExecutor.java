@@ -1,7 +1,9 @@
 package org.karoglan.tollainmear.signeditor.commandexecutor;
 
+import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
 import org.karoglan.tollainmear.signeditor.utils.KSEStack;
 import org.karoglan.tollainmear.signeditor.utils.MainController;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -27,62 +29,66 @@ public class ClearExecutor implements CommandExecutor {
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         //todo-是玩家吗？有牌子吗？是所有者吗？在白名单里吗？
-        if (!(src instanceof Player)) {
-            mc.playerNotFound(src);
-            return CommandResult.empty();
-        }
-        Optional<Integer> lineOpt = args.<Integer>getOne(Text.of("line"));
+        Sponge.getScheduler().createTaskBuilder().execute(() -> {
+            if (!(src instanceof Player)) {
+                mc.playerNotFound(src);
+                return;
+            }
+            Optional<Integer> lineOpt = args.<Integer>getOne(Text.of("line"));
 
-        if (!(playerOpt = mc.getPlayerOpt(src)).isPresent() || playerOpt == null) {
-            mc.playerNotFound(src);
-            return CommandResult.empty();
-        }
-
-        player = playerOpt.get();
-
-        signOpt = mc.getSign(player);
-        if (signOpt == null || !signOpt.isPresent()) {
-            mc.signNotFound(player);
-            return CommandResult.empty();
-        }
-
-        sign = signOpt.get();
-
-        kseStack = mc.getKseStack(sign);
-
-        try {
-            kseStack.update(mc.getTextArray(sign), sign.getLocation());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (lineOpt.isPresent()) {
-            line = lineOpt.get();
-            if (!mc.isLinesValid(line)) {
-                mc.linesWrong(src);
-                return CommandResult.empty();
+            if (!(playerOpt = mc.getPlayerOpt(src)).isPresent() || playerOpt == null) {
+                mc.playerNotFound(src);
+                return;
             }
 
-            clearText(line);
+            player = playerOpt.get();
+
+            signOpt = mc.getSign(player);
+            if (signOpt == null || !signOpt.isPresent()) {
+                mc.signNotFound(player);
+                return;
+            }
+
+            sign = signOpt.get();
+
+            kseStack = mc.getKseStack(sign);
 
             try {
-                kseStack.add(mc.getTextArray(sign), sign.getLocation());
+                kseStack.update(mc.getTextArray(sign), sign.getLocation());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return CommandResult.success();
-        } else {
-            for (int i = 1; i < 5; i++) {
-                clearText(i);
-            }
-            try {
-                kseStack.add(mc.getTextArray(sign), sign.getLocation());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return CommandResult.success();
 
-        }
+            if (lineOpt.isPresent()) {
+                line = lineOpt.get();
+                if (!mc.isLinesValid(line)) {
+                    mc.linesWrong(src);
+                    return;
+                }
+
+                clearText(line);
+
+                try {
+                    kseStack.add(mc.getTextArray(sign), sign.getLocation());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return;
+            } else {
+                for (int i = 1; i < 5; i++) {
+                    clearText(i);
+                }
+                try {
+                    kseStack.add(mc.getTextArray(sign), sign.getLocation());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return;
+
+            }
+        }).submit(KaroglanSignEditor.getInstance());
+        return CommandResult.success();
     }
 
     private void clearText(int lines) {

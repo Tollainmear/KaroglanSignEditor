@@ -1,7 +1,9 @@
 package org.karoglan.tollainmear.signeditor.commandexecutor;
 
+import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
 import org.karoglan.tollainmear.signeditor.utils.KSEStack;
 import org.karoglan.tollainmear.signeditor.utils.MainController;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -20,49 +22,52 @@ public class SetExecutor implements CommandExecutor {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        if (!(src instanceof Player)) {
-            mc.playerNotFound(src);
-            return CommandResult.success();
-        }
-        int line = args.<Integer>getOne(Text.of("line")).get();
-        String text = args.<String>getOne(Text.of("Text")).get();
+        Sponge.getScheduler().createTaskBuilder().execute(() -> {
+            if (!(src instanceof Player)) {
+                mc.playerNotFound(src);
+                return;
+            }
+            int line = args.<Integer>getOne(Text.of("line")).get();
+            String text = args.<String>getOne(Text.of("Text")).get();
 
-        if (!mc.isLinesValid(line)) {
-            mc.linesWrong(src);
-            return CommandResult.empty();
-        }
-        if (!mc.getPlayerOpt(src).isPresent()) {
-            mc.playerNotFound(src);
-            return CommandResult.empty();
-        }
+            if (!mc.isLinesValid(line)) {
+                mc.linesWrong(src);
+                return;
+            }
+            if (!mc.getPlayerOpt(src).isPresent()) {
+                mc.playerNotFound(src);
+                return ;
+            }
 
-        Player player = ((Player) src).getPlayer().get();
-        Optional<TileEntity> signOpt = mc.getSign(player);
+            Player player = ((Player) src).getPlayer().get();
+            Optional<TileEntity> signOpt = mc.getSign(player);
 
-        if (signOpt == null || !signOpt.isPresent()) {
-            mc.signNotFound(player);
-            return CommandResult.empty();
-        }
+            if (signOpt == null || !signOpt.isPresent()) {
+                mc.signNotFound(player);
+                return ;
+            }
 
-        TileEntity sign = signOpt.get();
+            TileEntity sign = signOpt.get();
 
-        kseStack = mc.getKseStack(sign);
+            kseStack = mc.getKseStack(sign);
 
-        try {
-            kseStack.update(mc.getTextArray(sign), sign.getLocation());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            try {
+                kseStack.update(mc.getTextArray(sign), sign.getLocation());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        Text signText = mc.getTargetText(sign, line);
-        mc.setText(sign, line, text);
-        mc.notice(player, line, signText, mc.getTargetText(sign, line));
+            Text signText = mc.getTargetText(sign, line);
+            mc.setText(sign, line, text);
+            mc.notice(player, line, signText, mc.getTargetText(sign, line));
 
-        try {
-            kseStack.add(mc.getTextArray(sign), sign.getLocation());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            try {
+                kseStack.add(mc.getTextArray(sign), sign.getLocation());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).submit(KaroglanSignEditor.getInstance());
+
 
         return CommandResult.success();
     }

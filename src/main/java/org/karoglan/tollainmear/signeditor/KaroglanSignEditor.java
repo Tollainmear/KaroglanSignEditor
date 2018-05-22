@@ -24,11 +24,8 @@ import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.action.ClickAction;
-import org.spongepowered.api.text.action.TextAction;
 import org.spongepowered.api.text.action.TextActions;
 import org.spongepowered.api.text.channel.MessageReceiver;
-import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.text.serializer.TextSerializers;
 import org.spongepowered.plugin.meta.version.ComparableVersion;
 
@@ -113,7 +110,7 @@ public class KaroglanSignEditor {
     @Listener
     public void onPlayerjoin(ClientConnectionEvent.Join event,@First Player player) throws MalformedURLException {
         //if (hasNewVersion){
-            if(player.hasPermission("kse.admin")){
+            if(player.hasPermission("kse.admin")&&hasNewVersion){
                 player.sendMessage(translator.getText("message.KSEprefix").concat(translator.getText("update.hasNew").concat(Text.of(newVersion))));
                 player.sendMessage(translator.getText("message.KSEprefix").concat(translator.getText("update.clickMSG").toBuilder().onClick(TextActions.openUrl(new URL(releasePage))).build()));
 //                player.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(translator.getstring("update.hasNew") + newVersion));
@@ -230,6 +227,8 @@ public class KaroglanSignEditor {
 //                    this.logger.warn("You can get the latest version at: " + releaseUrl);
 //                    this.logger.info("================================================================");
                 }
+
+            else logger.info("\033[31m" + translator.getstring("update.noUpdate") + releaseName);
            // }
         }
         catch (Exception e)

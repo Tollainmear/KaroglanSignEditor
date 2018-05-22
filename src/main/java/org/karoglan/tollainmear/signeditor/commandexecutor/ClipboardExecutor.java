@@ -3,6 +3,7 @@ package org.karoglan.tollainmear.signeditor.commandexecutor;
 import org.karoglan.tollainmear.signeditor.KSERecordsManager;
 import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
 import org.karoglan.tollainmear.signeditor.utils.MainController;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -19,31 +20,32 @@ public class ClipboardExecutor implements CommandExecutor {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        kse = KaroglanSignEditor.getInstance();
-        if (!(src instanceof Player)) {
-            mc.playerNotFound(src);
-        }
-        Optional<Player> playerOpt = ((Player) src).getPlayer();
-        if (!(playerOpt.isPresent())) {
-            mc.playerNotFound(src);
-            return CommandResult.success();
-        }
-        Player player = playerOpt.get();
-        if (!KSERecordsManager.getCopylist().containsKey(player.getName())) {
-            kse.getLogger().info(player.getName()+" 38");
-            for (String str :KSERecordsManager.getCopylist().keySet()){
-                kse.getLogger().info(str+"40");
+        Sponge.getScheduler().createTaskBuilder().execute(() -> {
+            kse = KaroglanSignEditor.getInstance();
+            if (!(src instanceof Player)) {
+                mc.playerNotFound(src);
             }
-            mc.nothingToPaste(src);
-            return CommandResult.success();
-        }
-        Text[] textArray = KSERecordsManager.getCopylist().get(player.getName()).get();
+            Optional<Player> playerOpt = ((Player) src).getPlayer();
+            if (!(playerOpt.isPresent())) {
+                mc.playerNotFound(src);
+                return;
+            }
+            Player player = playerOpt.get();
+            if (!KSERecordsManager.getCopylist().containsKey(player.getName())) {
+                kse.getLogger().info(player.getName() + " 38");
+                for (String str : KSERecordsManager.getCopylist().keySet()) {
+                    kse.getLogger().info(str + "40");
+                }
+                mc.nothingToPaste(src);
+                return;
+            }
+            Text[] textArray = KSERecordsManager.getCopylist().get(player.getName()).get();
 
-        mc.notice(player, kse.getTranslator().getText("message.onCopyText"));
-        for (int i = 0; i < 4; i++) {
-            mc.notice(player, i + 1, textArray[i]);
-        }
-
+            mc.notice(player, kse.getTranslator().getText("message.onCopyText"));
+            for (int i = 0; i < 4; i++) {
+                mc.notice(player, i + 1, textArray[i]);
+            }
+        }).submit(KaroglanSignEditor.getInstance());
         return CommandResult.success();
     }
 }

@@ -3,6 +3,7 @@ package org.karoglan.tollainmear.signeditor.commandexecutor;
 import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
 import org.karoglan.tollainmear.signeditor.utils.ClipBoardContents;
 import org.karoglan.tollainmear.signeditor.utils.MainController;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -25,21 +26,21 @@ public class CopyExecutor implements CommandExecutor {
 
         cbc = KaroglanSignEditor.getClipBoardContents();
         kse = KaroglanSignEditor.getInstance();
-
+        Sponge.getScheduler().createTaskBuilder().execute(() -> {
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
-            return CommandResult.empty();
+            return;
         }
         Optional<Player> playerOpt = ((Player) src).getPlayer();
         if (!playerOpt.isPresent()) {
             mc.playerNotFound(src);
-            return CommandResult.empty();
+            return;
         }
         Player player = playerOpt.get();
         Optional<TileEntity> signOpt = mc.getSign(player);
         if (signOpt == null || !signOpt.isPresent()) {
             mc.signNotFound(player);
-            return CommandResult.empty();
+            return;
         }
         TileEntity sign = signOpt.get();
 
@@ -55,16 +56,16 @@ public class CopyExecutor implements CommandExecutor {
         try {
             if (player == null) {
                 KaroglanSignEditor.getInstance().getLogger().warn("Player is null");
-                return CommandResult.empty();
+                return;
             }
             if (textArray == null) {
                 KaroglanSignEditor.getInstance().getLogger().warn("text is null");
-                return CommandResult.empty();
+                return;
             }
             cbc.put(player, textArray);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }}).submit(KaroglanSignEditor.getInstance());
 
         return CommandResult.success();
     }

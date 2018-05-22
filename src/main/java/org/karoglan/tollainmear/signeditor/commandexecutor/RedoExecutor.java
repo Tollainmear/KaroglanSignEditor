@@ -4,6 +4,7 @@ import org.karoglan.tollainmear.signeditor.KSERecordsManager;
 import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
 import org.karoglan.tollainmear.signeditor.utils.KSEStack;
 import org.karoglan.tollainmear.signeditor.utils.MainController;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -25,21 +26,22 @@ public class RedoExecutor implements CommandExecutor {
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         kse = KaroglanSignEditor.getInstance();
+        Sponge.getScheduler().createTaskBuilder().execute(() -> {
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
-            return CommandResult.empty();
+            return;
         }
 
         Optional<Player> playerOpt;
         if (!(playerOpt = mc.getPlayerOpt(src)).isPresent() || playerOpt == null) {
             mc.playerNotFound(src);
-            return CommandResult.empty();
+            return;
         }
         Player player = playerOpt.get();
         Optional<TileEntity> signopt = mc.getSign(player);
         if (signopt == null || !signopt.isPresent()) {
             mc.signNotFound(player);
-            return CommandResult.success();
+            return;
         }
         TileEntity sign = signopt.get();
 
@@ -47,12 +49,12 @@ public class RedoExecutor implements CommandExecutor {
             kseStack = KSERecordsManager.getOperationStack().get(sign.getLocation().toString());
         } else {
             mc.notice(player, kse.getTranslator().getText("message.stackRedoEmpty"));
-            return CommandResult.empty();
+            return;
         }
 
         if (kseStack.getNow() == kseStack.getTail()) {
             mc.notice(player, kse.getTranslator().getText("message.stackRedoEmpty"));
-            return CommandResult.empty();
+            return;
         } else {
             kseStack.setNow(kseStack.getNow() + 1 > 9 ? 0 : kseStack.getNow() + 1);
             Text[] textArray = kseStack.getTextStack(kseStack.getNow());
@@ -66,7 +68,7 @@ public class RedoExecutor implements CommandExecutor {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        }}).submit(kse);
 
         return CommandResult.success();
     }

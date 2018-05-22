@@ -4,6 +4,7 @@ import org.karoglan.tollainmear.signeditor.KSERecordsManager;
 import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
 import org.karoglan.tollainmear.signeditor.utils.KSEStack;
 import org.karoglan.tollainmear.signeditor.utils.MainController;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -24,21 +25,21 @@ public class PasteExecutor implements CommandExecutor {
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-
+        Sponge.getScheduler().createTaskBuilder().execute(() -> {
         plugin = KaroglanSignEditor.getInstance();
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
-            return CommandResult.success();
+            return;
         }
         Player player = ((Player) src).getPlayer().get();
         if (!(KSERecordsManager.getCopylist().containsKey(player.getName()))) {
             mc.nothingToPaste(player);
-            return CommandResult.success();
+            return;
         }
         Optional<TileEntity> signopt = mc.getSign(player);
         if (signopt == null || !signopt.isPresent()) {
             mc.signNotFound(player);
-            return CommandResult.success();
+            return;
         }
         TileEntity sign = signopt.get();
 
@@ -68,13 +69,13 @@ public class PasteExecutor implements CommandExecutor {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        return CommandResult.success();
+                        return;
                     }
                 }
-                return CommandResult.success();
+                return;
             }
             mc.linesWrong(player);
-            return CommandResult.empty();
+            return;
         }
 
         mc.notice(player, plugin.getTranslator().getText("message.onChangeText"));
@@ -88,7 +89,7 @@ public class PasteExecutor implements CommandExecutor {
             kseStack.add(mc.getTextArray(sign), sign.getLocation());
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }}).submit(KaroglanSignEditor.getInstance());
         return CommandResult.success();
     }
 }
