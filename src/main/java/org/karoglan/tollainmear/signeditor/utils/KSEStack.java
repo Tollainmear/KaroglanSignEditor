@@ -7,7 +7,6 @@ import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import java.io.IOException;
-import java.security.acl.Owner;
 import java.util.List;
 
 
@@ -93,7 +92,7 @@ public class KSEStack {
     }
 
     public void save() throws IOException {
-        KSERecordsManager.getInstance().save();
+        KSERecordsManager.getInstance().saveOperationHistory();
     }
 
     public void setTail(int tail) {

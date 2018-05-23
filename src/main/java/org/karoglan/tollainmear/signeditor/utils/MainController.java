@@ -137,6 +137,11 @@ public class MainController {
         player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
                 .concat(kse.getTranslator().getText("message.signNotFound")));
     }
+    public void historyNotFound(Player player) {
+        player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
+                .concat(kse.getTranslator().getText("message.historyNotFound")));
+
+    }
 
     public void playerNotFound(CommandSource src) {
         src.sendMessage(kse.getTranslator().getText("message.KSEprefix")

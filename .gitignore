@@ -4,6 +4,7 @@ build/
 .gradle/
 # Git Files
 !.gitignore
+classes/
 
 # GitHub Files
 !README.md

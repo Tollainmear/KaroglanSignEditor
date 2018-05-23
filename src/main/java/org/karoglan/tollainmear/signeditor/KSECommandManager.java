@@ -137,6 +137,7 @@ public class KSECommandManager {
                 .child(version, "version", "ver", "v")
                 .child(undo, "undo")
                 .child(redo, "redo")
+                .child(trust,"trust","t")
                 .executor(new MainExecutor())
                 .arguments(GenericArguments.none())
                 .build();

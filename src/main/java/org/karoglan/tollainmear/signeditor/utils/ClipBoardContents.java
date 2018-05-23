@@ -22,7 +22,7 @@ public class ClipBoardContents {
             textArray[i] = rawArray[i];
         }
         KSERecordsManager.getCopylist().put(player.getName(), this);
-        recordsManager.save();
+        recordsManager.saveOperationHistory();
     }
 
     public Text[] get() {

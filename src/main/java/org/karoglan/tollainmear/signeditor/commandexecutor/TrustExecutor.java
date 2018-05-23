@@ -14,6 +14,7 @@ import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
+import java.io.IOException;
 import java.util.*;
 
 public class TrustExecutor implements CommandExecutor {
@@ -35,34 +36,45 @@ public class TrustExecutor implements CommandExecutor {
             // Dose src was a player
             if (mc.isPLayer(src)) {
                 Player player = (Player) src;
-                if (player.getName() == target.getName()){
+                if (player.getName() == target.getName()) {
                     mc.cantTrustSelf(player);
                     return;
                 }
                 Optional<TileEntity> sign = mc.getSign(player);
                 if (sign != null && sign.isPresent()) {
-                    kseStack = KSERecordsManager.getOperationStack().get(mc.getSign(player));
-                    //Dose Src was sign owner?
-                    if (kseStack.isOwner(player)) {
-                        whiteList = KSERecordsManager.getWhiteList();
-                        //if there was no record exist
-                        if (!(whiteList.containsKey(player.getName()))) {
-                            subWhiteList = new LinkedHashSet<>();
-                            whiteList.put(player.getName(), subWhiteList);
+                    if (mc.hasKseStack(sign.get())) {
+                        kseStack = KSERecordsManager.getOperationStack().get(mc.getSign(player));
+                        //Dose Src was sign owner?
+                        if (kseStack.isOwner(player)) {
+                            whiteList = KSERecordsManager.getWhiteList();
+                            //if there was no record exist
+                            if (!(whiteList.containsKey(player.getName()))) {
+                                subWhiteList = new LinkedHashSet<>();
+                                whiteList.put(player.getName(), subWhiteList);
+                            } else {
+                                subWhiteList = whiteList.get(player.getName());
+                            }
+                            if (!(subWhiteList.add(target.getName()))) {
+                                mc.alreadyTrusted(player);
+                            }
                         } else {
-                            subWhiteList = whiteList.get(player.getName());
+                            mc.notOwner(player);
+                            return;
                         }
-                        if (!(subWhiteList.add(target.getName()))) {
-                            mc.alreadyTrusted(player);
-                        }
-                    } else {
-                        mc.notOwner(player);
-                        return;
+                    }else {
+                        mc.
                     }
                 }
             } else mc.playerNotFound(src);
         }).submit(KaroglanSignEditor.getInstance());
-
+        try
+        {
+            KSERecordsManager.getInstance().saveTrustList();
+        } catch (
+                IOException e)
+        {
+            e.printStackTrace();
+        }
         return CommandResult.success();
     }
 }

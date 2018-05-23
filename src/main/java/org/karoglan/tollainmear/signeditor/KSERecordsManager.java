@@ -11,13 +11,10 @@ import org.spongepowered.api.text.serializer.TextSerializers;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.acl.Owner;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 public class KSERecordsManager {
@@ -74,20 +71,19 @@ public class KSERecordsManager {
             operationLogNode.setComment(translator.getstring("rec.OperationLog"));
         }
         if (whiteListNode.isVirtual()) {
-            operationLogNode.setComment(translator.getstring("rec.WhiteList"));
+            whiteListNode.setComment(translator.getstring("rec.WhiteList"));
         }
         recordLoader.save(rootNode);
         loadOperationHistory();
         loadCopyList();
         loadWhiteList();
-        save();
+        saveOperationHistory();
     }
 
 
-    public void save() throws IOException {
+    public void saveOperationHistory() throws IOException {
         for (String locNode : operationStack.keySet()) {
             kseStack = operationStack.get(locNode);
-            String tempWhitelist;
             Text[][] stackArray = kseStack.getTextStack();
             operationLogNode.getNode(locNode).getNode("now").setValue(kseStack.getNow());
             operationLogNode.getNode(locNode).getNode("tail").setValue(kseStack.getTail());
@@ -117,6 +113,13 @@ public class KSERecordsManager {
             }
         }
 
+        recordLoader.save(rootNode);
+    }
+
+    public void saveTrustList() throws IOException {
+        for (String player : whiteList.keySet()){
+            whiteListNode.getNode(player.toString()).setValue(whiteList.get(player.toString()));
+        }
         recordLoader.save(rootNode);
     }
 
