@@ -135,14 +135,11 @@ public class KSERecordsManager {
         if (operationLogNode.hasMapChildren()) {
             Set<Object> opSet = operationLogNode.getChildrenMap().keySet();
             for (Object loc : opSet) {
-                KSEStack kseStack = new KSEStack();
+                KSEStack kseStack = new KSEStack(operationLogNode.getNode(loc.toString()).getNode("owner").getString());
                 Text[][] textStack = new Text[10][4];
                 kseStack.setNow(operationLogNode.getNode(loc.toString()).getNode("now").getInt());
                 kseStack.setTail(operationLogNode.getNode(loc.toString()).getNode("tail").getInt());
                 kseStack.setHead(operationLogNode.getNode(loc.toString()).getNode("head").getInt());;
-                //todo-
-                kseStack.setWhiteList(operationLogNode.getNode(loc.toString()).getNode("whiteList").getString());;
-                kseStack.setOwner(operationLogNode.getNode(loc.toString()).getNode("owner").getString());
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 4; j++) {
                         textStack[i][j] = TextSerializers.FORMATTING_CODE.deserialize(

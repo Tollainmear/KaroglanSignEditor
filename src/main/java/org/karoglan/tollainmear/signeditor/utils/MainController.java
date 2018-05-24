@@ -164,11 +164,11 @@ public class MainController {
                 .concat(Text.of(KaroglanSignEditor.getVersion())));
     }
 
-    public KSEStack getKseStack(TileEntity sign) {
+    public KSEStack getKseStack(TileEntity sign, Player src) {
         if (KSERecordsManager.getOperationStack().containsKey(sign.getLocation().toString())) {
             return KSERecordsManager.getOperationStack().get(sign.getLocation().toString());
         } else {
-            return new KSEStack();
+            return new KSEStack(src.getName());
         }
     }
 
@@ -183,7 +183,7 @@ public class MainController {
     public boolean isOwner(TileEntity sign, Player player) {
         //todo-
         KSEStack kseStack = oprationStack.get(sign.getLocation().toString());
-        return kseStack.isOwner(player) || kseStack.getWhiteList().contains(player);
+        return kseStack.isOwner(player);
     }
 
     public boolean isPLayer(CommandSource src) {

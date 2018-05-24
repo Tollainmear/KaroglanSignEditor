@@ -18,13 +18,13 @@ public class KSEStack {
     private Integer tail;
     private Integer head;
     private String owner;
-    private List<String> whiteList;
 
-    public KSEStack() {
+    public KSEStack(String owner) {
         now = 0;
         head = 0;
         tail = 1;
         textStack = new Text[10][4];
+        this.owner = owner;
     }
 
     public void set(Text[][] textStack) {
@@ -87,10 +87,6 @@ public class KSEStack {
         this.owner = owner.getName();
     }
 
-    public List getWhiteList() {
-        return whiteList;
-    }
-
     public void save() throws IOException {
         KSERecordsManager.getInstance().saveOperationHistory();
     }
@@ -107,12 +103,6 @@ public class KSEStack {
         this.now = now;
     }
 
-    public void setWhiteList(String whiteList){
-        for(Object playername : whiteList.split(",")){
-            this.whiteList.add((String)playername);
-        };
-    }
-
     public void setOwner(String owner){
         owner = this.owner;
     }
@@ -126,6 +116,6 @@ public class KSEStack {
     }
 
     public boolean isOwner(Player player) {
-        return player.getName() == owner||whiteList.contains(player.getName());
+        return player.getName() == owner;
     }
 }

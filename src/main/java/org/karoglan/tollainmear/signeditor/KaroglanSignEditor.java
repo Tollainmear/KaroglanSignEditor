@@ -47,7 +47,6 @@ public class KaroglanSignEditor {
     private static KSERecordsManager kseRecordsManager;
     private KSECommandManager kseCmdManager;
     private Translator translator;
-    private static KSEStack kseStack;
     private static ClipBoardContents clipBoardContents;
     private boolean hasNewVersion = false;
     private static String newVersion = version;
@@ -83,7 +82,6 @@ public class KaroglanSignEditor {
         kseRecordsManager = new KSERecordsManager(this);
         kseCmdManager = new KSECommandManager(this);
         kseCmdManager.init(this);
-        kseStack = new KSEStack();
         clipBoardContents = new ClipBoardContents();
     }
 
@@ -177,10 +175,6 @@ public class KaroglanSignEditor {
 
     public static ClipBoardContents getClipBoardContents() {
         return clipBoardContents;
-    }
-
-    public static KSEStack getKseStack() {
-        return kseStack;
     }
 
     public static KSERecordsManager getKseRecordsManager() {

@@ -42,8 +42,7 @@ public class TrustExecutor implements CommandExecutor {
                 }
                 Optional<TileEntity> sign = mc.getSign(player);
                 if (sign != null && sign.isPresent()) {
-                    if (mc.hasKseStack(sign.get())) {
-                        kseStack = KSERecordsManager.getOperationStack().get(mc.getSign(player));
+                        kseStack = mc.getKseStack(sign.get(),player);
                         //Dose Src was sign owner?
                         if (kseStack.isOwner(player)) {
                             whiteList = KSERecordsManager.getWhiteList();
@@ -61,11 +60,15 @@ public class TrustExecutor implements CommandExecutor {
                             mc.notOwner(player);
                             return;
                         }
-                    }else {
-                        mc.
-                    }
+
+                }else {
+                    mc.signNotFound(player);
+                    return;
                 }
-            } else mc.playerNotFound(src);
+            } else {
+                mc.playerNotFound(src);
+                return;
+            }
         }).submit(KaroglanSignEditor.getInstance());
         try
         {

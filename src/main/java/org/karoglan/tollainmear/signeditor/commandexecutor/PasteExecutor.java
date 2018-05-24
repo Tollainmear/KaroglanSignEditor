@@ -43,7 +43,7 @@ public class PasteExecutor implements CommandExecutor {
         }
         TileEntity sign = signopt.get();
 
-        kseStack = mc.getKseStack(sign);
+        kseStack = mc.getKseStack(sign,player);
 
         try {
             kseStack.update(mc.getTextArray(sign), sign.getLocation());

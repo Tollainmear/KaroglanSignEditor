@@ -50,7 +50,7 @@ public class KSECommandManager {
         trust = CommandSpec.builder()
                 .permission("kse.trust")
                 .description(Text.of("trust a play to edit target sign you own"))
-                .arguments(GenericArguments.player(Text.of("player")))
+                .arguments(GenericArguments.user(Text.of("player")))
                 .executor(new TrustExecutor())
                 .build();
 

@@ -45,7 +45,7 @@ public class SwapExecutor implements CommandExecutor {
         }
         TileEntity sign = signOpt.get();
 
-        kseStack = mc.getKseStack(sign);
+        kseStack = mc.getKseStack(sign,player);
 
         try {
             kseStack.update(mc.getTextArray(sign), sign.getLocation());
