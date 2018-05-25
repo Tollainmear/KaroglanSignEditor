@@ -26,7 +26,7 @@ public class MainController {
 
     public MainController() {
         kse = KaroglanSignEditor.getInstance();
-        oprationStack = KaroglanSignEditor.getKseRecordsManager().getOperationStack();
+        oprationStack = KaroglanSignEditor.getKSERecordsManager().getOperationStack();
     }
 
     public Text[] getTextArray(TileEntity sign) {
@@ -183,7 +183,7 @@ public class MainController {
     public boolean isOwner(TileEntity sign, Player player) {
         //todo-
         KSEStack kseStack = oprationStack.get(sign.getLocation().toString());
-        return kseStack.isOwner(player);
+        return kseStack.isOwner(player.toString());
     }
 
     public boolean isPLayer(CommandSource src) {

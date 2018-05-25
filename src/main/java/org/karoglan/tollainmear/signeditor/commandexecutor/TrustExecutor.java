@@ -18,8 +18,9 @@ import java.io.IOException;
 import java.util.*;
 
 public class TrustExecutor implements CommandExecutor {
+    private KaroglanSignEditor kse = KaroglanSignEditor.getInstance();
     private MainController mc = new MainController();
-    KSEStack kseStack;
+    private KSEStack kseStack;
     private Map<String, Set<String>> whiteList = KSERecordsManager.getWhiteList();
     private Set<String> subWhiteList;
 
@@ -43,8 +44,6 @@ public class TrustExecutor implements CommandExecutor {
                 Optional<TileEntity> sign = mc.getSign(player);
                 if (sign != null && sign.isPresent()) {
                         kseStack = mc.getKseStack(sign.get(),player);
-                        //Dose Src was sign owner?
-                        if (kseStack.isOwner(player)) {
                             whiteList = KSERecordsManager.getWhiteList();
                             //if there was no record exist
                             if (!(whiteList.containsKey(player.getName()))) {
@@ -56,10 +55,6 @@ public class TrustExecutor implements CommandExecutor {
                             if (!(subWhiteList.add(target.getName()))) {
                                 mc.alreadyTrusted(player);
                             }
-                        } else {
-                            mc.notOwner(player);
-                            return;
-                        }
 
                 }else {
                     mc.signNotFound(player);
@@ -72,7 +67,7 @@ public class TrustExecutor implements CommandExecutor {
         }).submit(KaroglanSignEditor.getInstance());
         try
         {
-            KSERecordsManager.getInstance().saveTrustList();
+            kse.getKSERecordsManager().saveTrustList();
         } catch (
                 IOException e)
         {

@@ -112,6 +112,10 @@ public class Translator {
         return TextSerializers.FORMATTING_CODE.deserialize(getstring(key));
     }
 
+    public Text deserialize(String string){
+        return TextSerializers.FORMATTING_CODE.deserialize(string);
+    }
+
     public void logInfo(String key) {
         logger.info("\033[36m" + getstring(key));
     }

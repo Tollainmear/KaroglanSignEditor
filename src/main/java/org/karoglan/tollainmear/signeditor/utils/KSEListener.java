@@ -1,43 +1,140 @@
 package org.karoglan.tollainmear.signeditor.utils;
 
+import org.karoglan.tollainmear.signeditor.KSERecordsManager;
 import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
 import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.block.BlockTypes;
+import org.spongepowered.api.block.tileentity.Sign;
+import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.data.Transaction;
+import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
+import org.spongepowered.api.event.block.InteractBlockEvent;
 import org.spongepowered.api.event.filter.cause.First;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColors;
+import org.spongepowered.api.text.format.TextStyles;
+import org.spongepowered.api.text.serializer.TextSerializer;
+import org.spongepowered.api.text.serializer.TextSerializers;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 public class KSEListener {
     private KaroglanSignEditor kse = KaroglanSignEditor.getInstance();
+    private Translator translator = kse.getTranslator();
 
     @Listener
     public void onPlaceSignEvent (ChangeBlockEvent.Place e, @First Player player){
-        List<Transaction<BlockSnapshot>> transaction = e.getTransactions();
-        for (Transaction<BlockSnapshot> transaction1:transaction){
-            if(isSign(transaction1)) {
-                //todo - create a KSEstack
+        List<Transaction<BlockSnapshot>> transactionList = e.getTransactions();
+        for (Transaction<BlockSnapshot> trans:transactionList){
+            if(isSign(trans.getOriginal())) {
                 KSEStack kseStack = new KSEStack(player.getName());
-                //todo - Create a Whitelist
+                KSERecordsManager.getOperationStack().put(trans.getOriginal().getLocation().get().toString(),kseStack);
             }
         }
     }
 
     @Listener
-    public void onBreakSignEvent (ChangeBlockEvent.Break e){
-        List<Transaction<BlockSnapshot>> transaction = e.getTransactions();
-        for (Transaction<BlockSnapshot> transaction1:transaction){
-            if(isSign(transaction1)) {
-                //todo - remove operation history
-                //todo - remove Whitelist
+    public void onBreakSignEvent (ChangeBlockEvent.Break e,@First Player player){
+        List<Transaction<BlockSnapshot>> transactionList = e.getTransactions();
+        //dose target block was a sign?
+        for (Transaction<BlockSnapshot> trans:transactionList){
+            if(isSign(trans.getOriginal())) {
+                Location<World> loc = trans.getOriginal().getLocation().get();
+                //dose the causer player has permission to edit it?
+                if (wasSignCollaborator(player.getName(),loc.toString()) || hasBypassPermission(player)){
+                    //remove operation history then save it.
+                    KSERecordsManager.getOperationStack().remove(loc.toString());
+                    try {
+                        KaroglanSignEditor.getKSERecordsManager().saveOperationHistory();
+                    } catch (IOException e1) {
+                        translator.logWarn("error.saveFailed");
+                        e1.printStackTrace();
+                        player.sendMessage(translator.getText("error.saveFailed"));
+                    }
+                }else {
+                    e.setCancelled(true);
+                    player.sendMessage(translator.getText("message.KSEprefix")
+                            .concat(translator.getText("message.noPermission")));
+                    signInfo(player,loc.toString());
+                }
             }
         }
     }
 
-    private boolean isSign(Transaction<BlockSnapshot> transaction){
-        return (transaction.getOriginal().getState().getType() == BlockTypes.STANDING_SIGN || transaction.getOriginal().getState().getType() == BlockTypes.WALL_SIGN);
+    @Listener
+    public void onPlayerInteractSign(InteractBlockEvent.Secondary e,@First Player player){
+        //is the block was a sign?
+        if (isSign(e.getTargetBlock())){
+            Location<World> loc = e.getTargetBlock().getLocation().get();
+            TileEntity sign = loc.getTileEntity().get();
+            //has operation history?
+            if (KSERecordsManager.getOperationStack().containsKey(loc.toString())){
+                KSEStack kseStack = KSERecordsManager.getOperationStack().get(loc.toString());
+                //is the sign owner or was in whitelist or has bypass permission
+                if (kseStack.isOwner(player.getName()) || wasSignCollaborator(player.toString(),loc.toString()) || hasBypassPermission(player)){
+                    suggestCMC(player,sign);
+                }
+            }
+            //might created by some plugin or old version kse
+            else {
+                if (hasBypassPermission(player)){
+                    //suggestion command
+                    suggestCMC(player,sign);
+                }
+            }
+        }
+    }
+
+    private void suggestCMC(Player player,TileEntity sign) {
+        player.sendMessage(translator.getText("message.KSEprefix")
+        .concat(translator.getText("message.KSEdescription")));
+
+        for (int i = 0; i < 4; i++){
+            player.sendMessage(translator.getText("message.KSEprefix").concat(
+                    sign.get(Keys.SIGN_LINES).get().get(i)
+            )
+            .concat(Text.of(TextColors.GREEN, TextStyles.UNDERLINE,translator.getstring("message.clickMe"))));
+        }
+        player.sendMessage(translator.getText("message.editSuggestion"));
+    }
+
+    private void signInfo(Player player,String loc) {
+        player.sendMessage(translator.getText("message.KSEprefix")
+                .concat(translator.getText("message.owner"))
+                .concat(translator.deserialize("&7 : &6&l" + KSERecordsManager.getOperationStack().get(loc).getOwner())));
+    }
+
+    private boolean wasSignCollaborator(String  player, String loc) {
+        //has this sign history?
+        if (KSERecordsManager.getOperationStack().containsKey(loc)){
+            KSEStack kseStack = KSERecordsManager.getOperationStack().get(loc);
+            //is the owner of this sign?
+            if (kseStack.isOwner(player)){
+                return true;
+            }
+            //is the collaborator of this sign?
+            else {
+                //does this whitelist was recorded before?
+                if (KSERecordsManager.getWhiteList().containsKey(player)){
+                    Set<String> whitelist = KSERecordsManager.getWhiteList().get(kseStack.getOwner());
+                    return whitelist.contains(player);
+                }
+            }
+        } return false;
+    }
+
+    private boolean hasBypassPermission(Player player) {
+        return player.hasPermission("kse.bypass");
+    }
+
+    private boolean isSign(BlockSnapshot targetBlock){
+        return (targetBlock.getState().getType() == BlockTypes.STANDING_SIGN || targetBlock.getState().getType() == BlockTypes.WALL_SIGN);
     }
 }

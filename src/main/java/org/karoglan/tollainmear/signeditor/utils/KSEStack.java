@@ -1,16 +1,17 @@
 package org.karoglan.tollainmear.signeditor.utils;
 
 import org.karoglan.tollainmear.signeditor.KSERecordsManager;
+import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import java.io.IOException;
-import java.util.List;
 
 
 public class KSEStack {
+    private KaroglanSignEditor kse = KaroglanSignEditor.getInstance();
     private KSERecordsManager recordsManager;
     //textStack[][0-3]will storage the Sign's text.
     private Text[][] textStack;
@@ -88,7 +89,7 @@ public class KSEStack {
     }
 
     public void save() throws IOException {
-        KSERecordsManager.getInstance().saveOperationHistory();
+        kse.getKSERecordsManager().saveOperationHistory();
     }
 
     public void setTail(int tail) {
@@ -115,7 +116,7 @@ public class KSEStack {
         save();
     }
 
-    public boolean isOwner(Player player) {
-        return player.getName() == owner;
+    public boolean isOwner(String player) {
+        return player == owner;
     }
 }

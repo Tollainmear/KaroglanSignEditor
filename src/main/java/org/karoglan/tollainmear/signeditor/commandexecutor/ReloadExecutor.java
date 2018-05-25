@@ -19,10 +19,10 @@ public class ReloadExecutor implements CommandExecutor {
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         kse = KaroglanSignEditor.getInstance();
-        rm = KSERecordsManager.getInstance();
+        rm = KaroglanSignEditor.getKSERecordsManager();
         try {
             kse.cfgInit();
-            rm.init(kse);
+            rm.init();
             kse.setTranslator(new Translator(kse));
             kse.getTranslator().checkUpdate();
             kse.setKseCmdManager(new KSECommandManager(kse));

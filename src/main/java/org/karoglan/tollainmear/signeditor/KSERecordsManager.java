@@ -20,7 +20,6 @@ import static java.util.stream.Collectors.toSet;
 public class KSERecordsManager {
     private String operationLog = "Operation_Log";
 
-    private static KSERecordsManager instance;
     private KaroglanSignEditor kse;
     private KSEStack kseStack;
 
@@ -39,14 +38,13 @@ public class KSERecordsManager {
 
     KSERecordsManager(KaroglanSignEditor plugin) throws IOException {
         kse = plugin;
-        instance = this;
         recorderFile = new File(plugin.getConfigPath().toString() + "/records.yml");
         recordLoader = HoconConfigurationLoader.builder().setFile(recorderFile).build();
         pluginName = KaroglanSignEditor.getPluginName();
         translator = kse.getTranslator();
     }
 
-    public void init(KaroglanSignEditor kse) throws IOException {
+    public void init() throws IOException {
         operationStack.clear();
         copylist.clear();
         whiteList.clear();
@@ -121,10 +119,6 @@ public class KSERecordsManager {
             whiteListNode.getNode(player.toString()).setValue(whiteList.get(player.toString()));
         }
         recordLoader.save(rootNode);
-    }
-
-    public static KSERecordsManager getInstance() {
-        return instance;
     }
 
     public static Map<String, ClipBoardContents> getCopylist() {

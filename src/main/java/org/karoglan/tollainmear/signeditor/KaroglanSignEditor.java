@@ -6,10 +6,7 @@ import com.google.gson.JsonParser;
 import com.google.inject.Inject;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
-import org.karoglan.tollainmear.signeditor.utils.ClipBoardContents;
-import org.karoglan.tollainmear.signeditor.utils.KSEStack;
-import org.karoglan.tollainmear.signeditor.utils.Metrics;
-import org.karoglan.tollainmear.signeditor.utils.Translator;
+import org.karoglan.tollainmear.signeditor.utils.*;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandSource;
@@ -87,9 +84,10 @@ public class KaroglanSignEditor {
 
     @Listener
     public void onStart(GameStartingServerEvent event) throws IOException {
-        kseRecordsManager.init(this);
+        kseRecordsManager.init();
         translator.checkUpdate();
         new Thread(this::checkUpdate).start();
+        Sponge.getEventManager().registerListeners(this,new KSEListener());
     }
 
     @Listener
@@ -97,7 +95,7 @@ public class KaroglanSignEditor {
         MessageReceiver src =event.getCause().first(CommandSource.class).orElse(Sponge.getServer().getConsole());
         try {
             cfgInit();
-            kseRecordsManager.init(this);
+            kseRecordsManager.init();
             translator =new Translator(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -177,7 +175,7 @@ public class KaroglanSignEditor {
         return clipBoardContents;
     }
 
-    public static KSERecordsManager getKseRecordsManager() {
+    public static KSERecordsManager getKSERecordsManager() {
         return kseRecordsManager;
     }
 
