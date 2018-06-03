@@ -19,14 +19,16 @@ import java.util.Map;
 import java.util.Optional;
 
 public class MainController {
-    private KaroglanSignEditor kse;
-    private Map<String, KSEStack> oprationStack;
-    private KSEStack kseStack;
+    private KaroglanSignEditor kse = KaroglanSignEditor.getInstance();
+    public static MainController instance;
     Text[] textArray = new Text[4];
 
-    public MainController() {
-        kse = KaroglanSignEditor.getInstance();
-        oprationStack = KaroglanSignEditor.getKSERecordsManager().getOperationStack();
+    public MainController(){
+        instance = this;
+    }
+
+    public static MainController getInstance() {
+        return instance;
     }
 
     public Text[] getTextArray(TileEntity sign) {
@@ -182,7 +184,7 @@ public class MainController {
 
     public boolean isOwner(TileEntity sign, Player player) {
         //todo-
-        KSEStack kseStack = oprationStack.get(sign.getLocation().toString());
+        KSEStack kseStack = KSERecordsManager.getOperationStack().get(sign.getLocation().toString());
         return kseStack.isOwner(player.toString());
     }
 
@@ -203,6 +205,24 @@ public class MainController {
     public void cantTrustSelf(Player player) {
         player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
                 .concat(kse.getTranslator().getText("message.cantTrustSelf")));
+    }
+
+    public void untrustSuccessful(Player player,String targetPlayer) {
+        String msg = kse.getTranslator().getstring("message.untrustSuccessful");
+        player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
+                .concat(kse.getTranslator().deserialize(msg.replace("%player%",targetPlayer))));
+    }
+
+    public void untrustFailed(Player player, String targetPlayer) {
+        String msg = kse.getTranslator().getstring("message.untrustFailed");
+        player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
+                .concat(kse.getTranslator().deserialize(msg.replace("%player%",targetPlayer))));
+    }
+
+    public void trustSuccessful(Player player, String targetPlayer) {
+        String msg = kse.getTranslator().getstring("message.trustSuccessful");
+        player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
+                .concat(kse.getTranslator().deserialize(msg.replace("%player%",targetPlayer))));
     }
 }
 

@@ -19,7 +19,7 @@ import java.util.Optional;
 
 public class SwapExecutor implements CommandExecutor {
     private KSEStack kseStack;
-    private MainController mc = new MainController();
+    private MainController mc = KaroglanSignEditor.getInstance().getMainController();
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {

@@ -17,7 +17,7 @@ public class ClipBoardContents {
     private Text[] textArray = new Text[4];
 
     public void put(Player player, Text[] rawArray) throws IOException {
-        recordsManager = KaroglanSignEditor.getKSERecordsManager();
+        recordsManager = KaroglanSignEditor.getInstance().getKSERecordsManager();
         for (int i = 0; i < 4; i++) {
             textArray[i] = rawArray[i];
         }

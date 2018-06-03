@@ -41,16 +41,16 @@ public class KaroglanSignEditor {
     private static final String version = "3.3";
 
     private static KaroglanSignEditor instance;
-    private static KSERecordsManager kseRecordsManager;
-    private KSECommandManager kseCmdManager;
-    private Translator translator;
+    private  KSERecordsManager kseRecordsManager;
+    private static KSECommandManager kseCmdManager;
     private static ClipBoardContents clipBoardContents;
+    private  MainController mainController;
     private boolean hasNewVersion = false;
+    private Translator translator;
     private static String newVersion = version;
-    private static String releasePage = "https://github.com/Tollainmear/KaroglanSignEditor/releases";
 
-    public static final String API_URL = "https://api.github.com/repos/tollainmear/karoglansigneditor/releases";
-    public static final String GIT_URL = "https://github.com/Tollainmear/KaroglanSignEditor";
+    private static final String releasePage = "https://github.com/Tollainmear/KaroglanSignEditor/releases";
+    private static final String API_URL = "https://api.github.com/repos/tollainmear/karoglansigneditor/releases";
 
     private CommentedConfigurationNode configNode;
 
@@ -77,6 +77,7 @@ public class KaroglanSignEditor {
         instance = this;
         cfgInit();
         kseRecordsManager = new KSERecordsManager(this);
+        mainController = new MainController();
         kseCmdManager = new KSECommandManager(this);
         kseCmdManager.init(this);
         clipBoardContents = new ClipBoardContents();
@@ -175,7 +176,11 @@ public class KaroglanSignEditor {
         return clipBoardContents;
     }
 
-    public static KSERecordsManager getKSERecordsManager() {
+    public MainController getMainController(){
+        return mainController;
+    }
+
+    public KSERecordsManager getKSERecordsManager() {
         return kseRecordsManager;
     }
 
@@ -206,14 +211,14 @@ public class KaroglanSignEditor {
             //{
             //    newVersion = newVersion.substring(1);
                 String releaseName = jsonObject.get("name").getAsString();
-                String releaseUrl = jsonObject.get("html_url").getAsString();
+                //String releaseUrl = jsonObject.get("html_url").getAsString();
                 if (new ComparableVersion(newVersion).compareTo(new ComparableVersion(version)) > 0)
                 {
                     hasNewVersion = true;
                     this.newVersion = releaseName;
-                    this.releasePage = releaseUrl;
+                    //this.releasePage = releaseUrl;
                     logger.info("\033[31m" + translator.getstring("update.hasNew") + releaseName);
-                    logger.warn("\033[31m" + translator.getstring("update.downloadFrom") + releaseUrl);
+                    logger.warn("\033[31m" + translator.getstring("update.downloadFrom") + releasePage);
 //                    this.logger.warn("================================================================");
 //                    this.logger.warn("An update was found: " + releaseName);
 //                    this.logger.warn("You can get the latest version at: " + releaseUrl);

@@ -17,15 +17,12 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class CopyExecutor implements CommandExecutor {
-    MainController mc = new MainController();
-    private KaroglanSignEditor kse;
-    private ClipBoardContents cbc;
+    private KaroglanSignEditor kse = KaroglanSignEditor.getInstance();
+    private MainController mc = KaroglanSignEditor.getInstance().getMainController();
+    private ClipBoardContents cbc = KaroglanSignEditor.getClipBoardContents();;
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-
-        cbc = KaroglanSignEditor.getClipBoardContents();
-        kse = KaroglanSignEditor.getInstance();
         Sponge.getScheduler().createTaskBuilder().execute(() -> {
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);

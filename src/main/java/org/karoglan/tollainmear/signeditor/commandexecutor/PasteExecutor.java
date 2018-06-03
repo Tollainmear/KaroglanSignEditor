@@ -20,13 +20,12 @@ import java.util.Optional;
 
 public class PasteExecutor implements CommandExecutor {
     private KSEStack kseStack;
-    private MainController mc = new MainController();
-    private KaroglanSignEditor plugin;
+    private KaroglanSignEditor kse = KaroglanSignEditor.getInstance();
+    private MainController mc = KaroglanSignEditor.getInstance().getMainController();
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         Sponge.getScheduler().createTaskBuilder().execute(() -> {
-        plugin = KaroglanSignEditor.getInstance();
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
             return;
@@ -58,7 +57,7 @@ public class PasteExecutor implements CommandExecutor {
             Integer line = lineOpt.get();
             if (mc.isLinesValid(line)) {
                 Text[] textArray = KSERecordsManager.getCopylist().get(player.getName()).get();
-                mc.notice(player, plugin.getTranslator().getText("message.onChangeText"));
+                mc.notice(player, kse.getTranslator().getText("message.onChangeText"));
                 for (int i = 0; i < 4; i++) {
                     if (line == i + 1) {
                         oldText = mc.getTargetText(sign, line);
@@ -78,7 +77,7 @@ public class PasteExecutor implements CommandExecutor {
             return;
         }
 
-        mc.notice(player, plugin.getTranslator().getText("message.onChangeText"));
+        mc.notice(player, kse.getTranslator().getText("message.onChangeText"));
         Text[] textArray = KSERecordsManager.getCopylist().get(player.getName()).get();
         for (int i = 0; i < 4; i++) {
             oldText = mc.getTargetText(sign, i + 1);

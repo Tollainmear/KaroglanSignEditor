@@ -19,13 +19,12 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class RedoExecutor implements CommandExecutor {
-    private MainController mc = new MainController();
-    private KaroglanSignEditor kse;
+    private KaroglanSignEditor kse = KaroglanSignEditor.getInstance();
+    private MainController mc = KaroglanSignEditor.getInstance().getMainController();
     private KSEStack kseStack;
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        kse = KaroglanSignEditor.getInstance();
         Sponge.getScheduler().createTaskBuilder().execute(() -> {
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);

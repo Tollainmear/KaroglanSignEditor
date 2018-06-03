@@ -12,6 +12,7 @@ import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.entity.living.player.User;
 import org.spongepowered.api.text.Text;
 
 import java.io.IOException;
@@ -19,60 +20,43 @@ import java.util.*;
 
 public class TrustExecutor implements CommandExecutor {
     private KaroglanSignEditor kse = KaroglanSignEditor.getInstance();
-    private MainController mc = new MainController();
-    private KSEStack kseStack;
+    private MainController mc = KaroglanSignEditor.getInstance().getMainController();
     private Map<String, Set<String>> whiteList = KSERecordsManager.getWhiteList();
     private Set<String> subWhiteList;
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        //todo-是玩家吗？有牌子吗？牌子是你的吗？trust的玩家是你自己吗？trust列表有这个玩家吗？
+        //todo-is a player？are trusting yourself? does target player already in trustlist?
         Sponge.getScheduler().createTaskBuilder().execute(task -> {
-            //Dose args valid?
-            if (!((args.getOne(Text.of("player"))).get() instanceof Player)) {
-                return;
-            }
-            Player target = (Player) args.getOne(Text.of("player")).get();
-
+            String target = ((User) args.getOne(Text.of("player")).get()).getName();
             // Dose src was a player
             if (mc.isPLayer(src)) {
                 Player player = (Player) src;
-                if (player.getName() == target.getName()) {
+                if (player.getName() == target) {
                     mc.cantTrustSelf(player);
                     return;
                 }
-                Optional<TileEntity> sign = mc.getSign(player);
-                if (sign != null && sign.isPresent()) {
-                        kseStack = mc.getKseStack(sign.get(),player);
-                            whiteList = KSERecordsManager.getWhiteList();
-                            //if there was no record exist
-                            if (!(whiteList.containsKey(player.getName()))) {
-                                subWhiteList = new LinkedHashSet<>();
-                                whiteList.put(player.getName(), subWhiteList);
-                            } else {
-                                subWhiteList = whiteList.get(player.getName());
-                            }
-                            if (!(subWhiteList.add(target.getName()))) {
-                                mc.alreadyTrusted(player);
-                            }
-
-                }else {
-                    mc.signNotFound(player);
-                    return;
+                whiteList = KSERecordsManager.getWhiteList();
+                //if there was no record exist
+                if (!(whiteList.containsKey(player.getName()))) {
+                    subWhiteList = new LinkedHashSet<>();
+                    whiteList.put(player.getName(), subWhiteList);
+                } else {
+                    subWhiteList = whiteList.get(player.getName());
                 }
+                if (subWhiteList.add(target)) {
+                    mc.trustSuccessful(player,target);
+                }else mc.alreadyTrusted(player);
             } else {
                 mc.playerNotFound(src);
-                return;
+            }
+            try {
+                kse.getKSERecordsManager().saveTrustList();
+            } catch (
+                    IOException e) {
+                e.printStackTrace();
             }
         }).submit(KaroglanSignEditor.getInstance());
-        try
-        {
-            kse.getKSERecordsManager().saveTrustList();
-        } catch (
-                IOException e)
-        {
-            e.printStackTrace();
-        }
         return CommandResult.success();
     }
 }

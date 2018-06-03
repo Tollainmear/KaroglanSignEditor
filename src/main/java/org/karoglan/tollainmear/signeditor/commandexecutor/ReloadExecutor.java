@@ -15,11 +15,11 @@ import java.io.IOException;
 
 public class ReloadExecutor implements CommandExecutor {
     private KSERecordsManager rm;
-    private KaroglanSignEditor kse;
+    private KaroglanSignEditor kse = KaroglanSignEditor.getInstance();
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         kse = KaroglanSignEditor.getInstance();
-        rm = KaroglanSignEditor.getKSERecordsManager();
+        rm = KaroglanSignEditor.getInstance().getKSERecordsManager();
         try {
             kse.cfgInit();
             rm.init();

@@ -28,7 +28,7 @@ public class UndoExecutor implements CommandExecutor {
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         translator = KaroglanSignEditor.getInstance().getTranslator();
         Sponge.getScheduler().createTaskBuilder().execute(() -> {
-        //todo-是玩家吗？有牌子吗？有历史记录吗？历史记录推到底了吗？
+        //todo-is a player?has a sign? has stack history? was the stack empty?
         if (!(src instanceof Player)) {
             mc.playerNotFound(src);
             return;

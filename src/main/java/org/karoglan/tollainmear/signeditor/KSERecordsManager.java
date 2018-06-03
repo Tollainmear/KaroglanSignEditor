@@ -184,6 +184,9 @@ public class KSERecordsManager {
     }
 
     public static Map<String, Set<String>> getWhiteList() {
+        if (whiteList == null){
+            return whiteList = new LinkedHashMap<>();
+        }
         return whiteList;
     }
 }

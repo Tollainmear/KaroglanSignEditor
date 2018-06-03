@@ -18,17 +18,16 @@ import java.util.Optional;
 
 public class ClearExecutor implements CommandExecutor {
     private KSEStack kseStack;
-    private MainController mc = new MainController();
+    private KaroglanSignEditor kse = KaroglanSignEditor.getInstance();
+    private MainController mc = KaroglanSignEditor.getInstance().getMainController();
+    //private MainController mc = new MainController();
     private Integer line;
-    private Text signText;
-    private Optional<Player> playerOpt;
-    private Player player;
-    private Optional<TileEntity> signOpt;
     private TileEntity sign;
+    private Player player;
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        //todo-是玩家吗？有牌子吗？是所有者吗？在白名单里吗？
+        //todo-is player?has sign?was the owner? was trusted?
         Sponge.getScheduler().createTaskBuilder().execute(() -> {
             if (!(src instanceof Player)) {
                 mc.playerNotFound(src);
@@ -36,14 +35,14 @@ public class ClearExecutor implements CommandExecutor {
             }
             Optional<Integer> lineOpt = args.<Integer>getOne(Text.of("line"));
 
-            if (!(playerOpt = mc.getPlayerOpt(src)).isPresent() || playerOpt == null) {
+            Optional<Player> playerOpt;
+            if (!(playerOpt = mc.getPlayerOpt(src)).isPresent()) {
                 mc.playerNotFound(src);
                 return;
             }
 
             player = playerOpt.get();
-
-            signOpt = mc.getSign(player);
+            Optional<TileEntity> signOpt = mc.getSign(player);
             if (signOpt == null || !signOpt.isPresent()) {
                 mc.signNotFound(player);
                 return;
@@ -73,7 +72,6 @@ public class ClearExecutor implements CommandExecutor {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                return;
             } else {
                 for (int i = 1; i < 5; i++) {
                     clearText(i);
@@ -84,15 +82,13 @@ public class ClearExecutor implements CommandExecutor {
                     e.printStackTrace();
                 }
 
-                return;
-
             }
         }).submit(KaroglanSignEditor.getInstance());
         return CommandResult.success();
     }
 
     private void clearText(int lines) {
-        signText = mc.getTargetText(sign, lines);
+        Text signText = mc.getTargetText(sign, lines);
         mc.setText(sign, lines, "");
         mc.notice(player, lines, signText, mc.getTargetText(sign, lines));
     }

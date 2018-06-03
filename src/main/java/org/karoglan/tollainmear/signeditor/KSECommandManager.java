@@ -16,6 +16,8 @@ public class KSECommandManager {
     private CommandSpec set;
     private CommandSpec clear;
     private CommandSpec trust;
+    private CommandSpec trustlist;
+    private CommandSpec untrust;
     private CommandSpec copy;
     private CommandSpec clipboard;
     private CommandSpec paste;
@@ -52,6 +54,20 @@ public class KSECommandManager {
                 .description(Text.of("trust a play to edit target sign you own"))
                 .arguments(GenericArguments.user(Text.of("player")))
                 .executor(new TrustExecutor())
+                .build();
+
+        untrust = CommandSpec.builder()
+                .permission("kse.trust")
+                .description(Text.of("remove a player from your trustlist"))
+                .arguments(GenericArguments.user(Text.of("player")))
+                .executor(new unTrustExecutor())
+                .build();
+
+        trustlist = CommandSpec.builder()
+                .permission("kse.trust")
+                .description(Text.of("show you your trustlist"))
+                .arguments(GenericArguments.none())
+                .executor(new TrustListExecutor())
                 .build();
 
         copy = CommandSpec.builder()
@@ -138,6 +154,8 @@ public class KSECommandManager {
                 .child(undo, "undo")
                 .child(redo, "redo")
                 .child(trust,"trust","t")
+                .child(untrust,"untrust","ut")
+                .child(trustlist,"trustlist","tl")
                 .executor(new MainExecutor())
                 .arguments(GenericArguments.none())
                 .build();
