@@ -1,5 +1,6 @@
 package org.karoglan.tollainmear.signeditor.commandexecutor;
 
+import org.karoglan.tollainmear.signeditor.KSERecordsManager;
 import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
 import org.karoglan.tollainmear.signeditor.utils.KSEStack;
 import org.karoglan.tollainmear.signeditor.utils.MainController;
@@ -21,68 +22,66 @@ public class ClearExecutor implements CommandExecutor {
     private KaroglanSignEditor kse = KaroglanSignEditor.getInstance();
     private MainController mc = KaroglanSignEditor.getInstance().getMainController();
     //private MainController mc = new MainController();
-    private Integer line;
     private TileEntity sign;
     private Player player;
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        //todo-is player?has sign?was the owner? was trusted?
+        //todo-is player?has sign?has bypass permission?was the owner? was trusted?
         Sponge.getScheduler().createTaskBuilder().execute(() -> {
+            //is a player?
             if (!(src instanceof Player)) {
                 mc.playerNotFound(src);
                 return;
             }
+
             Optional<Integer> lineOpt = args.<Integer>getOne(Text.of("line"));
-
-            Optional<Player> playerOpt;
-            if (!(playerOpt = mc.getPlayerOpt(src)).isPresent()) {
-                mc.playerNotFound(src);
-                return;
-            }
-
-            player = playerOpt.get();
+            player = mc.getPlayerOpt(src).get();
             Optional<TileEntity> signOpt = mc.getSign(player);
-            if (signOpt == null || !signOpt.isPresent()) {
+
+            //if no sign was find
+            if (!(signOpt.isPresent())) {
                 mc.signNotFound(player);
                 return;
             }
 
             sign = signOpt.get();
-
             kseStack = mc.getKseStack(sign,player);
 
-            try {
-                kseStack.update(mc.getTextArray(sign), sign.getLocation());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            if (lineOpt.isPresent()) {
-                line = lineOpt.get();
-                if (!mc.isLinesValid(line)) {
-                    mc.linesWrong(src);
-                    return;
-                }
-
-                clearText(line);
-
+            //if player has bypass permission
+            if (mc.couldModify(player,kseStack)){
                 try {
-                    kseStack.add(mc.getTextArray(sign), sign.getLocation());
+                    kseStack.update(mc.getTextArray(sign), sign.getLocation());
                 } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                for (int i = 1; i < 5; i++) {
-                    clearText(i);
-                }
-                try {
-                    kseStack.add(mc.getTextArray(sign), sign.getLocation());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    KaroglanSignEditor.getInstance().getTranslator().logWarn("error.saveFailed");
                 }
 
-            }
+                if (lineOpt.isPresent()) {
+                    Integer line = lineOpt.get();
+                    if (!mc.isLinesValid(line)) {
+                        mc.linesWrong(player);
+                        return;
+                    }
+
+                    clearText(line);
+
+                    try {
+                        kseStack.add(mc.getTextArray(sign), sign.getLocation());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    for (int i = 1; i < 5; i++) {
+                        clearText(i);
+                    }
+                    try {
+                        kseStack.add(mc.getTextArray(sign), sign.getLocation());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }else player.sendMessage(kse.getTranslator().getText("message.noPermission"));
         }).submit(KaroglanSignEditor.getInstance());
         return CommandResult.success();
     }
@@ -92,4 +91,5 @@ public class ClearExecutor implements CommandExecutor {
         mc.setText(sign, lines, "");
         mc.notice(player, lines, signText, mc.getTargetText(sign, lines));
     }
+
 }

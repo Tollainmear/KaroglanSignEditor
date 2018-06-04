@@ -36,9 +36,14 @@ public class KSEListener {
     public void onPlaceSignEvent(ChangeBlockEvent.Place e, @First Player player) {
         List<Transaction<BlockSnapshot>> transactionList = e.getTransactions();
         for (Transaction<BlockSnapshot> trans : transactionList) {
-            if (isSign(trans.getOriginal())) {
+            if (isSign(trans.getFinal())) {
                 KSEStack kseStack = new KSEStack(player.getName());
                 KSERecordsManager.getOperationStack().put(trans.getOriginal().getLocation().get().toString(), kseStack);
+                try {
+                    KaroglanSignEditor.getInstance().getKSERecordsManager().saveOperationHistory();
+                } catch (IOException e1) {
+                    KaroglanSignEditor.getInstance().getTranslator().logWarn("error.saveFailed");
+                }
             }
         }
     }
@@ -81,7 +86,7 @@ public class KSEListener {
             if (KSERecordsManager.getOperationStack().containsKey(loc.toString())) {
                 KSEStack kseStack = KSERecordsManager.getOperationStack().get(loc.toString());
                 //is the sign owner or was in whitelist or has bypass permission
-                if (kseStack.isOwner(player.getName()) || wasSignCollaborator(player.toString(), loc.toString()) || hasBypassPermission(player)) {
+                if (kseStack.isOwner(player.getName()) || wasSignCollaborator(player.getName(), loc.toString()) || hasBypassPermission(player)) {
                     suggestCMC(player, sign);
                 }
             }
@@ -108,7 +113,7 @@ public class KSEListener {
                         .concat(sign.get(Keys.SIGN_LINES).get().get(i))
                         .toBuilder()
                         .onClick(TextActions.suggestCommand("/kse set " + line + " " + sign.get(Keys.SIGN_LINES).get().get(i).toPlain()))
-                        .onHover(TextActions.showText(kse.getTranslator().getText("message.clickToChange")))
+                        .onHover(TextActions.showText(kse.getTranslator().getText("message.clickMe")))
                         .build());
             }
             player.sendMessage(translator.getText("message.editSuggestion"));
@@ -140,7 +145,7 @@ public class KSEListener {
             //is the collaborator of this sign?
             else {
                 //does this whitelist was recorded before?
-                if (KSERecordsManager.getWhiteList().containsKey(player)) {
+                if (KSERecordsManager.getWhiteList().containsKey(kseStack.getOwner())) {
                     Set<String> whitelist = KSERecordsManager.getWhiteList().get(kseStack.getOwner());
                     return whitelist.contains(player);
                 }

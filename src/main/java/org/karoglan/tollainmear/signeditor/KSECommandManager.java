@@ -31,7 +31,7 @@ public class KSECommandManager {
         this.kse = plugin;
 
         set = CommandSpec.builder()
-                .permission("kse.edit")
+                .permission("kse.user.edit")
                 .description(Text.of("Set the text for the target sign"))
                 .arguments(
                         GenericArguments.seq(
@@ -43,56 +43,56 @@ public class KSECommandManager {
                 .build();
 
         clear = CommandSpec.builder()
-                .permission("kse.clear")
+                .permission("kse.user.clear")
                 .description(Text.of("clear the text from the target sign"))
                 .arguments(GenericArguments.optional(GenericArguments.integer(Text.of("line"))))
                 .executor(new ClearExecutor())
                 .build();
 
         trust = CommandSpec.builder()
-                .permission("kse.trust")
+                .permission("kse.user.trust")
                 .description(Text.of("trust a play to edit target sign you own"))
                 .arguments(GenericArguments.user(Text.of("player")))
                 .executor(new TrustExecutor())
                 .build();
 
         untrust = CommandSpec.builder()
-                .permission("kse.trust")
+                .permission("kse.user.trust")
                 .description(Text.of("remove a player from your trustlist"))
                 .arguments(GenericArguments.user(Text.of("player")))
                 .executor(new unTrustExecutor())
                 .build();
 
         trustlist = CommandSpec.builder()
-                .permission("kse.trust")
+                .permission("kse.user.trust")
                 .description(Text.of("show you your trustlist"))
                 .arguments(GenericArguments.none())
                 .executor(new TrustListExecutor())
                 .build();
 
         copy = CommandSpec.builder()
-                .permission("kse.copy")
+                .permission("kse.user.copy")
                 .description(Text.of("copy the text from the target sign"))
                 .arguments(GenericArguments.none())
                 .executor(new CopyExecutor())
                 .build();
 
         clipboard = CommandSpec.builder()
-                .permission("kse.clipboard")
+                .permission("kse.user.clipboard")
                 .description(Text.of("check the text "))
                 .arguments(GenericArguments.none())
                 .executor(new ClipboardExecutor())
                 .build();
 
         paste = CommandSpec.builder()
-                .permission("kse.paste")
+                .permission("kse.user.paste")
                 .description(Text.of("paste the text for the target sign"))
                 .arguments(GenericArguments.optional(GenericArguments.integer(Text.of("line"))))
                 .executor(new PasteExecutor())
                 .build();
 
         swap = CommandSpec.builder()
-                .permission("kse.swap")
+                .permission("kse.user.swap")
                 .description(Text.of("Specifying two lines and swap their position"))
                 .arguments(GenericArguments.seq(
                         GenericArguments.integer(Text.of("line")),
@@ -102,28 +102,28 @@ public class KSECommandManager {
                 .build();
 
         undo = CommandSpec.builder()
-                .permission("kse.undo")
+                .permission("kse.user.undo")
                 .description(Text.of("Undo the latest operation"))
                 .arguments(GenericArguments.none())
                 .executor(new UndoExecutor())
                 .build();
 
         redo = CommandSpec.builder()
-                .permission("kse.redo")
+                .permission("kse.user.redo")
                 .description(Text.of("Redo the latest operation"))
                 .arguments(GenericArguments.none())
                 .executor(new RedoExecutor())
                 .build();
 
         reload = CommandSpec.builder()
-                .permission("kse.reload")
+                .permission("kse.admin.reload")
                 .description(Text.of("relaod the KSE."))
                 .arguments(GenericArguments.none())
                 .executor(new ReloadExecutor())
                 .build();
 
         version = CommandSpec.builder()
-                .permission("kse.version")
+                .permission("kse.admin.version")
                 .description(Text.of("Show the version of KSE"))
                 .arguments(GenericArguments.none())
                 .executor(new VersionExecutor())

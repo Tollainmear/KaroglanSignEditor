@@ -107,7 +107,7 @@ public class KSEStack {
     public void setOwner(String owner){
         owner = this.owner;
     }
-
+    //
     public void update(Text[] textArray, Location<World> loc) throws IOException {
         for (int i = 0; i < 4; i++) {
             textStack[now][i] = textArray[i];

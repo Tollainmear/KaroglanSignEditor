@@ -11,10 +11,10 @@ import org.spongepowered.api.text.serializer.TextSerializers;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toSet;
 
 public class KSERecordsManager {
@@ -116,7 +116,7 @@ public class KSERecordsManager {
 
     public void saveTrustList() throws IOException {
         for (String player : whiteList.keySet()){
-            whiteListNode.getNode(player.toString()).setValue(whiteList.get(player.toString()));
+            whiteListNode.getNode(player).setValue(whiteList.get(player));
         }
         recordLoader.save(rootNode);
     }
@@ -150,10 +150,11 @@ public class KSERecordsManager {
         }
     }
     private void loadWhiteList(){
-        if (whiteListNode.hasListChildren()){
-            Set<Object> OwnerSet = whiteListNode.getChildrenMap().keySet();
-            for (Object owner : OwnerSet){
-                whiteList.put(owner.toString(),whiteListNode.getNode(owner).getChildrenList().stream().map(player -> (player.toString())).collect(toSet()));
+        if (whiteListNode.hasMapChildren()){
+            Set<String> OwnerSet = whiteListNode.getChildrenMap().keySet().stream().map(Object::toString).collect(toSet());
+            for (String owner : OwnerSet){
+                Set<String> trustList = whiteListNode.getNode(owner).getChildrenList().stream().map(node -> node.getValue().toString()).collect(Collectors.toSet());
+                whiteList.put(owner,trustList);
             }
         }
     }

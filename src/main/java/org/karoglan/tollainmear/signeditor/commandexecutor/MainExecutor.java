@@ -22,6 +22,8 @@ public class MainExecutor implements CommandExecutor {
         List<Text> contents = new ArrayList<>();
         translator = KaroglanSignEditor.getInstance().getTranslator();
 
+        contents.clear();
+
         contents.add(Text.of(TextColors.GOLD, "/kse set [Lines] [Text]", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.edit")));
         contents.add(Text.of(TextColors.GOLD, "/kse clear <Line>", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.clear")));
         contents.add(Text.of(TextColors.GOLD, "/kse copy", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.copy")));

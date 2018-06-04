@@ -54,16 +54,11 @@ public class MainController {
                                 .getNode("TraceRange").getInt()
                 ).build();
 
-        int count = 0;
         while (blockRay.hasNext()) {
             BlockRayHit<World> blockRayHit = blockRay.next();
             Location<World> Location = blockRayHit.getLocation();
             BlockType targetBlock = Location.getBlockType();
-            if (targetBlock.equals(BlockTypes.AIR)) {
-                count++;
-                continue;
-            } else if (targetBlock.equals(BlockTypes.STANDING_SIGN) || targetBlock.equals(BlockTypes.WALL_SIGN)) {
-                count++;
+            if (targetBlock.equals(BlockTypes.STANDING_SIGN) || targetBlock.equals(BlockTypes.WALL_SIGN)) {
                 Optional<TileEntity> signOpt = Location.getTileEntity();
                 return signOpt;
             }
@@ -175,11 +170,7 @@ public class MainController {
     }
 
     public boolean hasKseStack(TileEntity sign) {
-        if (KSERecordsManager.getOperationStack().containsKey(sign.getLocation().toString())) {
-            return true;
-        } else {
-            return false;
-        }
+        return  (KSERecordsManager.getOperationStack().containsKey(sign.getLocation().toString()));
     }
 
     public boolean isOwner(TileEntity sign, Player player) {
@@ -190,11 +181,6 @@ public class MainController {
 
     public boolean isPLayer(CommandSource src) {
         return (src instanceof Player);
-    }
-
-    public void notOwner(Player player) {
-        player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
-                .concat(kse.getTranslator().getText("message.notOwner")));
     }
 
     public void alreadyTrusted(Player player) {
@@ -223,6 +209,10 @@ public class MainController {
         String msg = kse.getTranslator().getstring("message.trustSuccessful");
         player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
                 .concat(kse.getTranslator().deserialize(msg.replace("%player%",targetPlayer))));
+    }
+
+    public boolean couldModify(Player player,KSEStack kseStack) {
+        return player.hasPermission("kse.bypass") || kseStack.isOwner(player.getName())|| (KSERecordsManager.getWhiteList().containsKey(kseStack.getOwner()) && KSERecordsManager.getWhiteList().get(kseStack.getOwner()).contains(player.getName()));
     }
 }
 

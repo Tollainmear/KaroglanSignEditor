@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class UndoExecutor implements CommandExecutor {
-    private MainController mc = new MainController();
+    private MainController mc = KaroglanSignEditor.getInstance().getMainController();
     private KSEStack kseStack;
     private Translator translator;
 

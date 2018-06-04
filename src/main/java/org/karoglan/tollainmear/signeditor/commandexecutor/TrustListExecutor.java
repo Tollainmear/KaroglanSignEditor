@@ -40,9 +40,10 @@ public class TrustListExecutor implements CommandExecutor {
             whitelist = KSERecordsManager.getWhiteList();
             if (whitelist.containsKey(player.getName())){
                 Set subWhiteList = (Set) whitelist.get(player.getName());
+                contents.clear();
                 for (Object collaborator : subWhiteList){
                     contents.add(Text.of(TextColors.GREEN,collaborator).toBuilder()
-                            .onClick(TextActions.suggestCommand("kse untrust "+ collaborator))
+                            .onClick(TextActions.suggestCommand("/kse untrust "+ collaborator))
                             .onHover(TextActions.showText(translator.getText("message.clickToRemove")))
                             .build());
                 }
