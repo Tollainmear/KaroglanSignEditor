@@ -27,6 +27,7 @@ public class SetExecutor implements CommandExecutor {
                 mc.playerNotFound(src);
                 return;
             }
+
             int line = args.<Integer>getOne(Text.of("line")).get();
             String text = args.<String>getOne(Text.of("Text")).get();
 
@@ -38,6 +39,10 @@ public class SetExecutor implements CommandExecutor {
                 mc.playerNotFound(src);
                 return ;
             }
+            boolean notice;
+            if (args.getOne(Text.of("notice")).isPresent()){
+                notice = (boolean)args.getOne(Text.of("notice")).get();
+            }else notice = true;
 
             Player player = ((Player) src).getPlayer().get();
             Optional<TileEntity> signOpt = mc.getSign(player);
@@ -59,7 +64,9 @@ public class SetExecutor implements CommandExecutor {
 
             Text signText = mc.getTargetText(sign, line);
             mc.setText(sign, line, text);
-            mc.notice(player, line, signText, mc.getTargetText(sign, line));
+            if (notice){
+                mc.notice(player, line, signText, mc.getTargetText(sign, line));
+            }
 
             try {
                 kseStack.add(mc.getTextArray(sign), sign.getLocation());

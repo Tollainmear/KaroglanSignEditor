@@ -4,10 +4,8 @@ import org.karoglan.tollainmear.signeditor.KSERecordsManager;
 import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
 import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.block.BlockTypes;
-import org.spongepowered.api.block.tileentity.Sign;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.data.Transaction;
-import org.spongepowered.api.data.key.Key;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
@@ -18,9 +16,6 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.action.ClickAction;
 import org.spongepowered.api.text.action.TextActions;
 import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.text.format.TextStyles;
-import org.spongepowered.api.text.serializer.TextSerializer;
-import org.spongepowered.api.text.serializer.TextSerializers;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
@@ -55,7 +50,24 @@ public class KSEListener {
         for (Transaction<BlockSnapshot> trans : transactionList) {
             if (isSign(trans.getOriginal())) {
                 Location<World> loc = trans.getOriginal().getLocation().get();
+                TileEntity sign = loc.getTileEntity().get();
+                if (!KSERecordsManager.getOperationStack().containsKey(loc.toString())) {
+                    player.sendMessage(translator.getText("message.KSEprefix")
+                            .concat(translator.getText("message.unownedSign"))
+                            .toBuilder()
+                    .onClick(TextActions.runCommand("/kse set 1"+ sign.get(Keys.SIGN_LINES).get().get(0).toPlain()))
+                    .onClick(TextActions.runCommand("/kse set 2"+ sign.get(Keys.SIGN_LINES).get().get(1).toPlain()))
+                    .onClick(TextActions.runCommand("/kse set 3"+ sign.get(Keys.SIGN_LINES).get().get(2).toPlain()))
+                    .onClick(TextActions.runCommand("/kse set 4"+ sign.get(Keys.SIGN_LINES).get().get(3).toPlain()))
+                            .onClick(TextActions.executeCallback(callback ->{ player.sendMessage(translator.getText("message.onChangeText"));}))
+                    .onHover(TextActions.showText(translator.getText("message.updateAfterReplace")))
+                    .build());
+                    return;
+                } else {
+                    KSEStack kseStack = KSERecordsManager.getOperationStack().get(loc.toString());
+                }
                 //dose the causer player has permission to edit it?
+                if ()
                 if (wasSignCollaborator(player.getName(), loc.toString()) || hasBypassPermission(player)) {
                     //remove operation history then save it.
                     KSERecordsManager.getOperationStack().remove(loc.toString());

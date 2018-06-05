@@ -36,7 +36,8 @@ public class KSECommandManager {
                 .arguments(
                         GenericArguments.seq(
                                 GenericArguments.integer(Text.of("line")),
-                                GenericArguments.remainingJoinedStrings(Text.of("Text"))
+                                GenericArguments.remainingJoinedStrings(Text.of("Text")),
+                                GenericArguments.optional(GenericArguments.bool(Text.of("notice")))
                         )
                 )
                 .executor(new SetExecutor())
