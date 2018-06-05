@@ -31,10 +31,6 @@ public class ClipboardExecutor implements CommandExecutor {
             }
             Player player = playerOpt.get();
             if (!KSERecordsManager.getCopylist().containsKey(player.getName())) {
-                kse.getLogger().info(player.getName() + " 38");
-                for (String str : KSERecordsManager.getCopylist().keySet()) {
-                    kse.getLogger().info(str + "40");
-                }
                 mc.nothingToPaste(src);
                 return;
             }

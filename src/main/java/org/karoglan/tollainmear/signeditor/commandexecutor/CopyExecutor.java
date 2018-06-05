@@ -1,5 +1,6 @@
 package org.karoglan.tollainmear.signeditor.commandexecutor;
 
+import org.karoglan.tollainmear.signeditor.KSERecordsManager;
 import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
 import org.karoglan.tollainmear.signeditor.utils.ClipBoardContents;
 import org.karoglan.tollainmear.signeditor.utils.MainController;
@@ -14,12 +15,14 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Optional;
 
 public class CopyExecutor implements CommandExecutor {
     private KaroglanSignEditor kse = KaroglanSignEditor.getInstance();
     private MainController mc = KaroglanSignEditor.getInstance().getMainController();
-    private ClipBoardContents cbc = KaroglanSignEditor.getClipBoardContents();;
+    //todo- init
+    private Map<String,ClipBoardContents> cbMap = KSERecordsManager.getCopylist();
 
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
@@ -49,15 +52,13 @@ public class CopyExecutor implements CommandExecutor {
             mc.notice(player, i + 1, textArray[i]);
             line++;
         }
-
+            ClipBoardContents cbc;
         try {
-            if (player == null) {
-                KaroglanSignEditor.getInstance().getLogger().warn("Player is null");
-                return;
-            }
-            if (textArray == null) {
-                KaroglanSignEditor.getInstance().getLogger().warn("text is null");
-                return;
+            if (cbMap.containsKey(player.getName())){
+                 cbc = cbMap.get(player.getName());
+            }else {
+                cbc = new ClipBoardContents();
+                cbMap.put(player.getName(),cbc);
             }
             cbc.put(player, textArray);
         } catch (IOException e) {

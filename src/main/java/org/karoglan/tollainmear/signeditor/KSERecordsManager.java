@@ -21,8 +21,6 @@ public class KSERecordsManager {
     private String operationLog = "Operation_Log";
 
     private KaroglanSignEditor kse;
-    private KSEStack kseStack;
-
     private Translator translator;
     private File recorderFile;
     private String pluginName;
@@ -42,6 +40,7 @@ public class KSERecordsManager {
         recordLoader = HoconConfigurationLoader.builder().setFile(recorderFile).build();
         pluginName = KaroglanSignEditor.getPluginName();
         translator = kse.getTranslator();
+        init();
     }
 
     public void init() throws IOException {
@@ -81,7 +80,7 @@ public class KSERecordsManager {
 
     public void saveOperationHistory() throws IOException {
         for (String locNode : operationStack.keySet()) {
-            kseStack = operationStack.get(locNode);
+            KSEStack kseStack = operationStack.get(locNode);
             Text[][] stackArray = kseStack.getTextStack();
             operationLogNode.getNode(locNode).getNode("now").setValue(kseStack.getNow());
             operationLogNode.getNode(locNode).getNode("tail").setValue(kseStack.getTail());

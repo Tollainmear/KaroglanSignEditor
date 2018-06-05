@@ -26,11 +26,14 @@ public class MainExecutor implements CommandExecutor {
 
         contents.add(Text.of(TextColors.GOLD, "/kse set [Lines] [Text]", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.edit")));
         contents.add(Text.of(TextColors.GOLD, "/kse clear <Line>", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.clear")));
-        contents.add(Text.of(TextColors.GOLD, "/kse copy", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.copy")));
+        contents.add(Text.of(TextColors.GOLD, "/kse trust [Player]", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.trust")));
+        contents.add(Text.of(TextColors.GOLD, "/kse untrust [Player]", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.untrust")));
+        contents.add(Text.of(TextColors.GOLD, "/kse trustlist", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.trustList")));        contents.add(Text.of(TextColors.GOLD, "/kse copy", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.copy")));
         contents.add(Text.of(TextColors.GOLD, "/kse paste <Line>", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.paste")));
         contents.add(Text.of(TextColors.GOLD, "/kse clipboard", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.clipboard")));
         contents.add(Text.of(TextColors.GOLD, "/kse undo", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.undo")));
         contents.add(Text.of(TextColors.GOLD, "/kse redo", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.redo")));
+        contents.add(Text.of(TextColors.GOLD, "/kse on/off", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.onOrOff")));
         contents.add(Text.of(TextColors.GOLD, "/kse version", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.version")));
         contents.add(Text.of(TextColors.GOLD, "/kse reload", TextColors.GRAY, " - ", TextColors.YELLOW, translator.getstring("command.reload")));
         contents.add(Text.of(translator.getstring("github")));

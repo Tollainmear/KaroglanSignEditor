@@ -89,27 +89,30 @@ public class Translator {
     }
 
     public String getstring(String key) {
-        if (key == null) {
-            return "Language resource Not Found";
-        }
-        if (resourceBundle.getString(key) == null) {
-            return "&c[Language not found]";
-        }
         try {
-
             return resourceBundle.getString(key);
         }
         catch (MissingResourceException e)
         {
-            return "&c[MissingLanguage]";
+            logRawWarn("[MissingLanguageResources]");
+            logRawWarn("Please try to update your language files");
+            logRawWarn("You could also contributing your native language at");
+            logRawWarn("https://github.com/Tollainmear/KaroglanSignEditor/tree/master/resources/assets/karoglansigneditor/lang");
+            return "[MissingLanguageResources]";
         }
     }
 
     public Text getText(String key) {
-        if (key == null) {
-            return TextSerializers.FORMATTING_CODE.deserialize("Language Not Found");
+        try {
+            return TextSerializers.FORMATTING_CODE.deserialize(getstring(key));
+        }catch (MissingResourceException e){
+            logRawWarn("[MissingLanguageResources]");
+            logRawWarn("Please try to update your language files");
+            logRawWarn("You could also contributing your native language at");
+            logRawWarn("https://github.com/Tollainmear/KaroglanSignEditor/tree/master/resources/assets/karoglansigneditor/lang");
+            return TextSerializers.FORMATTING_CODE.deserialize("&c[MissingLanguageResources]");
         }
-        return TextSerializers.FORMATTING_CODE.deserialize(getstring(key));
+
     }
 
     public Text deserialize(String string){
@@ -117,11 +120,19 @@ public class Translator {
     }
 
     public void logInfo(String key) {
-        logger.info("\033[36m" + getstring(key));
+        logger.info("\033[36m" + getstring(key) +"\033[0m");
     }
 
     public void logWarn(String key) {
-        logger.info("\033[31m" + getstring(key));
+        logger.info("\033[31m" + getstring(key) +"\033[0m");
+    }
+
+    public void logRawWarn(String rawString) {
+        logger.info("\033[31m" + rawString +"\033[0m");
+    }
+
+    public void logRawLog(String rawString) {
+        logger.info("\033[31m" + rawString +"\033[0m");
     }
 
 }

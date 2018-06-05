@@ -32,7 +32,9 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
 
 @Plugin(id = "karoglansigneditor", name = "KaroglanSignEditor", authors = "Tollainmear", version = "3.3", description = "Make sign edition esaier!")
 public class KaroglanSignEditor {
@@ -43,7 +45,6 @@ public class KaroglanSignEditor {
     private static KaroglanSignEditor instance;
     private  KSERecordsManager kseRecordsManager;
     private static KSECommandManager kseCmdManager;
-    private static ClipBoardContents clipBoardContents;
     private  MainController mainController;
     private boolean hasNewVersion = false;
     private Translator translator;
@@ -53,6 +54,8 @@ public class KaroglanSignEditor {
     private static final String API_URL = "https://api.github.com/repos/tollainmear/karoglansigneditor/releases";
 
     private CommentedConfigurationNode configNode;
+
+    public static Map<String ,Boolean> playerState = new LinkedHashMap<>();
 
     @Inject
     @DefaultConfig(sharedRoot = false)
@@ -79,13 +82,10 @@ public class KaroglanSignEditor {
         kseRecordsManager = new KSERecordsManager(this);
         mainController = new MainController();
         kseCmdManager = new KSECommandManager(this);
-        kseCmdManager.init(this);
-        clipBoardContents = new ClipBoardContents();
     }
 
     @Listener
     public void onStart(GameStartingServerEvent event) throws IOException {
-        kseRecordsManager.init();
         translator.checkUpdate();
         new Thread(this::checkUpdate).start();
         Sponge.getEventManager().registerListeners(this,new KSEListener());
@@ -138,7 +138,7 @@ public class KaroglanSignEditor {
         }
 
         if (configNode.getNode(pluginName).getNode("ClipBoardCache").isVirtual()) {
-            configNode.getNode(pluginName).getNode("ClipBoardCache").setValue(true)
+            configNode.getNode(pluginName).getNode("ClipBoardCache").setValue(false)
                     .setComment(translator.getstring("cfg.comment.clipboard"));
             configLoader.save(configNode);
         }
@@ -170,10 +170,6 @@ public class KaroglanSignEditor {
 
     public Translator getTranslator() {
         return translator;
-    }
-
-    public static ClipBoardContents getClipBoardContents() {
-        return clipBoardContents;
     }
 
     public MainController getMainController(){

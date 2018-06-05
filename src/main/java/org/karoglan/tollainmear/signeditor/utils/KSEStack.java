@@ -84,6 +84,10 @@ public class KSEStack {
         return owner;
     }
 
+    public boolean hasOwner(){
+        return owner != null;
+    }
+
     public void setOwner(Player owner){
         this.owner = owner.getName();
     }

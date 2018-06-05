@@ -174,7 +174,6 @@ public class MainController {
     }
 
     public boolean isOwner(TileEntity sign, Player player) {
-        //todo-
         KSEStack kseStack = KSERecordsManager.getOperationStack().get(sign.getLocation().toString());
         return kseStack.isOwner(player.toString());
     }
@@ -213,6 +212,15 @@ public class MainController {
 
     public boolean couldModify(Player player,KSEStack kseStack) {
         return player.hasPermission("kse.bypass") || kseStack.isOwner(player.getName())|| (KSERecordsManager.getWhiteList().containsKey(kseStack.getOwner()) && KSERecordsManager.getWhiteList().get(kseStack.getOwner()).contains(player.getName()));
+    }
+
+    public void notPermitted(Player player,KSEStack kseStack) {
+        player.sendMessage(kse.getTranslator().getText("message.notPermitted"));
+        if (kseStack.hasOwner()){
+            player.sendMessage(kse.getTranslator().getText("message.owner").concat(kse.getTranslator().deserialize(kseStack.getOwner())));
+        }else {
+            player.sendMessage(kse.getTranslator().getText("message.owner").concat(kse.getTranslator().getText("message.Ownerless")));
+        }
     }
 }
 

@@ -36,7 +36,7 @@ public class PasteExecutor implements CommandExecutor {
             return;
         }
         Optional<TileEntity> signopt = mc.getSign(player);
-        if (signopt == null || !signopt.isPresent()) {
+        if (!signopt.isPresent()) {
             mc.signNotFound(player);
             return;
         }

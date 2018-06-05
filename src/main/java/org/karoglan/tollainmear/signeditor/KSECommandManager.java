@@ -130,12 +130,12 @@ public class KSECommandManager {
                 .executor(new VersionExecutor())
                 .build();
 
-
+        init();
     }
 
-    public void init(KaroglanSignEditor plugin) {
+    public void init() {
         CommandManager cmdManager = Sponge.getCommandManager();
-        cmdManager.register(plugin, this.get(), "kse", "sign", "signeditor", "se");
+        cmdManager.register(kse, this.get(), "kse", "sign", "signeditor", "se");
         translator = kse.getTranslator();
         translator.logInfo("reportBug");
         translator.logInfo("github");

@@ -56,6 +56,7 @@ public class SetExecutor implements CommandExecutor {
 
             kseStack = mc.getKseStack(sign,player);
 
+            if (mc.couldModify(player,kseStack)){
             try {
                 kseStack.update(mc.getTextArray(sign), sign.getLocation());
             } catch (IOException e) {
@@ -72,6 +73,8 @@ public class SetExecutor implements CommandExecutor {
                 kseStack.add(mc.getTextArray(sign), sign.getLocation());
             } catch (IOException e) {
                 e.printStackTrace();
+            }}else {
+                mc.notPermitted(player,kseStack);
             }
         }).submit(KaroglanSignEditor.getInstance());
 

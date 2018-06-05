@@ -40,7 +40,7 @@ public class ClearExecutor implements CommandExecutor {
             Optional<TileEntity> signOpt = mc.getSign(player);
 
             //if no sign was find
-            if (!(signOpt.isPresent())) {
+            if (signOpt == null || !(signOpt.isPresent())) {
                 mc.signNotFound(player);
                 return;
             }
@@ -81,7 +81,9 @@ public class ClearExecutor implements CommandExecutor {
                     }
 
                 }
-            }else player.sendMessage(kse.getTranslator().getText("message.noPermission"));
+            }else {
+                mc.notPermitted(player,kseStack);
+            }
         }).submit(KaroglanSignEditor.getInstance());
         return CommandResult.success();
     }
