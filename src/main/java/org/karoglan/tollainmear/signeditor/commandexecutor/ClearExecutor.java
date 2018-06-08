@@ -46,10 +46,13 @@ public class ClearExecutor implements CommandExecutor {
             }
 
             sign = signOpt.get();
-            kseStack = mc.getKseStack(sign,player);
+            kseStack = mc.getKseStack(sign);
 
-            //if player has bypass permission
-            if (mc.couldModify(player,kseStack)){
+            //if don't have permission
+            if (!mc.couldModify(player,kseStack)){
+                mc.notPermitted(player,kseStack);
+                return;
+            }
                 try {
                     kseStack.update(mc.getTextArray(sign), sign.getLocation());
                 } catch (IOException e) {
@@ -81,9 +84,6 @@ public class ClearExecutor implements CommandExecutor {
                     }
 
                 }
-            }else {
-                mc.notPermitted(player,kseStack);
-            }
         }).submit(KaroglanSignEditor.getInstance());
         return CommandResult.success();
     }

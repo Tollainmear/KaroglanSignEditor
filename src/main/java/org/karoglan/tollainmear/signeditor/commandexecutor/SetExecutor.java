@@ -54,9 +54,12 @@ public class SetExecutor implements CommandExecutor {
 
             TileEntity sign = signOpt.get();
 
-            kseStack = mc.getKseStack(sign,player);
+            kseStack = mc.getKseStack(sign);
 
-            if (mc.couldModify(player,kseStack)){
+            if (!mc.couldModify(player,kseStack)){
+                mc.notPermitted(player,kseStack);
+                return;
+            }
             try {
                 kseStack.update(mc.getTextArray(sign), sign.getLocation());
             } catch (IOException e) {
@@ -73,8 +76,6 @@ public class SetExecutor implements CommandExecutor {
                 kseStack.add(mc.getTextArray(sign), sign.getLocation());
             } catch (IOException e) {
                 e.printStackTrace();
-            }}else {
-                mc.notPermitted(player,kseStack);
             }
         }).submit(KaroglanSignEditor.getInstance());
 

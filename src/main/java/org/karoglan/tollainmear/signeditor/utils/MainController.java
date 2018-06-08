@@ -161,11 +161,11 @@ public class MainController {
                 .concat(Text.of(KaroglanSignEditor.getVersion())));
     }
 
-    public KSEStack getKseStack(TileEntity sign, Player src) {
+    public KSEStack getKseStack(TileEntity sign) {
         if (KSERecordsManager.getOperationStack().containsKey(sign.getLocation().toString())) {
             return KSERecordsManager.getOperationStack().get(sign.getLocation().toString());
         } else {
-            return new KSEStack(src.getName());
+            return new KSEStack(null);
         }
     }
 

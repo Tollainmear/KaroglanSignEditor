@@ -3,6 +3,7 @@ package org.karoglan.tollainmear.signeditor.commandexecutor;
 import org.karoglan.tollainmear.signeditor.KSERecordsManager;
 import org.karoglan.tollainmear.signeditor.KaroglanSignEditor;
 import org.karoglan.tollainmear.signeditor.utils.ClipBoardContents;
+import org.karoglan.tollainmear.signeditor.utils.KSEStack;
 import org.karoglan.tollainmear.signeditor.utils.MainController;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.block.tileentity.TileEntity;
@@ -31,6 +32,7 @@ public class CopyExecutor implements CommandExecutor {
             mc.playerNotFound(src);
             return;
         }
+
         Optional<Player> playerOpt = ((Player) src).getPlayer();
         if (!playerOpt.isPresent()) {
             mc.playerNotFound(src);
@@ -44,6 +46,12 @@ public class CopyExecutor implements CommandExecutor {
         }
         TileEntity sign = signOpt.get();
 
+            //if don't have permission
+            KSEStack kseStack;
+            if (!mc.couldModify(player, kseStack = mc.getKseStack(sign))){
+                mc.notPermitted(player,kseStack);
+                return;
+            }
         mc.notice(player, kse.getTranslator().getText("message.onCopyText"));
         Integer line = 1;
         Text[] textArray = new Text[4];

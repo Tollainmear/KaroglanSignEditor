@@ -75,7 +75,7 @@ public class KSEListener {
                 } else {
                     e.setCancelled(true);
                     player.sendMessage(translator.getText("message.KSEprefix")
-                            .concat(translator.getText("message.noPermission")));
+                            .concat(translator.getText("message.notPermitted")));
                     signInfo(player, loc.toString());
                 }
             }

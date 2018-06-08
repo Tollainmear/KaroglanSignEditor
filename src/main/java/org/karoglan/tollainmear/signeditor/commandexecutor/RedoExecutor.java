@@ -51,6 +51,12 @@ public class RedoExecutor implements CommandExecutor {
             return;
         }
 
+        //if don't have permission
+            if (!mc.couldModify(player,kseStack)){
+                mc.notPermitted(player,kseStack);
+                return;
+            }
+
         if (kseStack.getNow() == kseStack.getTail()) {
             mc.notice(player, kse.getTranslator().getText("message.stackRedoEmpty"));
             return;

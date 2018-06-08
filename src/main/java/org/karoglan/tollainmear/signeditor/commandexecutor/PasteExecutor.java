@@ -42,7 +42,12 @@ public class PasteExecutor implements CommandExecutor {
         }
         TileEntity sign = signopt.get();
 
-        kseStack = mc.getKseStack(sign,player);
+        kseStack = mc.getKseStack(sign);
+        //if don't have permission
+            if (!mc.couldModify(player,kseStack)){
+                mc.notPermitted(player,kseStack);
+                return;
+            }
 
         try {
             kseStack.update(mc.getTextArray(sign), sign.getLocation());

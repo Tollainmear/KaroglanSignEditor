@@ -35,7 +35,7 @@ public class UndoExecutor implements CommandExecutor {
         }
 
         Optional<Player> playerOpt;
-        if (!(playerOpt = mc.getPlayerOpt(src)).isPresent() || playerOpt == null) {
+        if (!(playerOpt = mc.getPlayerOpt(src)).isPresent()) {
             mc.playerNotFound(src);
             return;
         }
@@ -55,9 +55,14 @@ public class UndoExecutor implements CommandExecutor {
             return;
         }
 
-        if (kseStack.getNow() == kseStack.getHead()) {
+        //if don't have permission
+            if (!mc.couldModify(player,kseStack)){
+                mc.notPermitted(player,kseStack);
+                return;
+            }
+
+        if (kseStack.getNow().equals(kseStack.getHead())) {
             mc.notice(player, translator.getText("message.stackUndoEmpty"));
-            CommandResult.empty();
         } else {
             kseStack.setNow(kseStack.getNow() - 1 < 0 ? 9 : kseStack.getNow() - 1);
             Text[] textArray = kseStack.getTextStack(kseStack.getNow());

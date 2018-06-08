@@ -94,11 +94,11 @@ public class Translator {
         }
         catch (MissingResourceException e)
         {
-            logRawWarn("[MissingLanguageResources]");
+            logRawWarn("[MissingLanguageResources]: "+key);
             logRawWarn("Please try to update your language files");
             logRawWarn("You could also contributing your native language at");
             logRawWarn("https://github.com/Tollainmear/KaroglanSignEditor/tree/master/resources/assets/karoglansigneditor/lang");
-            return "[MissingLanguageResources]";
+            return "[MissingLanguageResources]: "+key;
         }
     }
 
@@ -106,11 +106,11 @@ public class Translator {
         try {
             return TextSerializers.FORMATTING_CODE.deserialize(getstring(key));
         }catch (MissingResourceException e){
-            logRawWarn("[MissingLanguageResources]");
+            logRawWarn("[MissingLanguageResources]: "+key);
             logRawWarn("Please try to update your language files");
             logRawWarn("You could also contributing your native language at");
             logRawWarn("https://github.com/Tollainmear/KaroglanSignEditor/tree/master/resources/assets/karoglansigneditor/lang");
-            return TextSerializers.FORMATTING_CODE.deserialize("&c[MissingLanguageResources]");
+            return TextSerializers.FORMATTING_CODE.deserialize("&c[MissingLanguageResources]: "+key);
         }
 
     }
