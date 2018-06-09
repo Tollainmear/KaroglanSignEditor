@@ -1,17 +1,29 @@
 # KaroglanSignEditor
 
-permissions:
+### You could give `kse.user` permission for your player's group, both `kse.user` and `kse.admin` for admin group.
 
-/kse set         :karoglansigneditor.set
+### Detailed permissions(works after v3.4):
 
-/kse clear       :karoglansigneditor.clear
+#### /kse set         :kse.user.set
 
-/kse copy        :karoglansigneditor.copy
+#### /kse trust       :kse.user.trust
 
-/kse paste       :karoglansigneditor.paste
+#### /kse untrust       :kse.user.trust
 
-/kse clipboard   :karoglansigneditor.clipboard
+#### /kse trustlist       :kse.user.trust
 
-/kse swap        :karoglansigneditor.swap
+#### /kse clear       :kse.user.clear
 
-/kse version     :karoglansigneditor.version
+#### /kse copy        :kse.user.copy
+
+#### /kse paste       :kse.user.paste
+
+#### /kse clipboard   :kse.user.clipboard
+
+#### /kse swap        :kse.user.swap
+
+#### /kse version     :kse.admin.version
+
+#### /kse reload     :kse.admin.reload
+
+### To editing sign bypass       :kse.admin.bypass

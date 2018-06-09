@@ -103,7 +103,7 @@ public class KSEListener {
             }
             //might created by some plugin or old version kse
             else {
-                if (player.hasPermission("kse.bypass")) {
+                if (player.hasPermission("kse.admin.bypass")) {
                     //suggestion command
                     suggestCMC(player, sign);
                     player.sendMessage(translator.getText("message.KSEprefix")

@@ -209,7 +209,7 @@ public class MainController {
     }
 
     public boolean couldModify(Player player,KSEStack kseStack) {
-        return player.hasPermission("kse.bypass") || kseStack.isOwner(player.getName())|| (KSERecordsManager.getWhiteList().containsKey(kseStack.getOwner()) && KSERecordsManager.getWhiteList().get(kseStack.getOwner()).contains(player.getName()));
+        return player.hasPermission("kse.admin.bypass") || kseStack.isOwner(player.getName())|| (KSERecordsManager.getWhiteList().containsKey(kseStack.getOwner()) && KSERecordsManager.getWhiteList().get(kseStack.getOwner()).contains(player.getName()));
     }
 
     public void notPermitted(Player player,KSEStack kseStack) {
