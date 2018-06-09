@@ -106,14 +106,13 @@ public class KaroglanSignEditor {
 
     @Listener
     public void onPlayerjoin(ClientConnectionEvent.Join event,@First Player player) throws MalformedURLException {
-        //if (hasNewVersion){
-            if(player.hasPermission("kse.admin")&&hasNewVersion){
+        if (hasNewVersion){
+            if(player.hasPermission("kse.admin")){
                 player.sendMessage(translator.getText("message.KSEprefix").concat(translator.getText("update.hasNew").concat(Text.of(newVersion))));
                 player.sendMessage(translator.getText("message.KSEprefix").concat(translator.getText("update.clickMSG").toBuilder().onClick(TextActions.openUrl(new URL(releasePage))).build()));
-//                player.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(translator.getstring("update.hasNew") + newVersion));
+                player.sendMessage(TextSerializers.FORMATTING_CODE.deserialize(translator.getstring("update.hasNew") + newVersion));
             }
-        //}
-        logger.warn(player.getName());
+        }
     }
 
     public void cfgInit() throws IOException {
@@ -203,11 +202,7 @@ public class KaroglanSignEditor {
             InputStreamReader reader = new InputStreamReader(connection.getInputStream(), Charsets.UTF_8);
             JsonObject jsonObject = new JsonParser().parse(reader).getAsJsonArray().get(0).getAsJsonObject();
             String newVersion = jsonObject.get("tag_name").getAsString();
-            //if (newVersion.startsWith("v"))
-            //{
-            //    newVersion = newVersion.substring(1);
                 String releaseName = jsonObject.get("name").getAsString();
-                //String releaseUrl = jsonObject.get("html_url").getAsString();
                 if (new ComparableVersion(newVersion).compareTo(new ComparableVersion(version)) > 0)
                 {
                     hasNewVersion = true;
@@ -221,8 +216,7 @@ public class KaroglanSignEditor {
 //                    this.logger.info("================================================================");
                 }
 
-            else logger.info("\033[31m" + translator.getstring("update.noUpdate") + releaseName);
-           // }
+            else translator.logInfo("update.noUpdate");
         }
         catch (Exception e)
         {

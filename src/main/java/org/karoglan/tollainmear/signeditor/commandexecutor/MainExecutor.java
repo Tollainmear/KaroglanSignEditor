@@ -42,6 +42,7 @@ public class MainExecutor implements CommandExecutor {
                 .title(Text.of(KaroglanSignEditor.getPluginName()))
                 .contents(contents)
                 .padding(Text.of(TextColors.GRAY, "-"))
+                .build()
                 .sendTo(src);
         return CommandResult.success();
 

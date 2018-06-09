@@ -125,7 +125,7 @@ public class KSEListener {
             for (int i = 0; i < 4; i++) {
                 int line = i + 1;
                 player.sendMessage(Text.of()
-                        .concat(Text.of(TextColors.GREEN, TextStyles.UNDERLINE, "Lines : " + line + " | "))
+                        .concat(translator.getText("message.changeLine.front").concat(Text.of(line)).concat(translator.getText("message.changeLine.back")))
                         .concat(sign.get(Keys.SIGN_LINES).get().get(i))
                         .toBuilder()
                         .onClick(TextActions.suggestCommand("/kse set " + line + " " + sign.get(Keys.SIGN_LINES).get().get(i).toPlain()))

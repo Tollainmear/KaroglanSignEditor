@@ -91,8 +91,6 @@ public class MainController {
 
     public void notice(Player player, Integer line, Text oldText, Text newText) {
         player.sendMessage(kse.getTranslator().getText("message.KSEprefix")
-                .concat(kse.getTranslator().getText("message.onChangeText"))
-                .concat(Text.of("\n"))
                 .concat(kse.getTranslator().getText("message.changeLine.front"))
                 .concat(Text.of(" "))
                 .concat(Text.of(line))
