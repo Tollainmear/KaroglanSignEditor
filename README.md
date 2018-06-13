@@ -26,4 +26,4 @@
 
 #### /kse reload     :kse.admin.reload
 
-### To editing sign bypass       :kse.admin.bypass
+### Bypass sign editing checks      :kse.admin.bypass
