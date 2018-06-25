@@ -35,12 +35,14 @@ public class KSEListener {
         List<Transaction<BlockSnapshot>> transactionList = e.getTransactions();
         for (Transaction<BlockSnapshot> trans : transactionList) {
             if (isSign(trans.getFinal())) {
-                KSEStack kseStack = new KSEStack(player.getName());
-                KSERecordsManager.getOperationStack().put(trans.getOriginal().getLocation().get().toString(), kseStack);
-                try {
-                    KaroglanSignEditor.getInstance().getKSERecordsManager().saveOperationHistory();
-                } catch (IOException e1) {
-                    KaroglanSignEditor.getInstance().getTranslator().logWarn("error.saveFailed");
+                if (player.hasPermission("kse.user")) {
+                    KSEStack kseStack = new KSEStack(player.getName());
+                    KSERecordsManager.getOperationStack().put(trans.getOriginal().getLocation().get().toString(), kseStack);
+                    try {
+                        KaroglanSignEditor.getInstance().getKSERecordsManager().saveOperationHistory();
+                    } catch (IOException e1) {
+                        KaroglanSignEditor.getInstance().getTranslator().logWarn("error.saveFailed");
+                    }
                 }
             }
         }
@@ -84,8 +86,8 @@ public class KSEListener {
 
     @Listener
     public void onPlayerInteractSign(InteractBlockEvent.Secondary e, @First Player player) {
-        if (KaroglanSignEditor.playerState.containsKey(player.getName())){
-            if (!KaroglanSignEditor.playerState.get(player.getName())){
+        if (KaroglanSignEditor.playerState.containsKey(player.getName())) {
+            if (!KaroglanSignEditor.playerState.get(player.getName())) {
                 return;
             }
         }

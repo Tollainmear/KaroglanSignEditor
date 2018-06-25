@@ -12,8 +12,6 @@ import java.io.IOException;
 
 public class KSEStack {
     private KaroglanSignEditor kse = KaroglanSignEditor.getInstance();
-    private KSERecordsManager recordsManager;
-    //textStack[][0-3]will storage the Sign's text.
     private Text[][] textStack;
     private Integer now;
     private Integer tail;
@@ -121,6 +119,6 @@ public class KSEStack {
     }
 
     public boolean isOwner(String player) {
-        return player == owner;
+        return player.equals(owner);
     }
 }
