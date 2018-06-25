@@ -36,11 +36,11 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
-@Plugin(id = "karoglansigneditor", name = "KaroglanSignEditor", authors = "Tollainmear", version = "3.4", description = "Make sign edition esaier!")
+@Plugin(id = "karoglansigneditor", name = "KaroglanSignEditor", authors = "Tollainmear", version = "3.4.1", description = "Make sign edition esaier!")
 public class KaroglanSignEditor {
 
     private static String pluginName = "KaroglanSignEditor";
-    private static final String version = "3.4";
+    private static final String version = "3.4.1";
 
     private static KaroglanSignEditor instance;
     private  KSERecordsManager kseRecordsManager;
